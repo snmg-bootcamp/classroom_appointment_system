@@ -6,6 +6,7 @@
 
 ##appointment arranging functions:
 (the following functions should be used to arrange appointments)
+sync_appointment
 get_current_appointments
 add_new_appointments
 remove_existing_appointments
