@@ -31,5 +31,5 @@ check_curent_session_validity
 
 structure_example:
 
-
+    //JSON
 
