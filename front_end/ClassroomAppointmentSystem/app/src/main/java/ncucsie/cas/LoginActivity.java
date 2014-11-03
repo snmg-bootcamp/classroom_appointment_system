@@ -29,6 +29,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ncucsie.cas.Constant;
+
 
 /**
  * A login screen that offers login via email/password.
