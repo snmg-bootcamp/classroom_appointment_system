@@ -1,4 +1,4 @@
-<FragmentTabHost
+<android.support.v4.app.FragmentTabHost
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/tabhost"
     android:layout_width="match_parent"
@@ -29,4 +29,4 @@
             android:layout_weight="1"/>
 
     </LinearLayout>
-</FragmentTabHost>
+</android.support.v4.app.FragmentTabHost>
