@@ -26,14 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="ncucsie.cas.MainTabs"
-            android:label="@string/title_activity_main_tabs"
-            android:parentActivityName="ncucsie.cas.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ncucsie.cas.MainActivity" />
-        </activity>
     </application>
 
 </manifest>

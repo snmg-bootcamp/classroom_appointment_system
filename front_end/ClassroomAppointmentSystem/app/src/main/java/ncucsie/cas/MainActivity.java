@@ -72,7 +72,9 @@ public class MainActivity extends Activity {
     }
 
     public static class ExistingAppointmentTab extends Fragment {
-
+        public ExistingAppointmentTab() {
+        }
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
@@ -91,8 +93,8 @@ public class MainActivity extends Activity {
             mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
             mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-            mTabHost.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple"),
-                    FragmentStackSupport.CountingFragment.class, null);
+            mTabHost.addTab(mTabHost.newTabSpec("existing_appointment_tab").setIndicator("Simple"),
+                    ExistingAppointmentTab.class, null);
 
         }
     }
