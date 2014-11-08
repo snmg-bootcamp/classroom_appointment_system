@@ -20,6 +20,11 @@
         <activity
             android:name="ncucsie.cas.MainActivity"
             android:label="@string/title_activity_main" >
+
+        </activity>
+        <activity
+            android:name="ncucsie.cas.MainActivityTab"
+            android:label="@string/title_activity_main_activity_tab" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.TabHost;
+import android.widget.TabWidget;
 
 import ncucsie.cas.Constant;
 
@@ -23,11 +24,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        if (savedInstanceState == null) {
-//            getFragmentManager().beginTransaction()
-//                    .add(R.id., new PlaceholderFragment())
-//                    .commit();
-//        }
+    //    if (savedInstanceState == null) {
+    //        getFragmentManager().beginTransaction()
+    //                .add(R.id.realtabcontent, new PlaceholderFragment())
+    //                .commit();
+    //    }
      // Intent intent = new Intent(this, LoginActivity.class);
      // startActivity(intent);
     }
@@ -71,16 +72,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    public static class ExistingAppointmentTab extends Fragment {
-        public ExistingAppointmentTab() {
-        }
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
-            return rootView;
-        }
-    }
 
     public class FragmentTabs extends FragmentActivity {
         private FragmentTabHost mTabHost;
@@ -90,11 +81,7 @@ public class MainActivity extends Activity {
             super.onCreate(savedInstanceState);
 
             setContentView(R.layout.activity_main);
-            mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
-            mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-            mTabHost.addTab(mTabHost.newTabSpec("existing_appointment_tab").setIndicator("Simple"),
-                    ExistingAppointmentTab.class, null);
 
         }
     }
