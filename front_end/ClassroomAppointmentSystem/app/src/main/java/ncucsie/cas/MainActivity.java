@@ -5,12 +5,17 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.TabHost;
+import android.widget.TabWidget;
+
 import ncucsie.cas.Constant;
 
 public class MainActivity extends Activity {
@@ -18,13 +23,13 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        if (savedInstanceState == null) {
-//            getFragmentManager().beginTransaction()
-//                    .add(R.id.container, new PlaceholderFragment())
-//                    .commit();
-//        }
-        Intent intent = new Intent(this, LoginActivity.class);
+        setContentView(R.layout.activity_main);
+    //    if (savedInstanceState == null) {
+    //        getFragmentManager().beginTransaction()
+    //                .add(R.id.realtabcontent, new PlaceholderFragment())
+    //                .commit();
+    //    }
+        Intent intent = new Intent(this, MainActivityTab.class);
         startActivity(intent);
     }
 
@@ -64,6 +69,20 @@ public class MainActivity extends Activity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
+        }
+    }
+
+
+    public class FragmentTabs extends FragmentActivity {
+        private FragmentTabHost mTabHost;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            setContentView(R.layout.activity_main);
+
+
         }
     }
 }
