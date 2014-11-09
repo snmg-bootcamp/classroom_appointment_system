@@ -186,13 +186,18 @@ public class MainActivityTab extends Activity implements ActionBar.TabListener {
             else{
                 int tab = savedInstanceState.getInt(ARG_SECTION_NUMBER);
                 switch (tab) {
+                    case 0:
+                        rootView = inflater.inflate(R.layout.activity_main_activity_tab, container, false);
+                        break;
                     case 1:
                         rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
                         break;
                     case 2:
                         rootView = inflater.inflate(R.layout.new_appointment_tab, container, false);
+                        break;
                     default:
                         rootView = inflater.inflate(R.layout.new_appointment_tab, container, false);
+                        break;
                 }
             }
             setRetainInstance(true);
