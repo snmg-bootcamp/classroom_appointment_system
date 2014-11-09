@@ -27,10 +27,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ncucsie.cas.MainActivityTab"
-            android:label="@string/title_activity_main_activity_tab" >
-        </activity>
-        <activity
             android:name="ncucsie.cas.MainActivityDrawer"
             android:label="@string/title_activity_main_activity_drawer">
         </activity>
