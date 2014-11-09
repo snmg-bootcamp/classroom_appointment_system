@@ -25,6 +25,27 @@
 		return $content;
 	}
 
+	function separate($str)
+	{
+		$arr = array();
+		$flag = 0;
+		for($i = 0; $i < strlen($str)-3; ++$i)
+		{
+			if(substr($str, $i, 5) == "<br/>")
+			{
+				//echo "fuck";
+				$arrData1 = substr($str, 0, $i);
+				$arrData2 = substr($str, $i + 5, strlen($str) - $i - 4);
+				if($arrData2 == null)continue;
+				array_push($arr, $arrData1);
+				array_push($arr, $arrData2);
+				$flag = 1;
+				break;
+			}
+		}
+		return ($flag ? $arr : $str);
+	}
+
 	function filter($str)
 	{
 		$arr = array(
@@ -81,6 +102,7 @@
 			}
 			else if($flag == 4){
 				if(substr($str, $i, 4) == "</td"){
+					$tmp = separate($tmp);
 					array_push($arr[(int)($cnt / 8) + 1], $tmp);	
 					$tmp = "";
 					$flag = 1;
