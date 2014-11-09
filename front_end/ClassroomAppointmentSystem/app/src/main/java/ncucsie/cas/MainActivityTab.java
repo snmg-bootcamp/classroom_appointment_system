@@ -19,8 +19,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-public class MainActivityTab extends Activity implements ActionBar.TabListener {
+public class MainActivityTab extends Activity implements
+        ActionBar.TabListener,
+        ExistingAppointmentTab.ActivityInterface {
 
+
+    public View getViewById (int ResID) {
+        return findViewById(ResID);
+    }
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -35,6 +41,8 @@ public class MainActivityTab extends Activity implements ActionBar.TabListener {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
