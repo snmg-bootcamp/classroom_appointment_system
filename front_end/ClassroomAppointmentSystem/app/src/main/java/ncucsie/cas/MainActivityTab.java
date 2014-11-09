@@ -127,6 +127,12 @@ public class MainActivityTab extends Activity implements ActionBar.TabListener {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            switch(position + 1){
+                case 1:
+                    return ExistingAppointmentTab.newInstance();
+                case 2:
+                    return NewAppointmentTab.newInstance();
+            }
             return PlaceholderFragment.newInstance(position + 1);
         }
 
@@ -180,26 +186,7 @@ public class MainActivityTab extends Activity implements ActionBar.TabListener {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,//get bundle data here from placeholderfragment, the default of int is zero
                                  Bundle savedInstanceState) {
             View rootView;
-            if(savedInstanceState == null){
-                rootView = inflater.inflate(R.layout.activity_main_activity_tab, container, false);
-            }
-            else{
-                int tab = savedInstanceState.getInt(ARG_SECTION_NUMBER);
-                switch (tab) {
-                    case 0:
-                        rootView = inflater.inflate(R.layout.activity_main_activity_tab, container, false);
-                        break;
-                    case 1:
-                        rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
-                        break;
-                    case 2:
-                        rootView = inflater.inflate(R.layout.new_appointment_tab, container, false);
-                        break;
-                    default:
-                        rootView = inflater.inflate(R.layout.new_appointment_tab, container, false);
-                        break;
-                }
-            }
+            rootView = inflater.inflate(R.layout.activity_main_activity_tab, container, false);
             setRetainInstance(true);
             return rootView;
         }
