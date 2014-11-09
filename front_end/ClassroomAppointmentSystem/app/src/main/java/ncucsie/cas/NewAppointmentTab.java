@@ -21,7 +21,7 @@ public class NewAppointmentTab extends Fragment {
     }
 
 
-    public static Fragment newInstance() {g
+    public static Fragment newInstance() {
         return new NewAppointmentTab();
     }
 }
