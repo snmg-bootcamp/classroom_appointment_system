@@ -12,5 +12,9 @@
     <string name="title_activity_main_activity_tab">MainActivityTab</string>
     <string name="class_selection_button">A203</string>
     <string name="class_selection_text">Class:</string>
+    <string name="title_activity_main_activity_drawer">MainActivityDrawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
 
 </resources>
