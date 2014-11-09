@@ -40,7 +40,6 @@ public class MainActivityTab extends Activity implements ActionBar.TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity_tab);
-
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -178,9 +177,25 @@ public class MainActivityTab extends Activity implements ActionBar.TabListener {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,//get bundle data here from placeholderfragment, the default of int is zero
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main_activity_tab, container, false);
+            View rootView;
+            if(savedInstanceState != null){
+                rootView = inflater.inflate(R.layout.activity_main_activity_tab, container, false);
+            }
+            else{
+                int tab = savedInstanceState.getInt(ARG_SECTION_NUMBER);
+                switch (tab) {
+                    case 1:
+                        rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
+                        break;
+                    case 2:
+                        rootView = inflater.inflate(R.layout.new_appointment_tab, container, false);
+                    default:
+                        rootView = inflater.inflate(R.layout.new_appointment_tab, container, false);
+                }
+            }
+            setRetainInstance(true);
             return rootView;
         }
     }
