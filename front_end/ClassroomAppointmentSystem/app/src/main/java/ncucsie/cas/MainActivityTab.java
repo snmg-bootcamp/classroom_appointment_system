@@ -180,7 +180,7 @@ public class MainActivityTab extends Activity implements ActionBar.TabListener {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,//get bundle data here from placeholderfragment, the default of int is zero
                                  Bundle savedInstanceState) {
             View rootView;
-            if(savedInstanceState != null){
+            if(savedInstanceState == null){
                 rootView = inflater.inflate(R.layout.activity_main_activity_tab, container, false);
             }
             else{
