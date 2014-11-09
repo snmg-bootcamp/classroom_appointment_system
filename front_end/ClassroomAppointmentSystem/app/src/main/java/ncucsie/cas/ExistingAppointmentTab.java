@@ -36,6 +36,7 @@ public class ExistingAppointmentTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        System.out.println("Executing onCreateView in ExistingAppointmentTab.java");
         View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
         setRetainInstance(true);
         set_existing_table((TableLayout) rootView.findViewById(R.id.existing_appointment_tab));//why getviewbyid is null?
