@@ -20,15 +20,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-public class MainActivityTab extends Activity implements
-        ActionBar.TabListener,
-        ExistingAppointmentTab.ActivityInterface {
+public class MainActivityTab extends Activity implements ActionBar.TabListener {
 
 
-
-    public Context getActivityContext() {
-        return MainActivityTab.this;
-    }
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
