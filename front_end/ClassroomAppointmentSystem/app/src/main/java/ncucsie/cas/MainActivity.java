@@ -24,9 +24,15 @@ public class MainActivity extends Activity {
     //                .commit();
     //    }
         Intent intent = new Intent(this, MainActivityDrawer.class);
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
         startActivity(intent);
     }
-
+    @Override
+    protected void onResume(){
+        super.onResume();
+        this.finish();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
