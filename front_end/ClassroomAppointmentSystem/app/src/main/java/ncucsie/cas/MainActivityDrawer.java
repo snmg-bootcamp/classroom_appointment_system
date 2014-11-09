@@ -45,21 +45,22 @@ public class MainActivityDrawer extends Activity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
+        Fragment fragment;
         switch(position + 1) {
             case 1:
                 System.out.println("Switching to tab1");
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, ExistingAppointmentTab.newInstance())
-                        .commit();
+                fragment = ExistingAppointmentTab.newInstance();
+                break;
             case 2:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, NewAppointmentTab.newInstance())
-                        .commit();
-            case 3:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                        .commit();
+                fragment = NewAppointmentTab.newInstance();
+                break;
+            default:
+                fragment = PlaceholderFragment.newInstance(position + 1);
+                break;
         }
+        fragmentManager.beginTransaction()
+                        .replace(R.id.container, fragment)
+                        .commit();
     }
 
     public void onSectionAttached(int number) {
