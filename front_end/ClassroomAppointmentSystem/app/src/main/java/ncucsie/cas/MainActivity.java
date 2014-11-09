@@ -29,8 +29,8 @@ public class MainActivity extends Activity {
     //                .add(R.id.realtabcontent, new PlaceholderFragment())
     //                .commit();
     //    }
-     // Intent intent = new Intent(this, LoginActivity.class);
-     // startActivity(intent);
+        Intent intent = new Intent(this, MainActivityTab.class);
+        startActivity(intent);
     }
 
 
