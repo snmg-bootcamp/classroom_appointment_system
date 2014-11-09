@@ -7,6 +7,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -26,6 +27,9 @@ public class MainActivityTab extends Activity implements
 
     public View getViewById (int ResID) {
         return findViewById(ResID);
+    }
+    public Context getActivityContext() {
+        return MainActivityTab.this;
     }
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
