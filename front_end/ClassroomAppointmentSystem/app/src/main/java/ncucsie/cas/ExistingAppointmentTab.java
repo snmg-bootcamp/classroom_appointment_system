@@ -13,6 +13,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+
 
 public class ExistingAppointmentTab extends Fragment {
 
@@ -20,7 +22,6 @@ public class ExistingAppointmentTab extends Fragment {
     }
 
     public interface ActivityInterface {
-        public View getViewById (int ResId);
         public Context getActivityContext();
     }
 
@@ -45,8 +46,7 @@ public class ExistingAppointmentTab extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
         setRetainInstance(true);
-
-        set_existing_table((TableLayout) mCallback.getViewById(R.id.existing_appointment_tab));
+        set_existing_table((TableLayout) rootView.findViewById(R.id.existing_appointment_tab));//why getviewbyid is null?
 
 
         return rootView;
@@ -54,9 +54,14 @@ public class ExistingAppointmentTab extends Fragment {
 
     private void set_existing_table(TableLayout tableLayout) {
         for(int i=0;i<7;i++){
-            TableRow row = new TableRow(mCallback.getActivityContext());
+            TableRow row = new TableRow(getActivity());
+            TextView text = new TextView(getActivity());
+            text.setText("hello");
+            System.out.println(row);
+            System.out.println(tableLayout);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             row.setLayoutParams(lp);
+            row.addView(text);
             tableLayout.addView(row,i);
 
         }
