@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -35,12 +36,23 @@ public class ExistingAppointmentTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         System.out.println("Executing onCreateView in ExistingAppointmentTab.java");
-        View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
+        final View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
         setRetainInstance(true);
+        Button button = (Button) rootView.findViewById(R.id.class_selection_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Button button = (Button)view;
+                class_selection_button_click(button, rootView);
+            }
+        });
         set_existing_table((TableLayout) rootView.findViewById(R.id.existing_appointment_tab));
 
 
         return rootView;
+    }
+
+    public void class_selection_button_click(Button button, View rootView){
+
     }
 
     private void set_existing_table(TableLayout tableLayout) {
