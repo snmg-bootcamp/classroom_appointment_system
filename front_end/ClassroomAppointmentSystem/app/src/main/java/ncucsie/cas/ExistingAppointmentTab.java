@@ -13,7 +13,7 @@ public class ExistingAppointmentTab extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,//get bundle data here from placeholderfragment, the default of int is zero
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
 
