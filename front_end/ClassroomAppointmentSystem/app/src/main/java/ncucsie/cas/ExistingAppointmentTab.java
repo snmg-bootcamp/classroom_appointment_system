@@ -57,6 +57,7 @@ public class ExistingAppointmentTab extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         CharSequence title = item.getTitle();
                         button.setText(title);
+                        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), title.toString(), null);
                         return true;
                     }
                 });
@@ -64,7 +65,7 @@ public class ExistingAppointmentTab extends Fragment {
                 popup.show(); //showing popup menu
             }
         });
-        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab));
+        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), null, null);
 
 
         return rootView;
@@ -95,7 +96,7 @@ public class ExistingAppointmentTab extends Fragment {
     }
 
 
-    private void SetExistingTable(TableLayout tableLayout) {
+    private void SetExistingTable(TableLayout tableLayout, String classroom, Date date) {
         JSONArray array = GetClassroomTable(null, null);
         tableLayout.removeAllViews();
         try {
