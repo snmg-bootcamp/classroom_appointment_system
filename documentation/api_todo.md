@@ -17,7 +17,7 @@ get_classroom_list
 (the following functions should be used to arrange user authentications)
 user_login
 user_logout
-check_curent_session_validity
+check_current_session_validity
 
 
 
