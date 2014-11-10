@@ -13,7 +13,7 @@ remove_existing_appointments
 get_classroom_list
 
 
-##user auth funcitons:
+##user auth funcitins:
 (the following functions should be used to arrange user authentications)
 user_login
 user_logout
