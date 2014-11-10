@@ -51,24 +51,21 @@ public class ExistingAppointmentTab extends Fragment {
         }
         final View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
         setRetainInstance(true);
-        Button button = (Button) rootView.findViewById(R.id.class_selection_button);
+        final Button button = (Button) rootView.findViewById(R.id.class_selection_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
                 PopupMenu popup = new PopupMenu(getActivity(), button);
                 //Inflating the Popup using xml file
-                popup.getMenuInflater()
-                        .inflate(R.menu.popup_menu, popup.getMenu());
-
+                String classList[] = {"A203","A204","A205","A206","A207","A208","A209","A210","A211","A212","A301","A302","A303"};
+                for (String s : classList) {
+                    popup.getMenu().add(s);
+                }
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(
-                                getActivity(),
-                                "You Clicked : " + item.getTitle(),
-                                Toast.LENGTH_SHORT
-                        ).show();
+                        button.setText(item.getTitle());
                         return true;
                     }
                 });
@@ -82,13 +79,7 @@ public class ExistingAppointmentTab extends Fragment {
         return rootView;
     }
 
-    public void class_selection_button_click(Button button, View rootView){
-        ListView listview = new ListView(getActivity());
 
-        String[] classrooms = {"item 1", "item 2 ", "list", "android", "item 3", "foobar", "bar", };
-        ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.classroom_selection_popup, classrooms);
-        listview.setAdapter(adapter);
-    }
 
     private void set_existing_table(TableLayout tableLayout) {
         try {
