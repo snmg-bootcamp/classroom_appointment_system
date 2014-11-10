@@ -6,8 +6,11 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -15,14 +18,13 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.Date;
+
 
 public class ExistingAppointmentTab extends Fragment {
 
     public ExistingAppointmentTab() {
     }
-
-
-
 
 
     @Override
@@ -34,16 +36,42 @@ public class ExistingAppointmentTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        System.out.println("Executing onCreateView in ExistingAppointmentTab.java");
-        View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
+        if (BuildConfig.DEBUG) {
+            System.out.println("Executing onCreateView in ExistingAppointmentTab.java");
+        }
+        final View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
         setRetainInstance(true);
-        set_existing_table((TableLayout) rootView.findViewById(R.id.existing_appointment_tab));
+        final Button button = (Button) rootView.findViewById(R.id.class_selection_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Creating the instance of PopupMenu
+                PopupMenu popup = new PopupMenu(getActivity(), button);
+                //Inflating the Popup using xml file
+                String classList[] = {"A203", "A204", "A205", "A206", "A207", "A208", "A209", "A210", "A211", "A212", "A301", "A302", "A303"};
+                for (String s : classList) {
+                    popup.getMenu().add(s);
+                }
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        CharSequence title = item.getTitle();
+                        button.setText(title);
+                        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), title.toString(), null);
+                        return true;
+                    }
+                });
+
+                popup.show(); //showing popup menu
+            }
+        });
+        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), null, null);
 
 
         return rootView;
     }
 
-    private void set_existing_table(TableLayout tableLayout) {
+    private JSONArray GetClassroomTable(String classroom, Date date) {
         try {
             JSONArray array = new JSONArray("[[\"\",\"Sun日(11.2)\",\"Mon一(11.3)\",\"Tue二(11.4)\",\"Wed三(11.5)\",\"Thu四(11.6)\",\"Fri五(11.7)\",\"Sat六(11.8)\"]," +
                     "[\"108:00-08:50\",\"\",\"\",\"\",\"\",\"\",\"陳日憲\",\"\"]," +
@@ -60,8 +88,18 @@ public class ExistingAppointmentTab extends Fragment {
                     "[\"B19:00-19:50\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]," +
                     "[\"C20:00-20:50\",\"\",\"\",\"蘇俊儒\",\"陳姿妤\",\"\",\"\",\"\"]," +
                     "[\"D21:00-21:50\",\"\",\"\",\"蘇俊儒\",\"陳姿妤\",\"\",\"\",\"\"]]");
+            return array;
+        } catch (JSONException exception) {
+            Log.i("JSON Exception", "Failed to parse JSON array");
+        }
+        return null;
+    }
 
 
+    private void SetExistingTable(TableLayout tableLayout, String classroom, Date date) {
+        JSONArray array = GetClassroomTable(null, null);
+        tableLayout.removeAllViews();
+        try {
             for (int i = 0; i < array.length(); i++) {
                 TableRow row = new TableRow(getActivity());
                 TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
@@ -79,9 +117,10 @@ public class ExistingAppointmentTab extends Fragment {
 
             }
         }
-        catch (JSONException exception){
+        catch(JSONException exception){
             Log.i("JSON Exception", "Failed to parse JSON array");
         }
+
     }
 
     public static Fragment newInstance() {
