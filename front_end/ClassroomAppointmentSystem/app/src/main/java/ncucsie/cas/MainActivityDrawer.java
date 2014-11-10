@@ -48,7 +48,6 @@ public class MainActivityDrawer extends Activity
         Fragment fragment;
         switch(position + 1) {
             case 1:
-                System.out.println("Switching to tab1");
                 fragment = ExistingAppointmentTab.newInstance();
                 break;
             case 2:

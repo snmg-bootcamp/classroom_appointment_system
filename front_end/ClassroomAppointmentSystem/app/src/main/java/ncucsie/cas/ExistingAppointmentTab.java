@@ -35,7 +35,9 @@ public class ExistingAppointmentTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        System.out.println("Executing onCreateView in ExistingAppointmentTab.java");
+        if(BuildConfig.DEBUG) {
+            System.out.println("Executing onCreateView in ExistingAppointmentTab.java");
+        }
         final View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
         setRetainInstance(true);
         Button button = (Button) rootView.findViewById(R.id.class_selection_button);
