@@ -1,0 +1,53 @@
+
+every appointment should be associated with sha hash used as identifier
+
+implement http-like condition get based on last-modified-date
+
+server must check for session validity, session is only safe if the sessionid is not being hijacked
+
+use custom https certificate for client-server communication
+
+1.Abstract
+
+The Classroom Appointment Protocol is an application-level protocol for classroom appointment systems. 
+It is a protocol that can be used to
+1. check for current classroom appointments for specific week/date
+2. add/modify classroom appointments
+
+
+2. Request & Reponse
+
+All requests and responses are in JSON format and must implement the following schema. 
+
+2.1 Client Side Request
+
+All client side requests must include client version and sha hash associated with the request. 
+
+count appointment:
+
+
+
+view appointment:
+
+example.com/api/appointment/view
+
+add appointment:
+
+example.com/api/appointment/add
+
+modify appointment:
+
+example.com/api/appointment/modify
+
+delete appointment:
+
+example.com/api/appointment/delete
+
+{
+
+    "client_ver": "0.01"
+
+
+}
+server JSON response must include a status code when error occurs
+
