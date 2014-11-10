@@ -57,7 +57,7 @@ public class ExistingAppointmentTab extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         CharSequence title = item.getTitle();
                         button.setText(title);
-                        //SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), title.toString(), null);
+                        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), title.toString(), null);
                         return true;
                     }
                 });
@@ -65,7 +65,7 @@ public class ExistingAppointmentTab extends Fragment {
                 popup.show(); //showing popup menu
             }
         });
-        //SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), null, null);
+        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), null, null);
 
         DatePicker datepicker = (DatePicker) rootView.findViewById(R.id.date_picker);
         datepicker.setCalendarViewShown(false);
@@ -89,7 +89,12 @@ public class ExistingAppointmentTab extends Fragment {
                     "[\"B19:00-19:50\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]," +
                     "[\"C20:00-20:50\",\"\",\"\",\"蘇俊儒\",\"陳姿妤\",\"\",\"\",\"\"]," +
                     "[\"D21:00-21:50\",\"\",\"\",\"蘇俊儒\",\"陳姿妤\",\"\",\"\",\"\"]]");
-            return array;
+            JSONArray new_array = new JSONArray();
+            for(int i = 0;i < array.length();i++){
+                new_array.put(new JSONArray().put(array.getJSONArray(i).getString(0))
+                                             .put(array.getJSONArray(i).getString(1)));
+            }
+            return new_array;
         } catch (JSONException exception) {
             Log.i("JSON Exception", "Failed to parse JSON array");
         }
