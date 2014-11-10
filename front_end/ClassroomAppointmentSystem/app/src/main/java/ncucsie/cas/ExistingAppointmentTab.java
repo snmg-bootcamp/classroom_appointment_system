@@ -3,18 +3,29 @@ package ncucsie.cas;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 
 public class ExistingAppointmentTab extends Fragment {
@@ -42,9 +53,27 @@ public class ExistingAppointmentTab extends Fragment {
         setRetainInstance(true);
         Button button = (Button) rootView.findViewById(R.id.class_selection_button);
         button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Button button = (Button)view;
-                class_selection_button_click(button, rootView);
+            @Override
+            public void onClick(View v) {
+                //Creating the instance of PopupMenu
+                PopupMenu popup = new PopupMenu(getActivity(), button);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater()
+                        .inflate(R.menu.popup_menu, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(
+                                getActivity(),
+                                "You Clicked : " + item.getTitle(),
+                                Toast.LENGTH_SHORT
+                        ).show();
+                        return true;
+                    }
+                });
+
+                popup.show(); //showing popup menu
             }
         });
         set_existing_table((TableLayout) rootView.findViewById(R.id.existing_appointment_tab));
@@ -54,7 +83,11 @@ public class ExistingAppointmentTab extends Fragment {
     }
 
     public void class_selection_button_click(Button button, View rootView){
+        ListView listview = new ListView(getActivity());
 
+        String[] classrooms = {"item 1", "item 2 ", "list", "android", "item 3", "foobar", "bar", };
+        ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.classroom_selection_popup, classrooms);
+        listview.setAdapter(adapter);
     }
 
     private void set_existing_table(TableLayout tableLayout) {
