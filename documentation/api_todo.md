@@ -33,8 +33,12 @@ structure_example:
 
     JSON 
     
-    demo page: http://w181496.twbbs.org/curl_test/index.php?class=A206
-
+    demo page: 
+    get table      http://w181496.twbbs.org/curl_test/index.php?class=A206
+    get all table  http://w181496.twbbs.org/curl_test/getAllTable.php
+    get list       http://w181496.twbbs.org/curl_test/getList.php
+    get all list   http://w181496.twbbs.org/curl_test/getAllList.php
+    
     A209 JSON structure example:
     
     [["","Sun 日(11.2)","Mon 一(11.3)","Tue 二(11.4)","Wed 三(11.5)","Thu 四(11.6)","Fri 五(11.7)","Sat 六(11.8)"],
