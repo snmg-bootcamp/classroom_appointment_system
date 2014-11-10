@@ -47,7 +47,6 @@ public class ExistingAppointmentTab extends Fragment {
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
                 PopupMenu popup = new PopupMenu(getActivity(), button);
-                //Inflating the Popup using xml file
                 String classList[] = {"A203", "A204", "A205", "A206", "A207", "A208", "A209", "A210", "A211", "A212", "A301", "A302", "A303"};
                 for (String s : classList) {
                     popup.getMenu().add(s);
