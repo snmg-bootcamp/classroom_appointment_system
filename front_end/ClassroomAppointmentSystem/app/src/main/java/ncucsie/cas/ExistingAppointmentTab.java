@@ -67,8 +67,7 @@ public class ExistingAppointmentTab extends Fragment {
         });
         SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), null, null);
 
-        DatePicker datepicker = (DatePicker) rootView.findViewById(R.id.date_picker);
-        datepicker.setCalendarViewShown(false);
+
         return rootView;
     }
 
