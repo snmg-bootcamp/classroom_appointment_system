@@ -107,7 +107,7 @@ public class ExistingAppointmentTab extends Fragment {
         try {
             for (int i = 0; i < array.length(); i++) {
                 TableRow row = new TableRow(getActivity());
-                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT);
                 row.setLayoutParams(lp);
                 tableLayout.addView(row, i);
                 for (int j = 0; j < array.getJSONArray(i).length(); j++) {
