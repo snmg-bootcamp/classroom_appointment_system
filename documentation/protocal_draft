@@ -27,7 +27,7 @@ All client side requests must include client version and sha hash associated wit
 
 count total user appointments:
 
-example.com/api/appointment/view
+example.com/api/appointment/count
 
 view appointment:
 
