@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -56,7 +57,7 @@ public class ExistingAppointmentTab extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         CharSequence title = item.getTitle();
                         button.setText(title);
-                        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), title.toString(), null);
+                        //SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), title.toString(), null);
                         return true;
                     }
                 });
@@ -64,9 +65,10 @@ public class ExistingAppointmentTab extends Fragment {
                 popup.show(); //showing popup menu
             }
         });
-        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), null, null);
+        //SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), null, null);
 
-
+        DatePicker datepicker = (DatePicker) rootView.findViewById(R.id.date_picker);
+        datepicker.setCalendarViewShown(false);
         return rootView;
     }
 
