@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -41,7 +42,7 @@ public class ExistingAppointmentTab extends Fragment {
     @Override
     public void onResume(){
         TextView classroom_text = (TextView) getActivity().findViewById(R.id.default_classroom_value);
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Log.i("preference value:", sharedPref.getString("classroom", "A203"));
         String contain;
         if(sharedPref.contains("classroom")){
