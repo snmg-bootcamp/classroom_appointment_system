@@ -10,11 +10,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    //    if (savedInstanceState == null) {
-    //        getFragmentManager().beginTransaction()
-    //                .add(R.id.realtabcontent, new PlaceholderFragment())
-    //                .commit();
-    //    }
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setAction(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
