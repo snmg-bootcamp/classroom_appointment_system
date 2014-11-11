@@ -47,6 +47,8 @@ public class MainActivityDrawer extends Activity
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
         Fragment fragment;
+        Bundle args = new Bundle();
+
         switch(position + 1) {
             case 1:
                 fragment = ExistingAppointmentTab.newInstance();
@@ -58,6 +60,8 @@ public class MainActivityDrawer extends Activity
                 fragment = PlaceholderFragment.newInstance(position + 1);
                 break;
         }
+        args.putInt("section_number", position+1);
+        fragment.setArguments(args);
         fragmentManager.beginTransaction()
                         .replace(R.id.container, fragment)
                         .commit();

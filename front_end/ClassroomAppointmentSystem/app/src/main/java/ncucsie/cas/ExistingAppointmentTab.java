@@ -29,7 +29,8 @@ public class ExistingAppointmentTab extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
+        ((MainActivityDrawer) activity).onSectionAttached(
+                getArguments().getInt("section_number"));
     }
 
     @Override

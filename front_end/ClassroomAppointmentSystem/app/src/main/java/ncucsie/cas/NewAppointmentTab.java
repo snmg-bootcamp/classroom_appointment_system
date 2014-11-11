@@ -1,5 +1,6 @@
 package ncucsie.cas;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,13 @@ import android.view.ViewGroup;
 
 public class NewAppointmentTab extends Fragment {
     public NewAppointmentTab(){
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainActivityDrawer) activity).onSectionAttached(
+                getArguments().getInt("section_number"));
     }
 
     @Override
