@@ -4,6 +4,6 @@
         android:summary="Select the kind of data that you would like to download"
         android:key="downloadType"
         android:defaultValue="1"
-        android:entries="@array/listArray"
-        android:entryValues="@array/listValues" />
+        android:entries="@array/preferenceListArray"
+        android:entryValues="@array/preferenceListValues" />
 </PreferenceScreen>
