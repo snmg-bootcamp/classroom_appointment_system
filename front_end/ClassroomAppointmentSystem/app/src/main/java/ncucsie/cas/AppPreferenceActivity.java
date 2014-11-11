@@ -1,17 +1,17 @@
 package ncucsie.cas;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class PreferenceActivity extends Activity {
+public class AppPreferenceActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preference);
+        addPreferencesFromResource(R.layout.activity_preference);
     }
 
 

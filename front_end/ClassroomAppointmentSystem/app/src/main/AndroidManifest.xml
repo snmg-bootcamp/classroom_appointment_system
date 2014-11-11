@@ -33,7 +33,7 @@
             android:label="@string/title_activity_main_activity_drawer" >
         </activity>
         <activity
-            android:name="ncucsie.cas.PreferenceActivity"
+            android:name=".AppPreferenceActivity"
             android:label="@string/title_activity_preference"
             android:parentActivityName="ncucsie.cas.MainActivityDrawer" >
             <meta-data
