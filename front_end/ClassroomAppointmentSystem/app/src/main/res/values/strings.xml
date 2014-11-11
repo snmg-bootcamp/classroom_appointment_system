@@ -17,5 +17,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="title_activity_preference">PreferenceActivity</string>
+    <string name="default_classroom_value">A203</string>
 
 </resources>

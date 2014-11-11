@@ -14,11 +14,11 @@
             android:layout_height="wrap_content"
             android:text="@string/class_selection_text" />
 
-        <Button
-            android:id="@+id/class_selection_button"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/class_selection_button" />
+            android:text="@string/default_classroom_value"
+            android:id="@+id/default_classroom_value"/>
 
 
     </LinearLayout>

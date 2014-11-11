@@ -1,9 +1,12 @@
 package ncucsie.cas;
 
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 
 public class AppPreferenceActivity extends PreferenceActivity {

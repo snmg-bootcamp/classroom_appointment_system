@@ -3,7 +3,11 @@ package ncucsie.cas;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.ListPreference;
+import android.preference.Preference;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,6 +22,7 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.util.Date;
 
@@ -27,11 +32,18 @@ public class ExistingAppointmentTab extends Fragment {
     public ExistingAppointmentTab() {
     }
 
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
+    }
+
+    @Override
+    public void onResume(){
+        TextView classroom_text = (TextView) getActivity().findViewById(R.id.default_classroom_value);
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        classroom_text.setText(sharedPref.getString("classroom", "A203"));
+        super.onResume();
     }
 
     @Override
@@ -42,29 +54,11 @@ public class ExistingAppointmentTab extends Fragment {
         }
         final View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
         setRetainInstance(true);
-        final Button button = (Button) rootView.findViewById(R.id.class_selection_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(getActivity(), button);
-                String classList[] = {"A203", "A204", "A205", "A206", "A207", "A208", "A209", "A210", "A211", "A212", "A301", "A302", "A303"};
-                for (String s : classList) {
-                    popup.getMenu().add(s);
-                }
-                //registering popup with OnMenuItemClickListener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        CharSequence title = item.getTitle();
-                        button.setText(title);
-                        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), title.toString(), null);
-                        return true;
-                    }
-                });
+        TextView classroom_text = (TextView) rootView.findViewById(R.id.default_classroom_value);
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        classroom_text.setText(sharedPref.getString("classroom", "A203"));
 
-                popup.show(); //showing popup menu
-            }
-        });
+
         SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), null, null);
 
 
