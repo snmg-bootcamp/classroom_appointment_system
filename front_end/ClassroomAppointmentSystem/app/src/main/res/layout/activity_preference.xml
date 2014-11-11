@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference  android:title="Download Details"
-        android:summary="Select the kind of data that you would like to download"
-        android:key="downloadType"
+        android:summary="Select the date for viewing appointment"
+        android:key="date"
         android:defaultValue="1"
         android:entries="@array/preferenceListArray"
         android:entryValues="@array/preferenceListValues" />
