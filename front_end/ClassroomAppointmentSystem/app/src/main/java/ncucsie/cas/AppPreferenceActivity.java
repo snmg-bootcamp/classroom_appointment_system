@@ -1,18 +1,9 @@
 package ncucsie.cas;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
-import java.util.List;
-
-import ncucsie.cas.R;
 
 
 public class AppPreferenceActivity extends PreferenceActivity {
