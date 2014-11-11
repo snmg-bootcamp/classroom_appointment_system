@@ -17,18 +17,7 @@ import ncucsie.cas.R;
 
 public class AppPreferenceActivity extends PreferenceActivity {
 
-    @Override
-    public void onPause(){
 
-
-        ListPreference classroom_preference = (ListPreference) findPreference("classroom");
-        SharedPreferences preference = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preference.edit();
-        editor.putString("classroom", classroom_preference.getValue());
-        editor.commit();
-        super.onPause();
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
