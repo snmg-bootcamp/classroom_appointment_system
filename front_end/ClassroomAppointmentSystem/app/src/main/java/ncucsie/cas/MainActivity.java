@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
     //                .add(R.id.realtabcontent, new PlaceholderFragment())
     //                .commit();
     //    }
-        Intent intent = new Intent(this, MainActivityDrawer.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.setAction(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         startActivity(intent);
