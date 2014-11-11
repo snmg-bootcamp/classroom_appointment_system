@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <ListPreference  android:title="Date"
+    <ListPreference  android:title="Classroom"
         android:summary="Select the date for viewing appointment"
-        android:key="date"
+        android:key="classroom"
         android:defaultValue="1"
         android:entries="@array/preferenceListArray"
         android:entryValues="@array/preferenceListValues" />
