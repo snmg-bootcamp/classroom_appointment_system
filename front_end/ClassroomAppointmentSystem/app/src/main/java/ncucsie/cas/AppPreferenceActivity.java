@@ -1,6 +1,8 @@
 package ncucsie.cas;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
@@ -8,13 +10,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
+import ncucsie.cas.R;
+
 
 public class AppPreferenceActivity extends PreferenceActivity {
 
     @Override
+    public void onPause(){
+
+
+        ListPreference classroom_preference = (ListPreference) findPreference("classroom");
+        SharedPreferences preference = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preference.edit();
+        editor.putString("classroom", classroom_preference.getValue());
+        editor.commit();
+        super.onPause();
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.layout.activity_preference);
+        addPreferencesFromResource(R.xml.activity_preference);
     }
 
 

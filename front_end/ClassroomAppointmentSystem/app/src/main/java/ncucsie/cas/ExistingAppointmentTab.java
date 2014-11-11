@@ -42,6 +42,15 @@ public class ExistingAppointmentTab extends Fragment {
     public void onResume(){
         TextView classroom_text = (TextView) getActivity().findViewById(R.id.default_classroom_value);
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        Log.i("preference value:", sharedPref.getString("classroom", "A203"));
+        String contain;
+        if(sharedPref.contains("classroom")){
+            contain = "1";
+        }
+        else{
+            contain = "0";
+        }
+        Log.i("preference contains:", contain);
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
         super.onResume();
     }
