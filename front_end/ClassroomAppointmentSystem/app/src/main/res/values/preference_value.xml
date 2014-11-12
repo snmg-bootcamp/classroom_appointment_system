@@ -15,19 +15,4 @@
         <item>A302</item>
         <item>A303</item>
     </string-array>
-    <string-array name="preferenceListValues">
-        <item>A203</item>
-        <item>A204</item>
-        <item>A205</item>
-        <item>A206</item>
-        <item>A207</item>
-        <item>A208</item>
-        <item>A209</item>
-        <item>A210</item>
-        <item>A211</item>
-        <item>A212</item>
-        <item>A301</item>
-        <item>A302</item>
-        <item>A303</item>
-    </string-array>
 </resources>
