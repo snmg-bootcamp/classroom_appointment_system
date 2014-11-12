@@ -15,8 +15,9 @@ public class MainActivity extends Activity {
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         startActivity(intent);
     }
+
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         this.finish();
     }

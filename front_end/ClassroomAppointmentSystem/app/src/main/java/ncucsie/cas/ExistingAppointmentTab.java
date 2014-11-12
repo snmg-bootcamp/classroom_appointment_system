@@ -34,7 +34,7 @@ public class ExistingAppointmentTab extends Fragment {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         TextView classroom_text = (TextView) getActivity().findViewById(R.id.default_classroom_value);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
@@ -78,9 +78,9 @@ public class ExistingAppointmentTab extends Fragment {
                     "[\"C20:00-20:50\",\"\",\"\",\"蘇俊儒\",\"陳姿妤\",\"\",\"\",\"\"]," +
                     "[\"D21:00-21:50\",\"\",\"\",\"蘇俊儒\",\"陳姿妤\",\"\",\"\",\"\"]]");
             JSONArray new_array = new JSONArray();
-            for(int i = 0;i < array.length();i++){
+            for (int i = 0; i < array.length(); i++) {
                 new_array.put(new JSONArray().put(array.getJSONArray(i).getString(0))
-                                             .put(array.getJSONArray(i).getString(1)));
+                        .put(array.getJSONArray(i).getString(1)));
             }
             return new_array;
         } catch (JSONException exception) {
@@ -96,7 +96,7 @@ public class ExistingAppointmentTab extends Fragment {
         try {
             for (int i = 0; i < array.length(); i++) {
                 TableRow row = new TableRow(getActivity());
-                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT);
+                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
                 row.setLayoutParams(lp);
                 tableLayout.addView(row, i);
                 for (int j = 0; j < array.getJSONArray(i).length(); j++) {
@@ -110,8 +110,7 @@ public class ExistingAppointmentTab extends Fragment {
                 }
 
             }
-        }
-        catch(JSONException exception){
+        } catch (JSONException exception) {
             Log.i("JSON Exception", "Failed to parse JSON array");
         }
 

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 
 public class NewAppointmentTab extends Fragment {
-    public NewAppointmentTab(){
+    public NewAppointmentTab() {
     }
 
     @Override
