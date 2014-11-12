@@ -17,7 +17,7 @@
         <activity
             android:name="ncucsie.cas.LoginActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize|stateVisible"></activity>
+            android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity
             android:name="ncucsie.cas.MainActivity"
             android:label="@string/title_activity_main">
@@ -29,7 +29,7 @@
         </activity>
         <activity
             android:name="ncucsie.cas.MainActivityDrawer"
-            android:label="@string/title_activity_main_activity_drawer"></activity>
+            android:label="@string/title_activity_main_activity_drawer" />
         <activity
             android:name=".AppPreferenceActivity"
             android:label="@string/title_activity_preference"
