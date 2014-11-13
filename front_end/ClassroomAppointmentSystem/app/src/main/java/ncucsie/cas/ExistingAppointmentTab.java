@@ -80,7 +80,7 @@ public class ExistingAppointmentTab extends Fragment {
             JSONArray new_array = new JSONArray();
             for (int i = 0; i < array.length(); i++) {
                 new_array.put(new JSONArray().put(array.getJSONArray(i).getString(0))
-                        .put(array.getJSONArray(i).getString(1)));
+                        .put(array.getJSONArray(i).getString(3)));
             }
             return new_array;
         } catch (JSONException exception) {
