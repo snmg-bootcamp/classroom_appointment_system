@@ -104,7 +104,7 @@ public class ExistingAppointmentTab extends Fragment {
                     TextView text = new TextView(getActivity());
                     text.setText(array.getJSONArray(i).getString(j));
                     text.setBackgroundResource(R.drawable.cell_shape);
-                    text.setPadding(8, 2, 8, 2);
+                    text.setPadding(16, 4, 12, 4);
 
                     row.addView(text);
 
