@@ -93,6 +93,7 @@ public class ExistingAppointmentTab extends Fragment {
     private void SetExistingTable(TableLayout tableLayout, String classroom, Date date) {
         JSONArray array = GetClassroomTable(null, null);
         tableLayout.removeAllViews();
+        tableLayout.setStretchAllColumns(true);
         try {
             for (int i = 0; i < array.length(); i++) {
                 TableRow row = new TableRow(getActivity());
