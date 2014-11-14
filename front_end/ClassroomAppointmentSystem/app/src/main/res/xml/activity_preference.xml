@@ -3,7 +3,7 @@
     <PreferenceCategory android:title="Classroom">
         <ListPreference
             android:id="@+id/classroom_preference"
-            android:defaultValue="1"
+            android:defaultValue="A203"
             android:entries="@array/preferenceListArray"
             android:entryValues="@array/preferenceListArray"
             android:key="classroom"
@@ -11,5 +11,29 @@
             android:title="Classroom" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Date">
+        <ListPreference
+            android:id="@+id/date_month_preference"
+            android:defaultValue="1"
+            android:entries="@array/preferenceYearListArray"
+            android:entryValues="@array/preferenceYearListValue"
+            android:key="date_year"
+            android:summary="Select the year for viewing appointment"
+            android:title="Year"/>
+        <ListPreference
+            android:id="@+id/date_month_preference"
+            android:defaultValue="1"
+            android:entries="@array/preferenceMonthListArray"
+            android:entryValues="@array/preferenceMonthListValue"
+            android:key="date_month"
+            android:summary="Select the month for viewing appointment"
+            android:title="Month"/>
+        <ListPreference
+            android:id="@+id/date_day_preference"
+            android:defaultValue="1"
+            android:entries="@array/preferenceDayListArray"
+            android:entryValues="@array/preferenceDayListValue"
+            android:key="date_day"
+            android:summary="Select the day for viewing appointment"
+            android:title="Day"/>
     </PreferenceCategory>
 </PreferenceScreen>
