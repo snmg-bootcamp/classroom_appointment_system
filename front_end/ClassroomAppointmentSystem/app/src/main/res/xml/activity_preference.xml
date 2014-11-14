@@ -15,7 +15,7 @@
             android:id="@+id/date_month_preference"
             android:defaultValue="1"
             android:entries="@array/preferenceYearListArray"
-            android:entryValues="@array/preferenceYearListValue"
+            android:entryValues="@array/preferenceYearListArray"
             android:key="date_year"
             android:summary="Select the year for viewing appointment"
             android:title="Year"/>
@@ -31,7 +31,7 @@
             android:id="@+id/date_day_preference"
             android:defaultValue="1"
             android:entries="@array/preferenceDayListArray"
-            android:entryValues="@array/preferenceDayListValue"
+            android:entryValues="@array/preferenceDayListArray"
             android:key="date_day"
             android:summary="Select the day for viewing appointment"
             android:title="Day"/>
