@@ -35,9 +35,10 @@ public class ExistingAppointmentTab extends Fragment {
 
     @Override
     public void onResume() {
-        TextView classroom_text = (TextView) getActivity().findViewById(R.id.default_classroom_value);
+        TextView classroom_text = (TextView) getActivity().findViewById(R.id.classroom_selection_value);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
+
         super.onResume();
     }
 
@@ -49,7 +50,7 @@ public class ExistingAppointmentTab extends Fragment {
         }
         final View rootView = inflater.inflate(R.layout.existing_appointment_tab, container, false);
         setRetainInstance(true);
-        TextView classroom_text = (TextView) rootView.findViewById(R.id.default_classroom_value);
+        TextView classroom_text = (TextView) rootView.findViewById(R.id.classroom_selection_value);
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
 
