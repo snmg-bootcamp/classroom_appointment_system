@@ -45,11 +45,38 @@ delete appointment:
 
 example.com/api/appointment/delete
 
-{
 
-    "client_ver": "0.01"
+
+client server communication example:
+example 1:
+
+user want to view appointment for a specific classroom and date,
+url: example/api/appointment/view?hash=asd8f7a9sd7f8a9s7df
+post data:
+data={
+
+    "client_ver": 0.01,
+    “classroom”: “A203”,
+    “appointment-date”: “20141114”,
+    “sessionid”: “28486bdfh4i9fdgjh”,
+    “last-modified”: 1415958492    //unix epoch time
 
 
 }
+if the data is not modified since last-modified, then we 
+return the user NOT MODIFIED, otherwise we return the 
+entry according to the request
+only generate data for classes that already has appointment
+the class number is [1-9A-D]
+example 1 sample response:
+
+{
+    “status_code”: 200,
+    “last-modified”: 1415958575,
+    “response”: [{“class”: 1, “data”: “3A演算法實習課”},{“class”:5, “data”: “蘇俊儒”}]
+}
+
+
+
 server JSON response must include a status code when error occurs
 
