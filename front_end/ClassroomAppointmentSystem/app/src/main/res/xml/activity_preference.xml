@@ -12,7 +12,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="Date">
         <ListPreference
-            android:id="@+id/date_month_preference"
+            android:id="@+id/date_year_preference"
             android:defaultValue="1"
             android:entries="@array/preferenceYearListArray"
             android:entryValues="@array/preferenceYearListArray"
