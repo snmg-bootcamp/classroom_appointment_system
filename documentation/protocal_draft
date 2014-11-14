@@ -51,7 +51,7 @@ client server communication example:
 example 1:
 
 user want to view appointment for a specific classroom and date,
-url: example/api/appointment/view?hash=asd8f7a9sd7f8a9s7df
+url: example.com/api/appointment/view?hash=asd8f7a9sd7f8a9s7df
 post data:
 data={
 
