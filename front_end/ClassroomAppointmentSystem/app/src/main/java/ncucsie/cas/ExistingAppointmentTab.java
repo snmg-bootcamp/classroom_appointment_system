@@ -36,9 +36,10 @@ public class ExistingAppointmentTab extends Fragment {
     @Override
     public void onResume() {
         TextView classroom_text = (TextView) getActivity().findViewById(R.id.classroom_selection_value);
+        TextView date_text = (TextView) getActivity().findViewById(R.id.date_selection_value);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
-
+        date_text.setText(sharedPref.getString("date_year", "2013") + "-" + sharedPref.getString("date_month", "1") + "-" + sharedPref.getString("date_day", "1"));
         super.onResume();
     }
 
