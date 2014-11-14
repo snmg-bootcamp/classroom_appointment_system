@@ -10,4 +10,6 @@
             android:summary="Select the classroom for viewing appointment"
             android:title="Classroom" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="Date">
+    </PreferenceCategory>
 </PreferenceScreen>
