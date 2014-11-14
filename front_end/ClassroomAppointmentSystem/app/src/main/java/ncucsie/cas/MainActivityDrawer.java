@@ -56,6 +56,9 @@ public class MainActivityDrawer extends Activity
             case 2:
                 fragment = NewAppointmentTab.newInstance();
                 break;
+            case 3:
+                fragment = MyAppointmentTab.newInstance();
+                break;
             default:
                 //Intent intent = new Intent(this, AppPreferenceActivity.class);
                 //startActivity(intent);
