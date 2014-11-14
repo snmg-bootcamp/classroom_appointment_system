@@ -22,7 +22,7 @@ public class MyAppointmentTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.new_appointment_tab, container, false);
+        View rootView = inflater.inflate(R.layout.my_appointment_tab, container, false);
 
         setRetainInstance(true);
         return rootView;
