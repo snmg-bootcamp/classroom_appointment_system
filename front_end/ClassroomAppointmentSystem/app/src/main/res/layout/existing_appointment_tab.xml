@@ -10,12 +10,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="25sp"
             android:text="@string/date_selection_text"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/date_selection_value"
+            android:textSize="25sp"
             android:id="@+id/date_selection_value"/>
     </LinearLayout>
     <LinearLayout
@@ -26,12 +28,14 @@
             android:id="@+id/class_selection_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="25sp"
             android:text="@string/class_selection_text" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/default_classroom_value"
+            android:textSize="25sp"
             android:id="@+id/classroom_selection_value" />
 
 
