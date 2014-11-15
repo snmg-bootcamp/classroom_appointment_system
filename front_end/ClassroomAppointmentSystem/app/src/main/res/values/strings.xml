@@ -20,5 +20,6 @@
     <string name="default_classroom_value">A203</string>
     <string name="date_selection_text">Date:</string>
     <string name="date_selection_value">2014-11-14</string>
-
+    <string name="discard_label">Cancel</string>
+    <string name="save_label">Save</string>
 </resources>
