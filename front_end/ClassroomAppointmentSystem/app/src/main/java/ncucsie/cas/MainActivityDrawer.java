@@ -60,8 +60,6 @@ public class MainActivityDrawer extends Activity
                 fragment = MyAppointmentTab.newInstance();
                 break;
             default:
-                //Intent intent = new Intent(this, AppPreferenceActivity.class);
-                //startActivity(intent);
                 return;
         }
         args.putInt("section_number", position + 1);
