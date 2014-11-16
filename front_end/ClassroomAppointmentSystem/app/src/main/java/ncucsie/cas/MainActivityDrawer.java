@@ -112,6 +112,11 @@ public class MainActivityDrawer extends Activity
             return true;
         }
 
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, AppPreferenceActivity.class);
+            startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

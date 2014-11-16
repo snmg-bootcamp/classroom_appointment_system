@@ -18,12 +18,29 @@ public class NewAppointmentActivity extends Activity {
         View actionBarButtons = getLayoutInflater().inflate(R.layout.custom_form_custom_actionbar,
                 new LinearLayout(this), false);
         View cancelActionView = actionBarButtons.findViewById(R.id.action_cancel);
-        //cancelActionView.setOnClickListener(mActionBarListener);
+        cancelActionView.setOnClickListener(mActionBarListener);
         View doneActionView = actionBarButtons.findViewById(R.id.action_done);
-        //doneActionView.setOnClickListener(mActionBarListener);
+        doneActionView.setOnClickListener(mActionBarListener);
         getActionBar().setDisplayShowCustomEnabled(true);
         getActionBar().setCustomView(actionBarButtons);
     }
 
-
+    private final View.OnClickListener mActionBarListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onActionBarItemSelected(v.getId());
+        }
+    };
+    private boolean onActionBarItemSelected(int itemId) {
+        switch (itemId) {
+            case R.id.action_done:
+                //save();
+                break;
+            case R.id.action_cancel:
+                System.err.println("cancel");
+                this.onBackPressed();
+                break;
+        }
+        return true;
+    }
 }
