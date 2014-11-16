@@ -22,4 +22,5 @@
     <string name="date_selection_value">2014-11-14</string>
     <string name="discard_label">Cancel</string>
     <string name="save_label">Save</string>
+    <string name="title_activity_new_appointment_activity">NewAppointmentActivityTitle</string>
 </resources>
