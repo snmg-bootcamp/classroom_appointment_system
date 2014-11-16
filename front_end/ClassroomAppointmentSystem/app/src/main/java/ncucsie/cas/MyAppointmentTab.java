@@ -30,6 +30,6 @@ public class MyAppointmentTab extends Fragment {
 
 
     public static Fragment newInstance() {
-        return new NewAppointmentTab();
+        return new MyAppointmentTab();
     }
 }

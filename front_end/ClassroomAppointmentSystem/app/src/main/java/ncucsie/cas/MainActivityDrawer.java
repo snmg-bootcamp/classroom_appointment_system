@@ -54,9 +54,6 @@ public class MainActivityDrawer extends Activity
                 fragment = ExistingAppointmentTab.newInstance();
                 break;
             case 2:
-                fragment = NewAppointmentTab.newInstance();
-                break;
-            case 3:
                 fragment = MyAppointmentTab.newInstance();
                 break;
             default:
@@ -73,9 +70,6 @@ public class MainActivityDrawer extends Activity
         switch (number) {
             case 1:
                 mTitle = getString(R.string.title_section1);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
@@ -112,8 +106,8 @@ public class MainActivityDrawer extends Activity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, AppPreferenceActivity.class);
+        if (id == R.id.add_appointment) {
+            Intent intent = new Intent(this, NewAppointmentActivity.class);
             startActivity(intent);
             return true;
         }

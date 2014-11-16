@@ -15,7 +15,7 @@
     <string name="title_activity_main_activity_drawer">MainActivityDrawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
+    <string name="action_example">Add Appointment</string>
     <string name="title_activity_preference">Preference</string>
     <string name="default_classroom_value">A203</string>
     <string name="date_selection_text">Date:</string>
