@@ -23,7 +23,7 @@ public class AppPreferenceTab extends PreferenceFragment {
         super.onCreate(savedInstanceState);
 
         // Load the preferences from an XML resource
-        addPreferencesFromResource(R.xml.preference_setting);
+        addPreferencesFromResource(R.layout.preference_setting);
     }
 
 
