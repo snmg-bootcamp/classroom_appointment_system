@@ -24,5 +24,7 @@
     <string name="save_label">Save</string>
     <string name="name">Name</string>
     <string name="phone">Phone</string>
+    <string name="personal_info_text">Personal Information</string>
+    <string name="section_classroom">Classroom</string>
     <string name="title_activity_new_appointment_activity">NewAppointmentActivityTitle</string>
 </resources>
