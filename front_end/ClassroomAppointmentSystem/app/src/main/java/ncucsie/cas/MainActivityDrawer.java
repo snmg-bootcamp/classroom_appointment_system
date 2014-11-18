@@ -56,6 +56,9 @@ public class MainActivityDrawer extends Activity
             case 2:
                 fragment = MyAppointmentTab.newInstance();
                 break;
+            case 3:
+                fragment = AppPreferenceTab.newInstance();
+                break;
             default:
                 return;
         }
@@ -72,6 +75,9 @@ public class MainActivityDrawer extends Activity
                 mTitle = getString(R.string.title_section1);
                 break;
             case 2:
+                mTitle = getString(R.string.title_section2);
+                break;
+            case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
         }
@@ -113,7 +119,7 @@ public class MainActivityDrawer extends Activity
         }
 
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, AppPreferenceActivity.class);
+            Intent intent = new Intent(this, AppPreferenceTab.class);
             startActivity(intent);
             return true;
         }

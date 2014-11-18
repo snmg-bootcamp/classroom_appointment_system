@@ -33,14 +33,6 @@
         <activity
             android:name="ncucsie.cas.NewAppointmentActivity"
             android:label="@string/title_activity_new_appointment_activity" />
-        <activity
-            android:name=".AppPreferenceActivity"
-            android:label="@string/title_activity_preference"
-            android:parentActivityName="ncucsie.cas.MainActivityDrawer">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ncucsie.cas.MainActivityDrawer" />
-        </activity>
     </application>
 
 </manifest>

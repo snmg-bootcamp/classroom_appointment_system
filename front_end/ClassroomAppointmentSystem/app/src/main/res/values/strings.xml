@@ -7,8 +7,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_main_tabs">MainTabs</string>
     <string name="title_section1">Existing Appointment</string>
-    <string name="title_section2">New Appointment</string>
-    <string name="title_section3">My Appointment</string>
+    <string name="title_section2">My Appointment</string>
+    <string name="title_section3">Preference</string>
     <string name="title_activity_main_activity_tab">MainActivityTab</string>
     <string name="class_selection_button">A203</string>
     <string name="class_selection_text">Class:</string>
