@@ -27,4 +27,5 @@
     <string name="personal_info_text">Personal Information</string>
     <string name="section_classroom">Classroom</string>
     <string name="title_activity_new_appointment_activity">NewAppointmentActivityTitle</string>
+    <string name="section_appointment_date">Appointment Date</string>
 </resources>
