@@ -44,6 +44,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/default_classroom_value"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_appointment_date"
+            android:text="@string/section_appointment_date"/>
     </LinearLayout>
 
 </ScrollView>
