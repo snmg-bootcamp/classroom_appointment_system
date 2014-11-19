@@ -11,7 +11,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/personal_info_text"/>
+            android:text="@string/personal_info_text" />
 
         <AutoCompleteTextView
             android:id="@+id/name"
@@ -35,15 +35,16 @@
             android:background="?android:attr/listDivider" />
 
         <TextView
+            android:id="@+id/classroom_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/classroom_text"
-            android:text="@string/section_classroom"/>
+            android:text="@string/section_classroom" />
+
         <Button
             android:id="@+id/new_appointment_classroom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/default_classroom_value"/>
+            android:text="@string/default_classroom_value" />
 
         <View
             android:layout_width="match_parent"
@@ -51,15 +52,30 @@
             android:background="?android:attr/listDivider" />
 
         <TextView
+            android:id="@+id/new_appointment_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/new_appointment_date"
-            android:text="@string/section_appointment_date"/>
-        <Spinner
+            android:text="@string/section_appointment_date" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </Spinner>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_year"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_month"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_day"/>
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>
