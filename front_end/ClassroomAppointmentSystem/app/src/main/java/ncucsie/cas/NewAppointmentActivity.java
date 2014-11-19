@@ -13,7 +13,7 @@ public class NewAppointmentActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_appointment_tab);
+        setContentView(R.layout.new_appointment_activity);
 
         View actionBarButtons = getLayoutInflater().inflate(R.layout.custom_form_custom_actionbar,
                 new LinearLayout(this), false);
