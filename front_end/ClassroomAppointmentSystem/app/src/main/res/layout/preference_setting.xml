@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="Classroom">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <PreferenceCategory
+        android:title="Classroom">
         <ListPreference
             android:id="@+id/classroom_preference"
             android:defaultValue="A203"
@@ -10,7 +13,8 @@
             android:summary="Select the classroom for viewing appointment"
             android:title="Classroom" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Date">
+    <PreferenceCategory
+        android:title="Date">
         <ListPreference
             android:id="@+id/date_year_preference"
             android:defaultValue="2014"
