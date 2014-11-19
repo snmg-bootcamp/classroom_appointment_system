@@ -21,8 +21,10 @@ public class NewAppointmentActivity extends Activity {
         cancelActionView.setOnClickListener(mActionBarListener);
         View doneActionView = actionBarButtons.findViewById(R.id.action_done);
         doneActionView.setOnClickListener(mActionBarListener);
-        getActionBar().setDisplayShowCustomEnabled(true);
-        getActionBar().setCustomView(actionBarButtons);
+        if(getActionBar() != null) {
+            getActionBar().setDisplayShowCustomEnabled(true);
+            getActionBar().setCustomView(actionBarButtons);
+        }
     }
 
     private final View.OnClickListener mActionBarListener = new View.OnClickListener() {
