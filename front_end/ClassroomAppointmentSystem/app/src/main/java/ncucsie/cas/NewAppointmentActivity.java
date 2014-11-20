@@ -59,6 +59,7 @@ public class NewAppointmentActivity extends Activity {
         switch (itemId) {
             case R.id.action_done:
                 //save();
+                //TODO: implement save() function
                 break;
             case R.id.action_cancel:
                 System.err.println("cancel");
