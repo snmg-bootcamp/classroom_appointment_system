@@ -1,6 +1,7 @@
 package ncucsie.cas;
 
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,8 @@ public class NewAppointmentActivity extends Activity {
         if(getActionBar() != null) {
             getActionBar().setDisplayShowCustomEnabled(true);
             getActionBar().setCustomView(actionBarButtons);
+            getActionBar().setIcon(
+                    new ColorDrawable(getResources().getColor(android.R.color.transparent)));
         }
 
         Spinner spinner_classroom = (Spinner) findViewById(R.id.spinner_classroom);
