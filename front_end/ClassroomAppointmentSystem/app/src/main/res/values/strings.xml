@@ -28,4 +28,6 @@
     <string name="section_classroom">Classroom</string>
     <string name="title_activity_new_appointment_activity">NewAppointmentActivityTitle</string>
     <string name="section_appointment_date">Appointment Date</string>
+    <string name="section_appointment_end">End</string>
+    <string name="section_appointment_start">Start</string>
 </resources>
