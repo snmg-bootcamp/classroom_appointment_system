@@ -40,11 +40,10 @@
             android:layout_height="wrap_content"
             android:text="@string/section_classroom" />
 
-        <Button
-            android:id="@+id/new_appointment_classroom"
+        <Spinner
+            android:id="@+id/spinner_classroom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/default_classroom_value" />
+            android:layout_height="wrap_content"/>
 
         <View
             android:layout_width="match_parent"
