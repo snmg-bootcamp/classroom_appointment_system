@@ -3,7 +3,9 @@ package ncucsie.cas;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 
 public class NewAppointmentActivity extends Activity {
@@ -25,6 +27,20 @@ public class NewAppointmentActivity extends Activity {
             getActionBar().setDisplayShowCustomEnabled(true);
             getActionBar().setCustomView(actionBarButtons);
         }
+        Spinner spinner_year = (Spinner) findViewById(R.id.spinner_year);
+        ArrayAdapter<CharSequence> adapter_year = ArrayAdapter.createFromResource(this,
+                R.array.preferenceYearListArray, android.R.layout.simple_spinner_item);
+        spinner_year.setAdapter(adapter_year);
+
+        Spinner spinner_month = (Spinner) findViewById(R.id.spinner_month);
+        ArrayAdapter<CharSequence> adapter_month = ArrayAdapter.createFromResource(this,
+                R.array.preferenceMonthListArray, android.R.layout.simple_spinner_item);
+        spinner_month.setAdapter(adapter_month);
+
+        Spinner spinner_day = (Spinner) findViewById(R.id.spinner_day);
+        ArrayAdapter<CharSequence> adapter_day = ArrayAdapter.createFromResource(this,
+                R.array.preferenceDayListArray, android.R.layout.simple_spinner_item);
+        spinner_day.setAdapter(adapter_day);
     }
 
     private final View.OnClickListener mActionBarListener = new View.OnClickListener() {
