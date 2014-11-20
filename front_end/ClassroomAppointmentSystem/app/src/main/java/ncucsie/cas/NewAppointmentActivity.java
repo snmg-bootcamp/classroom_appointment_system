@@ -27,6 +27,12 @@ public class NewAppointmentActivity extends Activity {
             getActionBar().setDisplayShowCustomEnabled(true);
             getActionBar().setCustomView(actionBarButtons);
         }
+
+        Spinner spinner_classroom = (Spinner) findViewById(R.id.spinner_classroom);
+        ArrayAdapter<CharSequence> adapter_classroom = ArrayAdapter.createFromResource(this,
+                R.array.preferenceListArray, android.R.layout.simple_spinner_item);
+        spinner_classroom.setAdapter(adapter_classroom);
+
         Spinner spinner_year = (Spinner) findViewById(R.id.spinner_year);
         ArrayAdapter<CharSequence> adapter_year = ArrayAdapter.createFromResource(this,
                 R.array.preferenceYearListArray, android.R.layout.simple_spinner_item);
