@@ -32,12 +32,25 @@
 		return $resource;
 	}
 
+	/*
 	function getUrlContent($res, $url)
 	{
 		curl_setopt($res, CURLOPT_URL, $url);
 		curl_setopt($res, CURLOPT_RETURNTRANSFER, 1);
 		$content = curl_exec($res);
 		//curl_close($res);
+		return $content;
+	}
+	*/
+
+	function getUrlContent($url, $token)
+	{
+		$cookie_jar = "./cookie/".$token;
+		$res = curl_init();
+		curl_setopt($res, CURLOPT_URL, $url);
+		curl_setopt($res, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($res, CURLOPT_COOKIEFILE, $cookie_jar);
+		$content = curl_exec($res);
 		return $content;
 	}
 
