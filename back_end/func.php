@@ -1,8 +1,21 @@
 <?php
-	function setUrlCookie($url, $postdata)
+	function setUrlCookie($url, $postdata, $username)
 	{
-		//$cookie_jar = tempnam('./','cookie'); // Create file with unique file name (cookie*)
-		$cookie_jar = './cookie.txt';
+		// check the user cookie whether exists
+		// if not, create a new cookie file
+		// else use the same filename 
+		/* maybe has bug */
+		$chk_cookie = glob('./cookie/'.$username.'*');
+		if($chk_cookie != null) {
+			preg_match("/[^(.\/cookie\/)].*/", $chk_cookie[0], $match);
+			$cookie_jar = "/usr/local/www/apache22/data/curl_test/cookie/".$match[0];
+			echo $cookie_jar."<br>";
+		}
+		else {
+			$cookie_jar = tempnam('./cookie/',$username); // Create file with unique file name (cookie*)
+			echo $cookie_jar."<br>";
+		}
+		//$cookie_jar = "./cookie/".$username."cookie.txt";
 
 		$resource = curl_init();
 		curl_setopt($resource, CURLOPT_URL, $url);
@@ -13,6 +26,9 @@
 		curl_setopt($resource, CURLOPT_RETURNTRANSFER, 1);
 		curl_exec($resource);
 
+		// echo cookie filename to front-end, it will be used to auth user identity.
+		preg_match("/[^(\/usr\/local\/www\/apache22\/data\/curl_test\/cookie\/)].*/",$cookie_jar, $match);
+		echo $match[0];
 		return $resource;
 	}
 
@@ -21,7 +37,7 @@
 		curl_setopt($res, CURLOPT_URL, $url);
 		curl_setopt($res, CURLOPT_RETURNTRANSFER, 1);
 		$content = curl_exec($res);
-		curl_close($res);
+		//curl_close($res);
 		return $content;
 	}
 
