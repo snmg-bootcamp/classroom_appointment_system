@@ -30,4 +30,5 @@
     <string name="section_appointment_date">Appointment Date</string>
     <string name="section_appointment_end">End</string>
     <string name="section_appointment_start">Start</string>
+    <string name="comment_text">Comment</string>
 </resources>
