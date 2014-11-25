@@ -50,6 +50,16 @@ public class NewAppointmentActivity extends Activity {
         ArrayAdapter<CharSequence> adapter_day = ArrayAdapter.createFromResource(this,
                 R.array.preferenceDayListArray, android.R.layout.simple_spinner_item);
         spinner_day.setAdapter(adapter_day);
+
+        Spinner class_start = (Spinner) findViewById(R.id.spinner_class_start);
+        ArrayAdapter<CharSequence> adapter_start = ArrayAdapter.createFromResource(this,
+                R.array.timevalue, android.R.layout.simple_spinner_item);
+        class_start.setAdapter(adapter_start);
+
+        Spinner class_end = (Spinner) findViewById(R.id.spinner_class_end);
+        ArrayAdapter<CharSequence> adapter_end = ArrayAdapter.createFromResource(this,
+                R.array.timevalue, android.R.layout.simple_spinner_item);
+        class_end.setAdapter(adapter_end);
     }
 
     private final View.OnClickListener mActionBarListener = new View.OnClickListener() {

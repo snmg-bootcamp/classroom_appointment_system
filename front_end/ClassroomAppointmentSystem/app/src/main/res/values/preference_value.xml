@@ -97,7 +97,7 @@
         <item>30</item>
         <item>31</item>
     </string-array>
-    <string-array name="time-value">
+    <string-array name="timevalue">
         <item>1  8:00 \-  8:50 </item>
         <item>2  9:00 \-  9:50 </item>
         <item>3 10:00 \- 10:50 </item>
