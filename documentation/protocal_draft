@@ -67,7 +67,7 @@ if the data is not modified since last-modified, then we
 return the user NOT MODIFIED, otherwise we return the 
 entry according to the request
 only generate data for classes that already has appointment
-the class number is [1-9A-D]
+the class number(time) is [1-9A-D]
 example 1 sample response:
 
 {
