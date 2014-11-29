@@ -3,11 +3,18 @@
 	include('config.php');
 	include('func.php');
 
-	//check the user whether send auth token 
-	if(isset($_POST['token'])) {
+	$status 		= "400";	// default status code (error)
+	$last_modified  = NULL;
+	$response		= NULL;
 
-		//default class
-		$class = "A203";
+	//check the user whether send auth token and request data (json format)
+	if(isset($_POST['data'])) {
+		$data       	   =  json_decode($_POST['data']);
+		$client_ver 	   =  $data -> {'client_ver'};
+		$class             =  $data -> {'classroom'};
+		$appointment_date  =  $data -> {'appointment-date'};
+		$token			   =  $data -> {'sessionid'};
+		$last_modified	   =  $data -> {'last-modified'};
 
 		//login and set cookie
 		/*
@@ -15,10 +22,7 @@
 		$postdata = "name=$User&pass=$Pass&form_id=user_login_block";
 		$resource = setUrlCookie($url, $postdata, $User);
 		*/
-
-		if(isset($_GET['class']))
-			$class = $_GET['class'];
-
+		
 		$flag = 0;
 		for($i = 0; $i < 13; $i++) {
 			if($ClassList[$i] === $class) {
@@ -29,13 +33,13 @@
 		if($flag) {
 			$url = 'http://classroom.csie.ncu.edu.tw/appointment_schedule/'.$class;
 			//echo getUrlContent($resource, $url);
-			echo json_encode(filter(getUrlContent($url, $_POST['token'])), JSON_UNESCAPED_UNICODE);
+			$status = 200;	// success
+			$response = filter(getUrlContent($url, $token));
 		}
-		else {
-			echo "查無此教室資料";
-		}
-    }
-    else {
-         echo "請先登入後再做查詢";
-    }
+	}
+	$response_arr = array("status_code"    => $status, 
+						  "last_modified"  => $last_modified,
+						  "response"	   => $response
+					);
+	echo json_encode($response_arr, JSON_UNESCAPED_UNICODE);
 ?>
