@@ -1,5 +1,6 @@
 <head><meta charset="utf-8"></head>
 <?php
+    //Maybe has bug... to be tested
 	//get one class appointment list
 
 	include('config.php');
