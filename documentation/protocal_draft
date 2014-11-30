@@ -82,3 +82,7 @@ example 1 sample response:
 
 server JSON response must include a status code when error occurs
 
+status code:
+    200 => success
+    400 => error
+    401 => wrong client version
