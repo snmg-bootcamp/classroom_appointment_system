@@ -24,26 +24,24 @@
 			$token			   =  $data -> {'sessionid'};
 			$last_modified	   =  $data -> {'last-modified'};
 
-			//login and set cookie
-			/*
-			   $url = 'http://classroom.csie.ncu.edu.tw/appointment_rule?destination=appointment_rule';
-			   $postdata = "name=$User&pass=$Pass&form_id=user_login_block";
-			   $resource = setUrlCookie($url, $postdata, $User);
-			 */
-
-			$flag = 0;
-			for($i = 0; $i < 13; $i++) {
-				if($ClassList[$i] === $class) {
-					$flag = 1;
-					break;
-				}
+			if($client_ver != $version) {
+				$status = 401;	// wrong client version, client need to be updated.
 			}
-			if($flag) {
-				$url = 'http://classroom.csie.ncu.edu.tw/appointment_schedule/'.$class;
-				//echo getUrlContent($resource, $url);
-				$status = 200;	// success
-				$response = filter(getUrlContent($url, $token));
-			}	
+			else {
+				$flag = 0;
+				for($i = 0; $i < 13; $i++) {
+					if($ClassList[$i] === $class) {
+						$flag = 1;
+						break;
+					}
+				}
+				if($flag) {
+					$url = 'http://classroom.csie.ncu.edu.tw/appointment_schedule/'.$class;
+					//echo getUrlContent($resource, $url);
+					$status = 200;	// success
+					$response = filter(getUrlContent($url, $token));
+				}	
+			}
 		}
 	}
 	$response_arr = array("status_code"    => $status, 
