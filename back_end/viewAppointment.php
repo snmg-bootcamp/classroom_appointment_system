@@ -1,6 +1,6 @@
 <head><meta charset="utf-8"></head>
 <?php
-	//get the user's appointment list
+	//get one class appointment list
 
 	include('config.php');
 	include('func.php');
@@ -28,10 +28,15 @@
 			else {
 				$url = 'http://classroom.csie.ncu.edu.tw/my_list';
 				//echo getUrlContent($url, $token);
-				preg_match_all('/\<td\>([^<]*)\<\/td\>/', getUrlContent($url, $token), $match);
+				$content = getUrlContent($url, $token);
+				preg_match_all('/\<td\>([^<]*)\<\/td\>/', $content, $match);
 				//print_r($match);
 				//echo json_encode($match[1], JSON_UNESCAPED_UNICODE);
 				$preg = $match[1];
+
+				preg_match_all('/\<a href=\"my_list\/edit\/([^<]*)\"\>/', $content, $match);
+				$preg2 = $match[1];
+
 				$result = array();
 				for($i = 0; $i < count($preg) / 6; $i++)
 				{
@@ -40,6 +45,7 @@
 					{
 						array_push($tmp, $preg[$i * 6 + $j]);
 					}
+					array_push($tmp, $preg2[$i]);
 					//array_push($result, $tmp);
 					$result[$i] = $tmp;
 				}
