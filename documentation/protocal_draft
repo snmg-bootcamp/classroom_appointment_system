@@ -53,7 +53,7 @@ client server communication example:
 example 1:
 
 user want to view appointment for a specific classroom and date,
-url: example.com/api/appointment/view?hash=asd8f7a9sd7f8a9s7df
+url: example.com/api/appointment/view
 post data:
 data={
 
@@ -77,6 +77,33 @@ example 1 sample response:
     “last-modified”: 1415958575,
     “response”: [{“class”: 1, “data”: “3A演算法實習課”},{“class”:5, “data”: “蘇俊儒”}]
 }
+
+
+
+example 2:
+
+user want to view appointment list of self,
+post data:
+data={
+   
+   "client_ver": 0.01,
+   "sessionid": "28486bdfh4i9fdgjh",
+   "last-modified": 1415958492
+
+}
+
+example 2 sample response:
+
+{
+ 
+    "status_code":200,
+    "last_modified":1415958492,
+    "response":[["1","2014-12-02\tTuesday","A203","1~1","黃詩凱"," ","15137"],["2","2014-12-02\tTuesday","A203","2~2","黃詩凱"," ","15138"]]
+
+}
+response format:
+[["number","date","class","time","name","professor","delete&edit number"], [...], ...]
+
 
 
 
