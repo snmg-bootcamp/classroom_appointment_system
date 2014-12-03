@@ -6,4 +6,5 @@ public interface Constant {
     public final static int SERVER_PORT = 80;
 
 
+    String DEBUG_TAG = "Debug:";
 }
