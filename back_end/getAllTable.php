@@ -1,4 +1,3 @@
-<head><meta charset="utf-8"></head>
 <?php
 	//get all class appointment table
 
