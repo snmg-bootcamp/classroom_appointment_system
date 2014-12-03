@@ -55,9 +55,6 @@ public class InternetComm {
     // a string.
     private JSONObject downloadUrl(String myurl, String postData) throws IOException {
         InputStream is = null;
-        // Only display the first 500 characters of the retrieved
-        // web page content.
-        int len = 500;
 
         try {
             URL url = new URL(myurl);
