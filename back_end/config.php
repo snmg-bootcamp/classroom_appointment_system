@@ -1,6 +1,4 @@
 <?php
-	$User = '102502042';
-	$Pass = 'ggggggggg';
     $version = 0.01;
     $ClassList = array(
 		"0" => "A203",
