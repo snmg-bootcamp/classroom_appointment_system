@@ -116,13 +116,22 @@ data={
     "password":OAO
 }
 
-example 3 sample response:
+example 3 sample response (if the username and password are true):
 
 {
     "status_code":200,
-    "response":102502042AsdfWdcF
+    "response":"102502042AsdfWdcF"
 }
 response is the token that can be used to send request, then the backend will auth by this token.
+
+example 3 sample response (if the username or password are wrong):
+
+{
+    "status_code":400,
+    "response":"error"
+}
+
+
 
 
 
