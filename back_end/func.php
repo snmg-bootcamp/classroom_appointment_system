@@ -4,16 +4,18 @@
 		// check the user cookie whether exists
 		// if not, create a new cookie file
 		// else use the same filename 
-		/* maybe has bug */
+		/* 可能有bug */
+		$status     = 400;
+		$response   = NULL;
 		$chk_cookie = glob('./cookie/'.$username.'*');
 		if($chk_cookie != null) {
 			preg_match("/[^(.\/cookie\/)].*/", $chk_cookie[0], $match);
 			$cookie_jar = "/usr/local/www/apache22/data/curl_test/cookie/".$match[0];
-			echo $cookie_jar."<br>";
+			//echo $cookie_jar."<br>";
 		}
 		else {
 			$cookie_jar = tempnam('./cookie/',$username); // Create file with unique file name (cookie*)
-			echo $cookie_jar."<br>";
+			//echo $cookie_jar."<br>";
 		}
 		//$cookie_jar = "./cookie/".$username."cookie.txt";
 
@@ -28,7 +30,19 @@
 
 		// echo cookie filename to front-end, it will be used to auth user identity.
 		preg_match("/[^(\/usr\/local\/www\/apache22\/data\/curl_test\/cookie\/)].*/",$cookie_jar, $match);
-		echo $match[0];
+		
+		if(filesize('cookie/'.$match[0]) > 0) {
+			$response = $match[0];
+			$status   = 200;
+		}
+		else {
+			$response = "error";
+		}
+
+		$response_arr = array("status_code"    => $status,
+		                       "response"       => $response
+		                 );
+		echo json_encode($response_arr, JSON_UNESCAPED_UNICODE);
 		return $resource;
 	}
 
