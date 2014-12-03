@@ -14,14 +14,12 @@
 		$data = json_decode($_POST['data']);
 
 		if(isset($data -> {'client_ver'}) &&
-		   isset($data -> {'classroom'}) &&
 		   isset($data -> {'appointment-date'}) &&
 		   isset($data -> {'sessionid'}) &&
 		   isset($data -> {'last-modified'})
 		)
 		{
 			$client_ver        =  $data -> {'client_ver'};
-			$class             =  $data -> {'classroom'};
 			$appointment_date  =  $data -> {'appointment-date'};
 			$token             =  $data -> {'sessionid'};
 			$last_modified     =  $data -> {'last-modified'};
