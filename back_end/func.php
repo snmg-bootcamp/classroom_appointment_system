@@ -40,7 +40,7 @@
 		}
 
 		$response_arr = array("status_code"    => $status,
-		                       "response"       => $response
+		                      "response"       => $response
 		                 );
 		echo json_encode($response_arr, JSON_UNESCAPED_UNICODE);
 		return $resource;

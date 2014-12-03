@@ -2,13 +2,16 @@
 	// receive the username & password from front-end to login and save the cookie
 
 	include("func.php");
-	
-	if(isset($_POST['username']) && isset($_POST['password']))
+	if(isset($_POST['data'])) 
 	{
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-		$url = 'http://classroom.csie.ncu.edu.tw/appointment_rule?destination=appointment_rule';
-		$postdata = "name=$username&pass=$password&form_id=user_login_block";
-		$resource = setUrlCookie($url, $postdata, $username);
+		$data = json_encode($_POST['data']);
+		if(isset($data -> {'username'}) && isset($data -> {'password'}))
+		{
+			$username = $data -> {'username'};
+			$password = $data -> {'password'};
+			$url = 'http://classroom.csie.ncu.edu.tw/appointment_rule?destination=appointment_rule';
+			$postdata = "name=$username&pass=$password&form_id=user_login_block";
+			$resource = setUrlCookie($url, $postdata, $username);
+		}
 	}
 ?>
