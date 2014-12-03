@@ -51,8 +51,8 @@ public class InternetComm {
     }
 
     // Given a URL, establishes an HttpUrlConnection and retrieves
-// the web page content as a InputStream, which it returns as
-// a string.
+    // the web page content as a InputStream, which it returns as
+    // a string.
     private JSONObject downloadUrl(String myurl, String postData) throws IOException {
         InputStream is = null;
         // Only display the first 500 characters of the retrieved
