@@ -5,8 +5,8 @@
 		// if not, create a new cookie file
 		// else use the same filename 
 		/* 可能有bug */
-		$status     = 400;
-		$response   = NULL;
+		//$status     = 400;
+		//$response   = NULL;
 		$chk_cookie = glob('./cookie/'.$username.'*');
 		if($chk_cookie != null) {
 			preg_match("/[^(.\/cookie\/)].*/", $chk_cookie[0], $match);
@@ -31,7 +31,12 @@
 		// echo cookie filename to front-end, it will be used to auth user identity.
 		preg_match("/[^(\/usr\/local\/www\/apache22\/data\/curl_test\/cookie\/)].*/",$cookie_jar, $match);
 		
-		if(filesize('cookie/'.$match[0]) > 0) {
+		//if(filesize('cookie/'.$match[0]) > 0) {
+		//clearstatcache();
+		//echo filesize($cookie_jar);
+		/*
+		if(filesize($cookie_jar) > 0)
+	 	{
 			$response = $match[0];
 			$status   = 200;
 		}
@@ -39,11 +44,13 @@
 			$response = "error";
 		}
 
+		
 		$response_arr = array("status_code"    => $status,
 		                      "response"       => $response
 		                 );
 		echo json_encode($response_arr, JSON_UNESCAPED_UNICODE);
-		return $resource;
+		*/
+		return $match[0];
 	}
 
 	/*
@@ -65,6 +72,20 @@
 		curl_setopt($res, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($res, CURLOPT_COOKIEFILE, $cookie_jar);
 		$content = curl_exec($res);
+		return $content;
+	}
+
+	function addAppointment($url, $postdata, $token)
+	{
+		$cookie_jar = "./cookie/".$token;
+		$resource = curl_init();
+		curl_setopt($resource, CURLOPT_URL, $url);
+		curl_setopt($resource, CURLOPT_POST, 1);
+		curl_setopt($resource, CURLOPT_POSTFIELDS, $postdata);
+		curl_setopt($resource, CURLOPT_COOKIEFILE, $cookie_jar);
+		curl_setopt($resource, CURLOPT_REFERER, 'http://classroom.csie.ncu.edu.tw/appointment_form');
+		curl_setopt($resource, CURLOPT_RETURNTRANSFER, 1);
+		$content = curl_exec($resource);
 		return $content;
 	}
 
