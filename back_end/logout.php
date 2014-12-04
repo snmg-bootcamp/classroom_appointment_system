@@ -8,15 +8,33 @@
 
 	if(isset($_POST['data'])) 
 	{
-		$data = json_encode($_POST['data']);
-		if(isset($data -> {'token'}))
+		$data = json_decode($_POST['data']);
+		if(isset($data -> {'sessionid'}))
 		{
-			$token = $data -> {'token'};
-			$url = 'http://classroom.csie.ncu.edu.tw/user/logout';
-			//$postdata = "name=$username&pass=$password&form_id=user_login_block";
-			getUrlContent($url, $token);
-			$status   = 200;
-			$response = "succeeful";
+			$token = $data -> {'sessionid'};
+			$check = true;
+
+			// check whether the input token is valid or not.
+			for($i = 0; $i < strlen($token); $i++)
+			{
+				if(!(($token[$i] >= 'a' && $token[$i] <= 'z') || 
+				     ($token[$i] >= 'A' && $token[$i] <= 'Z') || 
+					 ($token[$i] >= '0' && $token[$i] <= '9'))
+				)
+				{
+					$check = false;
+					break;
+				}
+			}
+
+			if($check)
+			{
+				//$url = 'http://classroom.csie.ncu.edu.tw/user/logout';
+				//getUrlContent($url, $token);
+				unlink('cookie/'.$token);
+				$status   = 200;
+				$response = "succeeful";
+			}
 		}
 	}
 	 $response_arr = array("status_code"    => $status,
