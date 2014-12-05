@@ -63,6 +63,37 @@ public class InternetComm {
 
     }
 
+    public urlWithJSON createURLRequest(int method, JSONObject data) {
+        String url;
+        url  = "http://";
+        url += Constant.SERVER_DOMAIN_NAME;
+        url += ":";
+        url += Constant.SERVER_PORT;
+        url += Constant.SERVER_ROOT;
+        urlWithJSON result;
+        if(method == Constant.VIEW_APPOINTMENT){
+
+            url += Constant.VIEW_APPOINTMENT_PAGE;
+            result = new urlWithJSON(url, data);
+        }
+        else if(method == Constant.ADD_APPOINTMENT){
+            url += Constant.ADD_APPOINTMENT_PAGE;
+            result = new urlWithJSON(url, data);
+        }
+        else if(method == Constant.MODIFY_APPOINTMENT){
+            url += Constant.MODIFY_APPOINTMENT_PAGE;
+            result = new urlWithJSON(url, data);
+        }
+        else if(method == Constant.DELETE_APPOINTMENT){
+            url += Constant.DELETE_APPOINTMENT_PAGE;
+            result = new urlWithJSON(url, data);
+        }
+        else{
+            result = null;
+        }
+        return result;
+    }
+
     // Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as
     // a string.

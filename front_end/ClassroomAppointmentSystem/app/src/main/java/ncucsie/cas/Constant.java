@@ -2,9 +2,23 @@ package ncucsie.cas;
 
 
 public interface Constant {
-    public final static String SERVER_IP = "127.0.0.1"; // TODO: remove placeholder
+    public final static String SERVER_DOMAIN_NAME = "w181496.twbbs.org";
+    public final static String SERVER_ROOT = "/curl_test/";
     public final static int SERVER_PORT = 80;
+    //TODO: some of the constants here shall be able to be overridden by configuration files
+
+    public final static String DEBUG_TAG = "Debug:";
 
 
-    String DEBUG_TAG = "Debug:";
+    public final static int VIEW_APPOINTMENT = 0;
+    public final static int ADD_APPOINTMENT = 1;
+    public final static int MODIFY_APPOINTMENT = 2;
+    public final static int DELETE_APPOINTMENT = 3;
+
+
+    public final static String VIEW_APPOINTMENT_PAGE = "viewAppointment.php";
+    public final static String ADD_APPOINTMENT_PAGE = "addAppointment.php";
+    public final static String MODIFY_APPOINTMENT_PAGE = "modifyAppointment.php";
+    public final static String DELETE_APPOINTMENT_PAGE = "deleteAppointment.php";
+
 }
