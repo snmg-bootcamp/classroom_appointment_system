@@ -72,7 +72,6 @@ public class InternetComm {
         url += Constant.SERVER_ROOT;
         urlWithJSON result;
         if(method == Constant.VIEW_APPOINTMENT){
-
             url += Constant.VIEW_APPOINTMENT_PAGE;
             result = new urlWithJSON(url, data);
         }
@@ -86,6 +85,10 @@ public class InternetComm {
         }
         else if(method == Constant.DELETE_APPOINTMENT){
             url += Constant.DELETE_APPOINTMENT_PAGE;
+            result = new urlWithJSON(url, data);
+        }
+        else if(method == Constant.MY_APPOINTMENT){
+            url += Constant.MY_APPOINTMENT_PAGE;
             result = new urlWithJSON(url, data);
         }
         else{

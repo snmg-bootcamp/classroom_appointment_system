@@ -14,11 +14,13 @@ public interface Constant {
     public final static int ADD_APPOINTMENT = 1;
     public final static int MODIFY_APPOINTMENT = 2;
     public final static int DELETE_APPOINTMENT = 3;
+    public final static int MY_APPOINTMENT = 4;
 
 
     public final static String VIEW_APPOINTMENT_PAGE = "viewAppointment.php";
     public final static String ADD_APPOINTMENT_PAGE = "addAppointment.php";
     public final static String MODIFY_APPOINTMENT_PAGE = "modifyAppointment.php";
     public final static String DELETE_APPOINTMENT_PAGE = "deleteAppointment.php";
+    public final static String MY_APPOINTMENT_PAGE = "myAppointment.php";
 
 }
