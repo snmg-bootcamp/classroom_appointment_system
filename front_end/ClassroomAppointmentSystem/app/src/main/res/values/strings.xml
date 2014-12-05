@@ -32,4 +32,6 @@
     <string name="section_appointment_start">Start</string>
     <string name="comment_text">Comment</string>
     <string name="action_refresh">Refresh</string>
+    <string name="simple_list_description">Example Description</string>
+    <string name="simple_list_title">Example Title</string>
 </resources>
