@@ -25,8 +25,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -45,7 +50,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-
+    InternetComm comm = new InternetComm(this);
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -257,9 +262,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             // TODO: attempt authentication against a network service.
 
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                Map user_pass = new HashMap<String, String>();
+                user_pass.put("username", mEmail);
+                user_pass.put("password", mPassword);
+                JSONObject data = new JSONObject(user_pass);
+                comm.postRequest(comm.createURLRequest(Constant.LOGIN,data));
+            } catch (IOException e) {
                 return false;
             }
 

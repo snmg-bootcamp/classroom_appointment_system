@@ -108,7 +108,7 @@ public class InternetComm {
     // Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as
     // a string.
-    private JSONObject postRequest(urlWithJSON input) throws IOException {
+    public JSONObject postRequest(urlWithJSON input) throws IOException {
         InputStream is = null;
 
         try {
