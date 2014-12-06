@@ -181,11 +181,19 @@
 		return $arr;
 	}
 
-	function getOneDay($str, $week)
+	function getOneDay($str, $week, $month, $day)
 	{
 		$weekdata = filter($str);
 		$result = array();
-		for($i = 0; $i <= 14; $i++)
+		if($week == 1) $temp = ("Mon 一(".$month."-".$day.")");
+		else if($week == 2) $temp = ("Tue 二(".$month."-".$day.")");
+		else if($week == 3) $temp = ("Wed 三(".$month."-".$day.")");
+		else if($week == 4) $temp = ("Thu 四(".$month."-".$day.")");
+		else if($week == 5) $temp = ("Fri 五(".$month."-".$day.")");
+		else if($week == 6) $temp = ("Sat 六(".$month."-".$day.")");
+		else $temp = ("Sun 日(".$month."-".$day.")");
+		array_push($result, $temp);
+		for($i = 1; $i <= 14; $i++)
 		{
 			array_push($result, $weekdata[$i][$week]);
 		}

@@ -24,7 +24,7 @@
 			$last_modified	   =  $data -> {'last-modified'};
 			
 			$year			   =  (int)$appointment_date / 10000;
-			$month			   =  ((int)$appointment_date % 10000) / 100;
+			$month			   =  (int)(((int)$appointment_date % 10000) / 100);
 			$day			   =  (int)$appointment_date %100;
 			$week			   =  CaculateWeekDay($year, $month, $day);
 
@@ -35,7 +35,7 @@
 				$url = 'http://classroom.csie.ncu.edu.tw/appointment_schedule/changeweek/'.$class.'/'.$year.'-'.$month.'-'.$day ;
 				//echo getUrlContent($resource, $url);
 				$status = 200;	// successc
-				$response = getOneDay(getUrlContent($url, $token), $week);
+				$response = getOneDay(getUrlContent($url, $token), $week, $month, $day);
 			}
 		}
 	}
