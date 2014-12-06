@@ -25,6 +25,17 @@ public class InternetComm {
         this.mContext = mContext;
     }
 
+    public class userStruct {
+        public userStruct(boolean a, String b, String c){
+            result = a;
+            sessionid = b;
+            failed_message = c;
+        }
+        public boolean result;
+        public String sessionid;
+        public String failed_message;
+    }
+
 
     public class urlWithJSON {
         public urlWithJSON(String i, JSONObject j){
@@ -46,7 +57,7 @@ public class InternetComm {
         @Override
         protected JSONObject doInBackground(urlWithJSON... input) {
 
-            // params comes from the execute() call: params[0] is the url.
+
             try {
                 return postRequest(input[0]);
             } catch (IOException e) {
@@ -63,10 +74,52 @@ public class InternetComm {
 
     }
 
+    public urlWithJSON createURLRequest(int method, JSONObject data) {
+        String url;
+        url  = "http://";
+        url += Constant.SERVER_DOMAIN_NAME;
+        url += ":";
+        url += Constant.SERVER_PORT;
+        url += Constant.SERVER_ROOT;
+        urlWithJSON result;
+        if(method == Constant.LOGIN){
+            url += Constant.LOGIN_PAGE;
+            result = new urlWithJSON(url,data);
+        }
+        else if(method == Constant.LOGOUT){
+            url += Constant.LOGOUT_PAGE;
+            result = new urlWithJSON(url,data);
+        }
+        else if(method == Constant.VIEW_APPOINTMENT){
+            url += Constant.VIEW_APPOINTMENT_PAGE;
+            result = new urlWithJSON(url, data);
+        }
+        else if(method == Constant.ADD_APPOINTMENT){
+            url += Constant.ADD_APPOINTMENT_PAGE;
+            result = new urlWithJSON(url, data);
+        }
+        else if(method == Constant.MODIFY_APPOINTMENT){
+            url += Constant.MODIFY_APPOINTMENT_PAGE;
+            result = new urlWithJSON(url, data);
+        }
+        else if(method == Constant.DELETE_APPOINTMENT){
+            url += Constant.DELETE_APPOINTMENT_PAGE;
+            result = new urlWithJSON(url, data);
+        }
+        else if(method == Constant.MY_APPOINTMENT){
+            url += Constant.MY_APPOINTMENT_PAGE;
+            result = new urlWithJSON(url, data);
+        }
+        else{
+            result = null;
+        }
+        return result;
+    }
+
     // Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as
     // a string.
-    private JSONObject postRequest(urlWithJSON input) throws IOException {
+    public JSONObject postRequest(urlWithJSON input) throws IOException {
         InputStream is = null;
 
         try {
@@ -82,7 +135,7 @@ public class InternetComm {
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
-            writer.write(input.data.toString());
+            writer.write("data=" + input.data.toString());
             writer.flush();
             writer.close();
             os.close();
