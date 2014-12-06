@@ -124,7 +124,7 @@ public class InternetComm {
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
-            writer.write(input.data.toString());
+            writer.write("data=" + input.data.toString());
             writer.flush();
             writer.close();
             os.close();
