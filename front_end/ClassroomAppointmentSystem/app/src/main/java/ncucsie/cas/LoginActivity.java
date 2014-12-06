@@ -19,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -180,32 +181,46 @@ public class LoginActivity extends Activity {
             mPassword = password;
         }
 
+
+
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
             JSONObject result = null;
+            if(!comm.isOnline()){
+                return false;
+            }
             try {
                 Map user_pass = new HashMap<String, String>();
                 user_pass.put("username", mUsername);
                 user_pass.put("password", mPassword);
                 JSONObject data = new JSONObject(user_pass);
                 result = comm.postRequest(comm.createURLRequest(Constant.LOGIN,data));
-            } catch (IOException e) {
+            } catch (final IOException e) {
+                runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
                 return false;
             }
-
-            Log.i(Constant.DEBUG_TAG, result.toString());
-            // TODO: register the new account here.
-            try {
-                if (result.getInt("status_code") == 200) {
-                    return true;
-                } else {
+            if(result != null) {
+                Log.i(Constant.DEBUG_TAG, result.toString());
+                // TODO: register the new account here.
+                try {
+                    if (result.getInt("status_code") == 200) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (JSONException e) {
+                    Log.i(Constant.DEBUG_TAG, "failed to parse login response" + result.toString());
                     return false;
                 }
             }
-            catch (JSONException e){
-                Log.i(Constant.DEBUG_TAG, "failed to parse login response" + result.toString());
-                return false;
+            else{
+                return true;
             }
         }
 
