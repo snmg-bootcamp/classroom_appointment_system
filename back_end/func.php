@@ -181,6 +181,17 @@
 		return $arr;
 	}
 
+	function getOneDay($str, $week)
+	{
+		$weekdata = filter($str);
+		$result = array();
+		for($i = 0; $i <= 14; $i++)
+		{
+			array_push($result, $weekdata[$i][$week]);
+		}
+		return $result;
+	}
+
 	function CaculateWeekDay($y, $m, $d)
 	{
 		if($m == 1 || $m == 2)
