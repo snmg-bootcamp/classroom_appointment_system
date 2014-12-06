@@ -25,6 +25,17 @@ public class InternetComm {
         this.mContext = mContext;
     }
 
+    public class userStruct {
+        public userStruct(boolean a, String b, String c){
+            result = a;
+            sessionid = b;
+            failed_message = c;
+        }
+        public boolean result;
+        public String sessionid;
+        public String failed_message;
+    }
+
 
     public class urlWithJSON {
         public urlWithJSON(String i, JSONObject j){
