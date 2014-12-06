@@ -46,7 +46,7 @@ public class InternetComm {
         @Override
         protected JSONObject doInBackground(urlWithJSON... input) {
 
-            // params comes from the execute() call: params[0] is the url.
+
             try {
                 return postRequest(input[0]);
             } catch (IOException e) {
