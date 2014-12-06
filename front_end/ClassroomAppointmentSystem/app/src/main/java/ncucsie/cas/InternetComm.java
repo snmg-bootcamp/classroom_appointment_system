@@ -71,7 +71,15 @@ public class InternetComm {
         url += Constant.SERVER_PORT;
         url += Constant.SERVER_ROOT;
         urlWithJSON result;
-        if(method == Constant.VIEW_APPOINTMENT){
+        if(method == Constant.LOGIN){
+            url += Constant.LOGIN_PAGE;
+            result = new urlWithJSON(url,data);
+        }
+        else if(method == Constant.LOGOUT){
+            url += Constant.LOGOUT_PAGE;
+            result = new urlWithJSON(url,data);
+        }
+        else if(method == Constant.VIEW_APPOINTMENT){
             url += Constant.VIEW_APPOINTMENT_PAGE;
             result = new urlWithJSON(url, data);
         }
