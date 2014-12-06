@@ -166,19 +166,6 @@ public class LoginActivity extends Activity {
     }
 
 
-
-
-
-
-    private void addUsernamesToAutoComplete(List<String> usernameAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, usernameAddressCollection);
-
-        mUsernameView.setAdapter(adapter);
-    }
-
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
