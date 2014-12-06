@@ -197,7 +197,7 @@ public class LoginActivity extends Activity {
             Log.i(Constant.DEBUG_TAG, result.toString());
             // TODO: register the new account here.
             try {
-                if (result != null && result.getInt("status_code") == 200) {
+                if (result.getInt("status_code") == 200) {
                     return true;
                 } else {
                     return false;
