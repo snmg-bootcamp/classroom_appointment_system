@@ -63,15 +63,20 @@
 				$content = addAppointment($url, $postdata, $token);
 				
 				//check the appointment is successful or failed by matching the h1 content
-				preg_match('/\<h1 class=\"with-tabs\"\>(.*)\<\/h1\>/', $content, $match);
+				if(preg_match('/\<h1 class=\"with-tabs\"\>(.*)\<\/h1\>/', $content, $match)) {
 
-				if($match[1] == "我的預約") {
-					$status = 200;	// success
-					$response = "successful";
+					if($match[1] == "我的預約") {
+						$status = 200;	// success
+						$response = "successful";
+					}
+					else {
+						$status = 402;
+						$response = "can't appoint";
+					}
 				}
 				else {
-					$status = 402;
-					$response = "can't appoint";
+					$status = 400;
+					$response = "match fail";
 				}
 				//echo $response;
 			}
