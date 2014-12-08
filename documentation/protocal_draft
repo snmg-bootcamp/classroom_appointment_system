@@ -141,3 +141,4 @@ status code:
     200 => success
     400 => error
     401 => wrong client version
+    402 => has been appointed
