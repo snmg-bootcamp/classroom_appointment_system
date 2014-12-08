@@ -169,7 +169,7 @@ public class LoginActivity extends Activity {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, InternetComm.userStruct> {
 
         private final String mUsername;
         private final String mPassword;
@@ -182,11 +182,13 @@ public class LoginActivity extends Activity {
 
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected InternetComm.userStruct doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
             JSONObject result = null;
+            InternetComm.userStruct user;
             if(!comm.isOnline()){
-                return false;
+                user = new InternetComm.userStruct(false, null, "Connection not available");
+                return user;
             }
             try {
                 Map user_pass = new HashMap<String, String>();
@@ -201,37 +203,38 @@ public class LoginActivity extends Activity {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
-                return false;
+                return new InternetComm.userStruct(false, null, "Connection to server failed");
             }
             if(result != null) {
                 Log.i(Constant.DEBUG_TAG, result.toString());
                 // TODO: register the new account here.
                 try {
                     if (result.getInt("status_code") == 200) {
-                        return true;
+                        return new InternetComm.userStruct(true, result.getString("response"), "Connection to server failed");
                     } else {
-                        return false;
+                        return new InternetComm.userStruct(false, null, "Username or password is incorrect");
                     }
                 } catch (JSONException e) {
                     Log.i(Constant.DEBUG_TAG, "failed to parse login response" + result.toString());
-                    return false;
+                    return new InternetComm.userStruct(false, null, "Received malformed response");
                 }
             }
             else{
-                return true;
+                return new InternetComm.userStruct(false, null, "Connection to server failed");
             }
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final InternetComm.userStruct success) {
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
+            if (success.result) {
                 Intent intent = new Intent(LoginActivity.this, MainActivityDrawer.class);
+                intent.putExtra(Constant.USER_EXTRA, success.sessionid);
                 startActivity(intent);
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError(success.failed_message);
                 mPasswordView.requestFocus();
             }
         }

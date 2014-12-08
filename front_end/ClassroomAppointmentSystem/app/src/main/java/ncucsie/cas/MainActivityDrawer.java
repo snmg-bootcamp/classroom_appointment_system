@@ -26,11 +26,13 @@ public class MainActivityDrawer extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-
+    public String sessionid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity_drawer);
+        Intent intent = getIntent();
+        sessionid = intent.getStringExtra(Constant.USER_EXTRA);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);

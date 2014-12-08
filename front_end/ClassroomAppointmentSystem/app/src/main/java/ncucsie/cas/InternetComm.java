@@ -25,7 +25,7 @@ public class InternetComm {
         this.mContext = mContext;
     }
 
-    public class userStruct {
+    static public class userStruct {
         public userStruct(boolean a, String b, String c){
             result = a;
             sessionid = b;
