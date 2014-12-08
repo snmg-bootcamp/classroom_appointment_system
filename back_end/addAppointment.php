@@ -1,22 +1,4 @@
 <?php
-	function ct2($s){
-	    if(is_numeric($s)) {
-		        return intval($s);
-		} else {
-				return iconv("BIG5","UTF-8",$s);
-		}
-	}
-
-	function icon_to_utf8($s) {
-		if(is_array($s)) {
-			foreach($s as $key => $val) {
-				$s[$key] = icon_to_utf8($val);
-			}
-		} else {
-			$s = ct2($s);
-		}
-		return $s;
-	}
 
 	include('config.php');
 	include('func.php');
@@ -27,9 +9,9 @@
 
 	//check the user whether send auth token and request data (json format)
 	if(isset($_POST['data'])) {
-		echo $_POST['data'];
+		//echo $_POST['data'];
 		$data = json_decode(($_POST['data']));
-		print_r($data);
+		//print_r($data);
 		if(isset($data -> {'client_ver'}) && 
 		   isset($data -> {'name'}) && 
 		   isset($data -> {'phone'}) && 
@@ -78,11 +60,17 @@
 				$postdata = "name=$name&phone=$phone&teacher=$teacher&classroom=$classroom&date[month]=$month&date[day]=$day&date[year]=$year&start_period=$start_period&end_period=$end_period&form_build_id=$form_build_id&form_token=$form_token&form_id=$form_id";
 				//$postdata = "name=%E9%BB%83%E8%A9%A9%E5%87%B1&phone=0926890020&teacher=0&classroom=6&date%5Bmonth%5D=12&date%5Bday%5D=3&date%5Byear%5D=2014&start_period=1&end_period=1&note=&op=%E7%A2%BA%E5%AE%9A%E9%A0%90%E7%B4%84&form_build_id=form-8-vHSADXQOWN_Wxbqxz4GEw62VAiSvD8GPVl5IPLhUQ&form_token=2y0sEoQvStPxcfIBUHw2bH5lDJctHvcHG6I0vYQ-PC8&form_id=appointment_form_form";
 				
-				//echo $postdata;
+				$content = addAppointment($url, $postdata, $token);
+				preg_match($content, '/<h1 class=\"with-tabs\">([^<].*)<\/h1>/', $match);
 				
-				$status = 200;	// success
-				addAppointment($url, $postdata, $token);
-				$response = "successful";
+				if($match[1] == "我的預約") {
+					$status = 200;	// success
+					$response = "successful";
+				}
+				else {
+					$status = 402;
+					$response = "can't appoint";
+				}
 				//echo $response;
 			}
 		}

@@ -86,6 +86,9 @@
 		curl_setopt($resource, CURLOPT_REFERER, 'http://classroom.csie.ncu.edu.tw/appointment_form');
 		curl_setopt($resource, CURLOPT_RETURNTRANSFER, 1);
 		$content = curl_exec($resource);
+		//$code = curl_getinfo($resource,CURLINFO_HTTP_CODE); 
+		//echo $code;
+		curl_close($resource);
 		return $content;
 	}
 
@@ -213,4 +216,22 @@
 		return $week + 1;
 	}
 
+	function ct2($s){
+	    if(is_numeric($s)) {
+		        return intval($s);
+		} else {
+				return iconv("BIG5","UTF-8",$s);
+		}
+	}
+
+	function icon_to_utf8($s) {
+		if(is_array($s)) {
+			foreach($s as $key => $val) {
+				$s[$key] = icon_to_utf8($val);
+			}
+		} else {
+			$s = ct2($s);
+		}
+		return $s;
+	}
 ?>
