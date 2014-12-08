@@ -61,8 +61,10 @@
 				//$postdata = "name=%E9%BB%83%E8%A9%A9%E5%87%B1&phone=0926890020&teacher=0&classroom=6&date%5Bmonth%5D=12&date%5Bday%5D=3&date%5Byear%5D=2014&start_period=1&end_period=1&note=&op=%E7%A2%BA%E5%AE%9A%E9%A0%90%E7%B4%84&form_build_id=form-8-vHSADXQOWN_Wxbqxz4GEw62VAiSvD8GPVl5IPLhUQ&form_token=2y0sEoQvStPxcfIBUHw2bH5lDJctHvcHG6I0vYQ-PC8&form_id=appointment_form_form";
 				
 				$content = addAppointment($url, $postdata, $token);
-				preg_match($content, '/<h1 class=\"with-tabs\">([^<].*)<\/h1>/', $match);
 				
+				//check the appointment is successful or failed by matching the h1 content
+				preg_match('/\<h1 class=\"with-tabs\"\>(.*)\<\/h1\>/', $content, $match);
+
 				if($match[1] == "我的預約") {
 					$status = 200;	// success
 					$response = "successful";

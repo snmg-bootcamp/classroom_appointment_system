@@ -83,12 +83,13 @@
 		curl_setopt($resource, CURLOPT_POST, 1);
 		curl_setopt($resource, CURLOPT_POSTFIELDS, $postdata);
 		curl_setopt($resource, CURLOPT_COOKIEFILE, $cookie_jar);
+		curl_setopt($resource, CURLOPT_FOLLOWLOCATION, true);	//follow the redirect (important)
 		curl_setopt($resource, CURLOPT_REFERER, 'http://classroom.csie.ncu.edu.tw/appointment_form');
 		curl_setopt($resource, CURLOPT_RETURNTRANSFER, 1);
 		$content = curl_exec($resource);
 		//$code = curl_getinfo($resource,CURLINFO_HTTP_CODE); 
 		//echo $code;
-		curl_close($resource);
+		//curl_close($resource);
 		return $content;
 	}
 
