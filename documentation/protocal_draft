@@ -133,6 +133,7 @@ example 3 sample response (if the username or password are wrong):
 
 
 
+
 example 4:
 
 user want to add a new appointment,
@@ -152,7 +153,32 @@ data={
     "sessionid":"102502042aBcDeFg",
     "last-modified":1415958492
 }
+more detail => see the form's elements 
+http://classroom.csie.ncu.edu.tw/appointment_form
 
+
+
+example 5:
+
+user want to edit a appointment,
+post data:
+data={
+    "client_ver":0.01,
+    "name":"黃詩凱",
+    "phone":"0912345678",
+    "teacher":"0",
+    "classroom":"6",
+    "month":"12",
+    "day":"9",
+    "year":"2014",
+    "start_period":"2",
+    "end_period":"2",
+    "note":"",
+    "appointment-number":"15197",
+    "sessionid":"102502042aBcDeFg",
+    "last-modified":1415958492
+}
+appointment-number is the number of user's appointment.
 
 
 server JSON response must include a status code when error occurs
