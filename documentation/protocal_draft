@@ -133,6 +133,26 @@ example 3 sample response (if the username or password are wrong):
 
 
 
+example 4:
+
+user want to add a new appointment,
+post data:
+data={
+    "client_ver":0.01,
+    "name":"黃詩凱",
+    "phone":"0912345678",
+    "teacher":"0",
+    "classroom":"6",
+    "month":"12",
+    "day":"9",
+    "year":"2014",
+    "start_period":"2",
+    "end_period":"2",
+    "note":"",
+    "sessionid":"102502042aBcDeFg",
+    "last-modified":1415958492
+}
+
 
 
 server JSON response must include a status code when error occurs
