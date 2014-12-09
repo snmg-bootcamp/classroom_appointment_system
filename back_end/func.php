@@ -83,9 +83,13 @@
 		curl_setopt($resource, CURLOPT_POST, 1);
 		curl_setopt($resource, CURLOPT_POSTFIELDS, $postdata);
 		curl_setopt($resource, CURLOPT_COOKIEFILE, $cookie_jar);
+		curl_setopt($resource, CURLOPT_FOLLOWLOCATION, true);	//follow the redirect (important)
 		curl_setopt($resource, CURLOPT_REFERER, 'http://classroom.csie.ncu.edu.tw/appointment_form');
 		curl_setopt($resource, CURLOPT_RETURNTRANSFER, 1);
 		$content = curl_exec($resource);
+		//$code = curl_getinfo($resource,CURLINFO_HTTP_CODE); 
+		//echo $code;
+		//curl_close($resource);
 		return $content;
 	}
 
@@ -181,4 +185,54 @@
 		return $arr;
 	}
 
+	function getOneDay($str, $week, $month, $day)
+	{
+		$weekdata = filter($str);
+		$result = array();
+		if($week == 1) $temp = ("Mon 一(".$month."-".$day.")");
+		else if($week == 2) $temp = ("Tue 二(".$month."-".$day.")");
+		else if($week == 3) $temp = ("Wed 三(".$month."-".$day.")");
+		else if($week == 4) $temp = ("Thu 四(".$month."-".$day.")");
+		else if($week == 5) $temp = ("Fri 五(".$month."-".$day.")");
+		else if($week == 6) $temp = ("Sat 六(".$month."-".$day.")");
+		else $temp = ("Sun 日(".$month."-".$day.")");
+		array_push($result, $temp);
+		for($i = 1; $i <= 14; $i++)
+		{
+			array_push($result, $weekdata[$i][$week]);
+		}
+		return $result;
+	}
+
+	function CaculateWeekDay($y, $m, $d)
+	{
+		if($m == 1 || $m == 2)
+		{
+			$m += 12;
+			$y--;
+		}
+		
+		$week = ($d + 2 * $m + 3 * ($m + 1) / 5 + $y + $y / 4 - $y / 100 + $y / 400) % 7;
+
+		return $week + 1;
+	}
+
+	function ct2($s){
+	    if(is_numeric($s)) {
+		        return intval($s);
+		} else {
+				return iconv("BIG5","UTF-8",$s);
+		}
+	}
+
+	function icon_to_utf8($s) {
+		if(is_array($s)) {
+			foreach($s as $key => $val) {
+				$s[$key] = icon_to_utf8($val);
+			}
+		} else {
+			$s = ct2($s);
+		}
+		return $s;
+	}
 ?>
