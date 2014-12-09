@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 public class MainActivityDrawer extends Activity
@@ -120,6 +121,10 @@ public class MainActivityDrawer extends Activity
             Intent intent = new Intent(this, NewAppointmentActivity.class);
             startActivity(intent);
             return true;
+        }
+
+        if(id == R.id.refresh_appointment){
+            Toast.makeText(getApplicationContext(), "Refreshing data", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
