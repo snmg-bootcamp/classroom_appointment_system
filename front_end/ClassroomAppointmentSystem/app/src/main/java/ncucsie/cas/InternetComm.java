@@ -1,10 +1,14 @@
 package ncucsie.cas;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,8 +28,12 @@ public class InternetComm {
     public InternetComm(Context mContext){
         this.mContext = mContext;
     }
+    public interface ApiResponse {
+        void postProcessing(JSONObject result);
+    }
 
-    public class userStruct {
+
+    static public class userStruct {
         public userStruct(boolean a, String b, String c){
             result = a;
             sessionid = b;
@@ -53,7 +61,13 @@ public class InternetComm {
         return (networkInfo != null && networkInfo.isConnected());
     }
 
-    private class ApiRequest extends AsyncTask<urlWithJSON, Void, JSONObject> {
+    public static class ApiRequest extends AsyncTask<urlWithJSON, Void, JSONObject> {
+
+        ApiRequest (){
+        }
+
+        public ApiResponse delegate=null;
+
         @Override
         protected JSONObject doInBackground(urlWithJSON... input) {
 
@@ -68,6 +82,10 @@ public class InternetComm {
         @Override
         protected void onPostExecute(JSONObject result) {
             //TODO: remove placeholder
+            Log.i("Server Response", result.toString());
+            if(delegate != null){
+                delegate.postProcessing(result);
+            }
             //perform update action after successful update or when failed to update, notify the user immediately
         }
 
@@ -119,7 +137,7 @@ public class InternetComm {
     // Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as
     // a string.
-    public JSONObject postRequest(urlWithJSON input) throws IOException {
+    public static JSONObject postRequest(urlWithJSON input) throws IOException {
         InputStream is = null;
 
         try {

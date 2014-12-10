@@ -7,15 +7,25 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 
 public class MainActivityDrawer extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, InternetComm.ApiResponse {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -26,11 +36,29 @@ public class MainActivityDrawer extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    public String sessionid;
+    private InternetComm.ApiRequest mLogoutTask = new InternetComm.ApiRequest();
+
+
+
+    public void postProcessing(JSONObject result){
+        Log.i("", "Executing postProcessing method");
+        try {
+            finish();
+            LoginActivity.mNotifyView.setText(result.getString("response"));
+        }
+        catch (JSONException e){
+            Log.i("JSON Exception", "Failed to parse malformed response" + result.toString());
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity_drawer);
+        Intent intent = getIntent();
+        sessionid = intent.getStringExtra(Constant.USER_EXTRA);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -118,6 +146,28 @@ public class MainActivityDrawer extends Activity
             Intent intent = new Intent(this, NewAppointmentActivity.class);
             startActivity(intent);
             return true;
+        }
+
+        if(id == R.id.refresh_appointment){
+            Toast.makeText(getApplicationContext(), "Refreshing data", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if(id == R.id.action_logout){
+            Toast.makeText(getApplicationContext(), "Logging out...", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            InternetComm comm = new InternetComm(this);
+            Map info = new HashMap<String, String>();
+            info.put("client_ver", Constant.CLIENT_VER);
+            info.put("sessionid", sessionid);
+            JSONObject data = new JSONObject(info);
+
+            InternetComm.urlWithJSON result = comm.createURLRequest(Constant.LOGOUT, data);
+            mLogoutTask = new InternetComm.ApiRequest();
+            mLogoutTask.delegate = this;
+            mLogoutTask.execute(result);
+
+
         }
 
         return super.onOptionsItemSelected(item);

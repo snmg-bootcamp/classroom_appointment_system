@@ -33,7 +33,7 @@
 				//getUrlContent($url, $token);
 				unlink('cookie/'.$token);
 				$status   = 200;
-				$response = "succeeful";
+				$response = "successful";
 			}
 		}
 	}
