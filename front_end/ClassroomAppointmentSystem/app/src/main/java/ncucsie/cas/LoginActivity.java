@@ -37,13 +37,13 @@ public class LoginActivity extends Activity {
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-    InternetComm comm = new InternetComm(this, null);
+    InternetComm comm = new InternetComm(this);
     // UI references.
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    public static TextView mNotifyView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +52,7 @@ public class LoginActivity extends Activity {
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
 
+        mNotifyView = (TextView) findViewById(R.id.login_change_notify);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {

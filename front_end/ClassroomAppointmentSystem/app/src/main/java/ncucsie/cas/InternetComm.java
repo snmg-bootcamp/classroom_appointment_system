@@ -1,5 +1,6 @@
 package ncucsie.cas;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -24,12 +25,12 @@ import java.net.URL;
 
 public class InternetComm {
     Context mContext;
-    static private TextView mNotifyView;
-    public InternetComm(Context mContext, TextView mTextView){
+    public InternetComm(Context mContext){
         this.mContext = mContext;
-        mNotifyView = mTextView;
     }
-
+    public interface ApiResponse {
+        void postProcessing(JSONObject result);
+    }
 
 
     static public class userStruct {
@@ -65,6 +66,8 @@ public class InternetComm {
         ApiRequest (){
         }
 
+        public ApiResponse delegate=null;
+
         @Override
         protected JSONObject doInBackground(urlWithJSON... input) {
 
@@ -80,13 +83,8 @@ public class InternetComm {
         protected void onPostExecute(JSONObject result) {
             //TODO: remove placeholder
             Log.i("Server Response", result.toString());
-            if(mNotifyView != null){
-                try {
-                    mNotifyView.setText(result.getString("response"));
-                }
-                catch (JSONException e){
-                    Log.i("JSON Exception", "Failed to parse malformed request");
-                }
+            if(delegate != null){
+                delegate.postProcessing(result);
             }
             //perform update action after successful update or when failed to update, notify the user immediately
         }

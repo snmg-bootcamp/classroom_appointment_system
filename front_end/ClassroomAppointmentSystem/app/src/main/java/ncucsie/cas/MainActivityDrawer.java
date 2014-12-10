@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -23,7 +25,7 @@ import java.util.Map;
 
 
 public class MainActivityDrawer extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, InternetComm.ApiResponse {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -36,6 +38,21 @@ public class MainActivityDrawer extends Activity
     private CharSequence mTitle;
     public String sessionid;
     private InternetComm.ApiRequest mLogoutTask = new InternetComm.ApiRequest();
+
+
+    private TextView mTextView = LoginActivity.mNotifyView;
+
+    public void postProcessing(JSONObject result){
+        Log.i("", "Executing postProcessing method");
+        try {
+            finish();
+            mTextView.setText(result.getString("response"));
+        }
+        catch (JSONException e){
+            Log.i("JSON Exception", "Failed to parse malformed response" + result.toString());
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +157,7 @@ public class MainActivityDrawer extends Activity
         if(id == R.id.action_logout){
             Toast.makeText(getApplicationContext(), "Logging out...", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, LoginActivity.class);
-            InternetComm comm = new InternetComm(this, (TextView) this.findViewById(R.id.login_change_notify));
+            InternetComm comm = new InternetComm(this);
             Map info = new HashMap<String, String>();
             info.put("client_ver", Constant.CLIENT_VER);
             info.put("sessionid", sessionid);
@@ -148,7 +165,12 @@ public class MainActivityDrawer extends Activity
 
             InternetComm.urlWithJSON result = comm.createURLRequest(Constant.LOGOUT, data);
             mLogoutTask = new InternetComm.ApiRequest();
+            mLogoutTask.delegate = this;
             mLogoutTask.execute(result);
+
+
+            //back to login activity
+            //startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
