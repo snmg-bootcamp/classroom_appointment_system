@@ -5,6 +5,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,9 +24,13 @@ import java.net.URL;
 
 public class InternetComm {
     Context mContext;
-    public InternetComm(Context mContext){
+    static private TextView mNotifyView;
+    public InternetComm(Context mContext, TextView mTextView){
         this.mContext = mContext;
+        mNotifyView = mTextView;
     }
+
+
 
     static public class userStruct {
         public userStruct(boolean a, String b, String c){
@@ -53,7 +60,11 @@ public class InternetComm {
         return (networkInfo != null && networkInfo.isConnected());
     }
 
-    private class ApiRequest extends AsyncTask<urlWithJSON, Void, JSONObject> {
+    public static class ApiRequest extends AsyncTask<urlWithJSON, Void, JSONObject> {
+
+        ApiRequest (){
+        }
+
         @Override
         protected JSONObject doInBackground(urlWithJSON... input) {
 
@@ -68,6 +79,15 @@ public class InternetComm {
         @Override
         protected void onPostExecute(JSONObject result) {
             //TODO: remove placeholder
+            Log.i("Server Response", result.toString());
+            if(mNotifyView != null){
+                try {
+                    mNotifyView.setText(result.getString("response"));
+                }
+                catch (JSONException e){
+                    Log.i("JSON Exception", "Failed to parse malformed request");
+                }
+            }
             //perform update action after successful update or when failed to update, notify the user immediately
         }
 
@@ -119,7 +139,7 @@ public class InternetComm {
     // Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as
     // a string.
-    public JSONObject postRequest(urlWithJSON input) throws IOException {
+    public static JSONObject postRequest(urlWithJSON input) throws IOException {
         InputStream is = null;
 
         try {

@@ -28,4 +28,5 @@ public interface Constant {
 
 
     public final static String USER_EXTRA = "com.ncucsie.cas.user_extra";
+    public final static String CLIENT_VER = "0.01";
 }

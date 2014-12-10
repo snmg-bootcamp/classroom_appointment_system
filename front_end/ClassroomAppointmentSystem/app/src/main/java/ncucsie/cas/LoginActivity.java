@@ -37,7 +37,7 @@ public class LoginActivity extends Activity {
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-    InternetComm comm = new InternetComm(this);
+    InternetComm comm = new InternetComm(this, null);
     // UI references.
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
@@ -195,7 +195,7 @@ public class LoginActivity extends Activity {
                 user_pass.put("username", mUsername);
                 user_pass.put("password", mPassword);
                 JSONObject data = new JSONObject(user_pass);
-                result = comm.postRequest(comm.createURLRequest(Constant.LOGIN,data));
+                result = InternetComm.postRequest(comm.createURLRequest(Constant.LOGIN,data));
             } catch (final IOException e) {
                 runOnUiThread(new Runnable(){
                     @Override

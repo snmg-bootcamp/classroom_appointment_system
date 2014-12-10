@@ -13,9 +13,10 @@
         android:title="@string/action_example"
         android:icon="@drawable/ic_menu_action_add"
         android:showAsAction="ifRoom" />
-    <!--<item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/action_logout"
         android:orderInCategory="100"
-        android:showAsAction="never" />-->
+        android:showAsAction="never" />
 </menu>

@@ -12,7 +12,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 
 public class MainActivityDrawer extends Activity
@@ -28,6 +35,8 @@ public class MainActivityDrawer extends Activity
      */
     private CharSequence mTitle;
     public String sessionid;
+    private InternetComm.ApiRequest mLogoutTask = new InternetComm.ApiRequest();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +134,21 @@ public class MainActivityDrawer extends Activity
 
         if(id == R.id.refresh_appointment){
             Toast.makeText(getApplicationContext(), "Refreshing data", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if(id == R.id.action_logout){
+            Toast.makeText(getApplicationContext(), "Logging out...", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            InternetComm comm = new InternetComm(this, (TextView) this.findViewById(R.id.login_change_notify));
+            Map info = new HashMap<String, String>();
+            info.put("client_ver", Constant.CLIENT_VER);
+            info.put("sessionid", sessionid);
+            JSONObject data = new JSONObject(info);
+
+            InternetComm.urlWithJSON result = comm.createURLRequest(Constant.LOGOUT, data);
+            mLogoutTask = new InternetComm.ApiRequest();
+            mLogoutTask.execute(result);
         }
 
         return super.onOptionsItemSelected(item);
