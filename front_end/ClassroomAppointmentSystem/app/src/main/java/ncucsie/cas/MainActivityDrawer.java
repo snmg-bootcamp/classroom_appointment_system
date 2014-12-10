@@ -40,13 +40,12 @@ public class MainActivityDrawer extends Activity
     private InternetComm.ApiRequest mLogoutTask = new InternetComm.ApiRequest();
 
 
-    private TextView mTextView = LoginActivity.mNotifyView;
 
     public void postProcessing(JSONObject result){
         Log.i("", "Executing postProcessing method");
         try {
             finish();
-            mTextView.setText(result.getString("response"));
+            LoginActivity.mNotifyView.setText(result.getString("response"));
         }
         catch (JSONException e){
             Log.i("JSON Exception", "Failed to parse malformed response" + result.toString());
