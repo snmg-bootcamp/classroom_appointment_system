@@ -169,8 +169,6 @@ public class MainActivityDrawer extends Activity
             mLogoutTask.execute(result);
 
 
-            //back to login activity
-            //startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
