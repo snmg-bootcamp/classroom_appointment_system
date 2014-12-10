@@ -4,7 +4,6 @@
 	include('func.php');
 
 	$status 		= "400";	// default status code (error)
-	$last_modified  = NULL;
 	$response		= NULL;
 
 	//check the user whether send auth token and request data (json format)
@@ -23,8 +22,7 @@
 		   isset($data -> {'start_period'}) &&
 		   isset($data -> {'end_period'}) &&
 		   isset($data -> {'note'}) &&
-		   isset($data -> {'sessionid'}) &&
-		   isset($data -> {'last-modified'})
+		   isset($data -> {'sessionid'})
 		)
 		{
 			$client_ver 	   =  $data -> {'client_ver'};
@@ -39,7 +37,6 @@
 			$end_period		   =  $data -> {'end_period'};
 			$note			   =  $data -> {'note'};
 			$token			   =  $data -> {'sessionid'};
-			$last_modified	   =  $data -> {'last-modified'};
 
 			if($client_ver != $version) {
 				$status = 401;	// wrong client version, client need to be updated.
@@ -83,7 +80,6 @@
 		}
 	}
 	$response_arr = array("status_code"    => $status, 
-						  "last_modified"  => $last_modified,
 						  "response"	   => $response
 					);
 	echo json_encode($response_arr, JSON_UNESCAPED_UNICODE);
