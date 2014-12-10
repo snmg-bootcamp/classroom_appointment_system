@@ -3,15 +3,56 @@ package ncucsie.cas;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class NewAppointmentActivity extends Activity {
+public class NewAppointmentActivity extends Activity
+                implements InternetComm.ApiResponse{
     public NewAppointmentActivity() {
     }
+
+    boolean notFinished = false;
+    private InternetComm.ApiRequest mNewAppointmentRequest = null;
+
+
+    public void postProcessing(JSONObject result){
+        try {
+            int status = result.getInt("status_code");
+            switch(status){
+                case 200:
+                    this.onBackPressed();
+                    break;
+                default:
+                    Toast.makeText(this, "Failed to create appointent", Toast.LENGTH_LONG);
+                    break;
+
+            }
+        }
+        catch (JSONException e){
+            Log.i("JSON Exception", "Malformed response" + result.toString());
+        }
+        notFinished = false;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if(!notFinished){
+            super.onBackPressed();
+        }
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,8 +112,8 @@ public class NewAppointmentActivity extends Activity {
     private boolean onActionBarItemSelected(int itemId) {
         switch (itemId) {
             case R.id.action_done:
-                //save();
-                //TODO: implement save() function
+                notFinished = true;
+                sendNewAppointment();
                 break;
             case R.id.action_cancel:
                 System.err.println("cancel");
@@ -80,5 +121,30 @@ public class NewAppointmentActivity extends Activity {
                 break;
         }
         return true;
+    }
+
+    private void sendNewAppointment() {
+        InternetComm comm = new InternetComm(this);
+        Map info = new HashMap<String, String>();
+        info.put("client_ver", Constant.CLIENT_VER);
+        info.put("sessionid", MainActivityDrawer.sessionid);
+        info.put("name", findViewById(R.id.name));
+        info.put("phone", findViewById(R.id.phone));
+        info.put("teacher", findViewById(R.id.teacher));
+        info.put("classroom", findViewById(R.id.classroom_text));
+        info.put("month", findViewById(R.id.spinner_month));
+        info.put("day", findViewById(R.id.spinner_day));
+        info.put("year", findViewById(R.id.spinner_year));
+        info.put("start_period", findViewById(R.id.spinner_class_start));
+        info.put("end_period", findViewById(R.id.spinner_class_end));
+        info.put("note", findViewById(R.id.appointment_comment));
+
+        JSONObject data = new JSONObject(info);
+
+        InternetComm.urlWithJSON result = comm.createURLRequest(Constant.ADD_APPOINTMENT, data);
+
+        mNewAppointmentRequest = new InternetComm.ApiRequest();
+        mNewAppointmentRequest.delegate = this;
+        mNewAppointmentRequest.execute(result);
     }
 }
