@@ -133,12 +133,12 @@ public class NewAppointmentActivity extends Activity
         info.put("name", ((EditText)findViewById(R.id.name)).getText().toString());
         info.put("phone", ((EditText)findViewById(R.id.phone)).getText().toString());
         info.put("teacher", ((EditText)findViewById(R.id.teacher)).getText().toString());
-        info.put("classroom", ((EditText)findViewById(R.id.classroom_text)).getText().toString());
-        info.put("month", ((EditText)findViewById(R.id.spinner_month)).getText().toString());
-        info.put("day", ((EditText)findViewById(R.id.spinner_day)).getText().toString());
-        info.put("year", ((EditText)findViewById(R.id.spinner_year)).getText().toString());
-        info.put("start_period", ((EditText)findViewById(R.id.spinner_class_start)).getText().toString());
-        info.put("end_period", ((EditText)findViewById(R.id.spinner_class_end)).getText().toString());
+        info.put("classroom", ((Spinner)findViewById(R.id.classroom_text)).getSelectedItem().toString());
+        info.put("month", ((Spinner)findViewById(R.id.spinner_month)).getSelectedItem().toString());
+        info.put("day", ((Spinner)findViewById(R.id.spinner_day)).getSelectedItem().toString());
+        info.put("year", ((Spinner)findViewById(R.id.spinner_year)).getSelectedItem().toString());
+        info.put("start_period", ((Spinner)findViewById(R.id.spinner_class_start)).getSelectedItem().toString());
+        info.put("end_period", ((Spinner)findViewById(R.id.spinner_class_end)).getSelectedItem().toString());
         info.put("note", ((EditText)findViewById(R.id.appointment_comment)).getText().toString());
 
         JSONObject data = new JSONObject(info);
