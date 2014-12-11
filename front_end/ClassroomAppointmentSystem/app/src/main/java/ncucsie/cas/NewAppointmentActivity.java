@@ -133,7 +133,7 @@ public class NewAppointmentActivity extends Activity
         info.put("name", ((EditText)findViewById(R.id.name)).getText().toString());
         info.put("phone", ((EditText)findViewById(R.id.phone)).getText().toString());
         info.put("teacher", ((EditText)findViewById(R.id.teacher)).getText().toString());
-        info.put("classroom", ((Spinner)findViewById(R.id.classroom_text)).getSelectedItem().toString());
+        info.put("classroom", ((Spinner)findViewById(R.id.spinner_classroom)).getSelectedItem().toString());
         info.put("month", ((Spinner)findViewById(R.id.spinner_month)).getSelectedItem().toString());
         info.put("day", ((Spinner)findViewById(R.id.spinner_day)).getSelectedItem().toString());
         info.put("year", ((Spinner)findViewById(R.id.spinner_year)).getSelectedItem().toString());
