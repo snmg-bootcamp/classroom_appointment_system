@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -125,19 +127,19 @@ public class NewAppointmentActivity extends Activity
 
     private void sendNewAppointment() {
         InternetComm comm = new InternetComm(this);
-        Map info = new HashMap<String, String>();
+        Map<String, String> info = new HashMap<String, String>();
         info.put("client_ver", Constant.CLIENT_VER);
         info.put("sessionid", MainActivityDrawer.sessionid);
-        info.put("name", findViewById(R.id.name));
-        info.put("phone", findViewById(R.id.phone));
-        info.put("teacher", findViewById(R.id.teacher));
-        info.put("classroom", findViewById(R.id.classroom_text));
-        info.put("month", findViewById(R.id.spinner_month));
-        info.put("day", findViewById(R.id.spinner_day));
-        info.put("year", findViewById(R.id.spinner_year));
-        info.put("start_period", findViewById(R.id.spinner_class_start));
-        info.put("end_period", findViewById(R.id.spinner_class_end));
-        info.put("note", findViewById(R.id.appointment_comment));
+        info.put("name", ((EditText)findViewById(R.id.name)).getText().toString());
+        info.put("phone", ((EditText)findViewById(R.id.phone)).getText().toString());
+        info.put("teacher", ((EditText)findViewById(R.id.teacher)).getText().toString());
+        info.put("classroom", ((EditText)findViewById(R.id.classroom_text)).getText().toString());
+        info.put("month", ((EditText)findViewById(R.id.spinner_month)).getText().toString());
+        info.put("day", ((EditText)findViewById(R.id.spinner_day)).getText().toString());
+        info.put("year", ((EditText)findViewById(R.id.spinner_year)).getText().toString());
+        info.put("start_period", ((EditText)findViewById(R.id.spinner_class_start)).getText().toString());
+        info.put("end_period", ((EditText)findViewById(R.id.spinner_class_end)).getText().toString());
+        info.put("note", ((EditText)findViewById(R.id.appointment_comment)).getText().toString());
 
         JSONObject data = new JSONObject(info);
 
