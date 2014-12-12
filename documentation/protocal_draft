@@ -181,6 +181,47 @@ data={
 appointment-number is the number of user's appointment.
 
 
+
+example 6:
+user want to view the the time of class appointments,
+post data:
+data={
+    "client_ver":0.01,
+    "classroom":"A203"
+}
+example 6 response:
+{
+    "status_code":400,
+    "response":
+    {
+        "A203":["0","0"]
+    }
+}
+if user did not send any post data,
+then it will return all classrooms data, like:
+{
+    "status_code":400,
+    "response":
+    {
+        "A203":["0","0"],
+        "A204":["0","0"],
+        "A205":["0","0"],
+        "A206":["0","0"],
+        "A207":["0","0"],
+        "A208":["0","0"],
+        "A209":["0","0"],
+        "A210":["0","0"],
+        "A211":["0","0"],
+        "A212":["0","0"],
+        "A301":["0","0"],
+        "A302":["0","0"],
+        "A303":["0","0"]
+   }
+}
+
+
+
+
 server JSON response must include a status code when error occurs
 
 status code:
