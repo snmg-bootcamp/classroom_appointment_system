@@ -211,7 +211,7 @@ public class LoginActivity extends Activity {
                 // TODO: register the new account here.
                 try {
                     if (result.getInt("status_code") == 200) {
-                        return new InternetComm.userStruct(true, result.getString("reponse"), "Connection to server failed");
+                        return new InternetComm.userStruct(true, result.getString("response"), "Connection to server failed");
                     } else {
                         return new InternetComm.userStruct(false, null, "Username or password is incorrect");
                     }

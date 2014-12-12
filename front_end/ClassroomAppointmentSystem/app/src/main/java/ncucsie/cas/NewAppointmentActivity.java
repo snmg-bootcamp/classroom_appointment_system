@@ -3,15 +3,58 @@ package ncucsie.cas;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class NewAppointmentActivity extends Activity {
+public class NewAppointmentActivity extends Activity
+                implements InternetComm.ApiResponse{
     public NewAppointmentActivity() {
     }
+
+    boolean notFinished = false;
+    private InternetComm.ApiRequest mNewAppointmentRequest = null;
+
+
+    public void postProcessing(JSONObject result){
+        try {
+            int status = result.getInt("status_code");
+            switch(status){
+                case 200:
+                    this.onBackPressed();
+                    break;
+                default:
+                    Toast.makeText(this, "Failed to create appointent", Toast.LENGTH_LONG);
+                    break;
+
+            }
+        }
+        catch (JSONException e){
+            Log.i("JSON Exception", "Malformed response" + result.toString());
+        }
+        notFinished = false;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if(!notFinished){
+            super.onBackPressed();
+        }
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,8 +114,8 @@ public class NewAppointmentActivity extends Activity {
     private boolean onActionBarItemSelected(int itemId) {
         switch (itemId) {
             case R.id.action_done:
-                //save();
-                //TODO: implement save() function
+                notFinished = true;
+                sendNewAppointment();
                 break;
             case R.id.action_cancel:
                 System.err.println("cancel");
@@ -80,5 +123,30 @@ public class NewAppointmentActivity extends Activity {
                 break;
         }
         return true;
+    }
+
+    private void sendNewAppointment() {
+        InternetComm comm = new InternetComm(this);
+        Map<String, String> info = new HashMap<String, String>();
+        info.put("client_ver", Constant.CLIENT_VER);
+        info.put("sessionid", MainActivityDrawer.sessionid);
+        info.put("name", ((EditText)findViewById(R.id.name)).getText().toString());
+        info.put("phone", ((EditText)findViewById(R.id.phone)).getText().toString());
+        info.put("teacher", ((EditText)findViewById(R.id.teacher)).getText().toString());
+        info.put("classroom", ((Spinner)findViewById(R.id.spinner_classroom)).getSelectedItem().toString());
+        info.put("month", ((Spinner)findViewById(R.id.spinner_month)).getSelectedItem().toString());
+        info.put("day", ((Spinner)findViewById(R.id.spinner_day)).getSelectedItem().toString());
+        info.put("year", ((Spinner)findViewById(R.id.spinner_year)).getSelectedItem().toString());
+        info.put("start_period", ((Spinner)findViewById(R.id.spinner_class_start)).getSelectedItem().toString());
+        info.put("end_period", ((Spinner)findViewById(R.id.spinner_class_end)).getSelectedItem().toString());
+        info.put("note", ((EditText)findViewById(R.id.appointment_comment)).getText().toString());
+
+        JSONObject data = new JSONObject(info);
+
+        InternetComm.urlWithJSON result = comm.createURLRequest(Constant.ADD_APPOINTMENT, data);
+
+        mNewAppointmentRequest = new InternetComm.ApiRequest();
+        mNewAppointmentRequest.delegate = this;
+        mNewAppointmentRequest.execute(result);
     }
 }

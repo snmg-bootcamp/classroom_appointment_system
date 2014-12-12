@@ -29,6 +29,12 @@
             android:maxLines="1"
             android:singleLine="true" />
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/appointment_teacher"
+            android:id="@+id/teacher"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

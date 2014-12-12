@@ -36,8 +36,8 @@ public class MainActivityDrawer extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-    public String sessionid;
-    private InternetComm.ApiRequest mLogoutTask = new InternetComm.ApiRequest();
+    public static String sessionid;
+    private InternetComm.ApiRequest mLogoutTask = null;
 
 
 

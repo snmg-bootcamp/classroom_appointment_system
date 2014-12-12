@@ -35,4 +35,5 @@
     <string name="simple_list_description">Example Description</string>
     <string name="simple_list_title">Example Title</string>
     <string name="action_logout">Logout</string>
+    <string name="appointment_teacher">Teacher</string>
 </resources>
