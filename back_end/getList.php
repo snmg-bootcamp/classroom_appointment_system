@@ -1,5 +1,4 @@
 <?php
-    //Maybe has bug... to be tested
 	//get one class appointment list
 
 	include('config.php');
@@ -28,6 +27,7 @@
 
 			if($client_ver != $version) {
 				$status = 401;  // wrong client version, client need to be updated.
+				$response = "wrong version";
 			}
 			else {
 				$url = 'http://classroom.csie.ncu.edu.tw/appointment_schedule/list/'.$class;

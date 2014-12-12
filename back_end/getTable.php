@@ -8,7 +8,7 @@
 
 	//check the user whether send auth token and request data (json format)
 	if(isset($_POST['data'])) {
-		$data       	   =  json_decode($_POST['data']);
+		$data = json_decode($_POST['data']);
 		
 		if(isset($data -> {'client_ver'}) && 
 		   isset($data -> {'classroom'}) && 
@@ -25,6 +25,7 @@
 
 			if($client_ver != $version) {
 				$status = 401;	// wrong client version, client need to be updated.
+				$response = "wrong version";
 			}
 			else {
 				$flag = 0;

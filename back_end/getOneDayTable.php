@@ -30,6 +30,7 @@
 
 			if($client_ver != $version) {
 				$status = 401;	// wrong client version, client need to be updated.
+				$response = "wrong version";
 			}
 			else {
 				$url = 'http://classroom.csie.ncu.edu.tw/appointment_schedule/changeweek/'.$class.'/'.$year.'-'.$month.'-'.$day ;
