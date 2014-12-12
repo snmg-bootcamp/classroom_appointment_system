@@ -40,6 +40,7 @@
 				array_push($tmp, $row['del_time']);
 				$arr[$row['name']] = $tmp;
 				$response = $arr;
+				$status = 200;
 			}
 		}
 	}
@@ -67,6 +68,7 @@
 			$arr[$row['name']] = $tmp;
 		}
 		$response = $arr;
+		$status = 200;
 	}
 	$response_arr = array("status_code" => $status,
 						  "response"		=> $response
