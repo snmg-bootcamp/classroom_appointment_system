@@ -12,7 +12,7 @@
 		
 		if(isset($data -> {'client_ver'}) && 
 		   isset($data -> {'delete-number'}) && 
-		   isset($data -> {'classroom'}) && 
+		   isset($data -> {'classroom'}) && 	// this classroom is like A203,A204...blablabla
 		   isset($data -> {'sessionid'}) &&
 		   isset($data -> {'last-modified'})
 		)
@@ -34,7 +34,7 @@
 						printf("DatabaseError: %s", $e->getMessage());
 					}
 
-					$sql = "UPDATE `classroom` SET `del_time`=`del_time`+1 WHERE ( `id`='$classroom' )";
+					$sql = "UPDATE `classroom` SET `del_time`=`del_time`+1 WHERE ( `name`='$classroom' )";
 					$str = $link->prepare($sql);
 					$str->execute(); 
 					$url = 'http://classroom.csie.ncu.edu.tw/my_list/delete/'.$number;
