@@ -1,6 +1,9 @@
 <?php
-    $version = 0.01;
-    $ClassList = array(
+	$version = 0.01;
+	$dsn = 'mysql:dbname=appointment;host=127.0.0.1';
+	$user = 'snmg';
+	$password = '****';
+	$ClassList = array(
 		"0" => "A203",
 		"1" => "A204",
 		"2" => "A205",

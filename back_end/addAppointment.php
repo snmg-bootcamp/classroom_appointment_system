@@ -63,6 +63,23 @@
 				if(preg_match('/\<h1 class=\"with-tabs\"\>(.*)\<\/h1\>/', $content, $match)) {
 
 					if($match[1] == "我的預約") {
+						
+						try {
+							$link = new PDO($dsn, $user, $password); 
+						} catch(PDOException $e) {
+							printf("DatabaseError: %s", $e->getMessage());
+						}
+
+						try {
+							$sql = "UPDATE `classroom` SET `add_time`=`add_time`+1 WHERE ( `id` = '$classroom' )";
+							$str = $link->prepare($sql);
+							//echo $str->bindParam(':class', $classroom, PDO::PARAM_STR); 
+							//print_r( $str);
+							$str->execute();
+							//$str->debugDumpParams();
+						} catch(PDOException $e) {
+							printf("DatabaseError: %s", $e->getMessage());
+						}
 						$status = 200;	// success
 						$response = "successful";
 					}
