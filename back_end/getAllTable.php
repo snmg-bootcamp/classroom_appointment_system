@@ -25,7 +25,8 @@
 
 			if($client_ver != $version) {
 				$status = 401;  // wrong client version, client need to be updated.
-	        }
+	        	$response = "wrong version";
+			}
 	        else {
 				$total = array();
 				for($i = 0; $i < 13; $i++) {

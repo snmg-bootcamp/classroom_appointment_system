@@ -220,6 +220,24 @@ then it will return all classrooms data, like:
 }
 
 
+example 7:
+if user want to delete an appointment, 
+and the number of this appointment is delete-number,
+post data:
+data={
+    "client_ver":0.01,
+    "delete-number":"15252",
+    "classroom":"A203",
+    "sessionid":"102502042BRT6ss",
+    "last-modified":"12345"
+}
+example 7 response:
+{
+    "status_code":200,
+    "last_modified":"12345",
+    "response":"successful"
+}
+
 
 
 server JSON response must include a status code when error occurs

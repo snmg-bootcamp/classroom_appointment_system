@@ -4,7 +4,7 @@
 
 	$status 		= "400";	// default status code (error)
 	$last_modified  = NULL;
-	$response		= NULL;
+	$response		= "wrong";
 
 	//check the user whether send auth token and request data (json format)
 	if(isset($_POST['data'])) {
@@ -12,7 +12,7 @@
 		
 		if(isset($data -> {'client_ver'}) && 
 		   isset($data -> {'delete-number'}) && 
-		   isset($data -> {'classroom'}) && 
+		   isset($data -> {'classroom'}) && 	// this classroom is like A203,A204...blablabla
 		   isset($data -> {'sessionid'}) &&
 		   isset($data -> {'last-modified'})
 		)
@@ -25,6 +25,7 @@
 
 			if($client_ver != $version) {
 				$status = 401;	// wrong client version, client need to be updated.
+				$response = "wrong version";
 			}
 			else {
 					try {
@@ -33,12 +34,13 @@
 						printf("DatabaseError: %s", $e->getMessage());
 					}
 
-					$sql = "UPDATE `classroom` SET `del_time`=`del_time`+1 WHERE ( `id`='$classroom' )";
+					$sql = "UPDATE `classroom` SET `del_time`=`del_time`+1 WHERE ( `name`='$classroom' )";
 					$str = $link->prepare($sql);
 					$str->execute(); 
 					$url = 'http://classroom.csie.ncu.edu.tw/my_list/delete/'.$number;
 					//echo getUrlContent($resource, $url);
 					$status = 200;	// success
+					$response = "successful";
 					getUrlContent($url, $token);
 					//$response = filter(getUrlContent($url, $token));
 			}
