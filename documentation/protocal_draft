@@ -255,6 +255,8 @@ example 8 response:
         "A203":["5","1"]
     }
 }
+(["5","1"], 5 is time of add_appointment, 1 is time of delete_appointment)
+
 if user didn't send and post data, then it will response all classrooms' infomation,
 like:
 {
@@ -295,6 +297,8 @@ example 9 response:
         "黃詩凱":["2","0"]
     }
 }
+(["2","0"], 2 is time of add_appointment, 0 is time of delete_appointment)
+
 if user didn't send any post data, then it will response all user's information,
 like:
 {
@@ -305,6 +309,8 @@ like:
         "黃詩凱":["2","0"]
     }
 }
+
+
 
 
 server JSON response must include a status code when error occurs
