@@ -1,8 +1,8 @@
 <?php
 	$version = 0.01;
-	$dsn = 'mysql:dbname=appointment;host=127.0.0.1';
+	$dsn = 'mysql:dbname=appointment;host=127.0.0.1;charset=utf8';
 	$user = 'snmg';
-	$password = '****';
+	$password = 'snmg5566';
 	$ClassList = array(
 		"0" => "A203",
 		"1" => "A204",

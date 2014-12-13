@@ -18,6 +18,7 @@
 			if($client_ver != $version)
 			{
 				$status = 401;
+				$response = "wrong version";
 			}
 			else
 			{
