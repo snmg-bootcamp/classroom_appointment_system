@@ -41,7 +41,9 @@ public class MainActivityDrawer extends Activity
     private InternetComm.ApiRequest mLogoutTask = null;
     private InternetComm.ApiRequest mRefreshTask = null;
 
-
+    public interface NotifyViewAppointment {
+        void NotifyViewListener(JSONObject result);
+    }
 
     public void postProcessing(JSONObject result){
         if(mLogoutTask != null) {
@@ -148,8 +150,6 @@ public class MainActivityDrawer extends Activity
     }
 
     public void actionRefreshAppointment(){
-        Toast.makeText(getApplicationContext(), "Refreshing data", Toast.LENGTH_SHORT).show();
-
         InternetComm comm = new InternetComm(this);
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         Map<String, String> info = new HashMap<String, String>();
@@ -213,6 +213,7 @@ public class MainActivityDrawer extends Activity
         }
 
         if(id == R.id.refresh_appointment){
+            Toast.makeText(getApplicationContext(), "Refreshing data", Toast.LENGTH_SHORT).show();
             actionRefreshAppointment();
             return true;
         }

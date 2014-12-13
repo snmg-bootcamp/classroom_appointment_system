@@ -17,13 +17,27 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Date;
 
 
-public class ExistingAppointmentTab extends Fragment {
+public class ExistingAppointmentTab extends Fragment implements MainActivityDrawer.NotifyViewAppointment{
 
     public ExistingAppointmentTab() {
+    }
+
+    public void NotifyViewListener(JSONObject result){
+        try {
+            if (result.getInt("status_code") == 200) {
+                JSONArray table = result.getJSONArray("response");
+                SetExistingTable((TableLayout) getActivity().findViewById(R.id.existing_appointment_tab), table);
+
+            }
+        }
+        catch(JSONException e){
+            Log.i("Malformed response from server", result.toString());
+        }
     }
 
     @Override
@@ -55,45 +69,15 @@ public class ExistingAppointmentTab extends Fragment {
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
 
-
-        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), null, null);
-
+        MainActivityDrawer drawer = new MainActivityDrawer();
+        drawer.actionRefreshAppointment();
 
         return rootView;
     }
 
-    private JSONArray GetClassroomTable(String classroom, Date date) {
-        try {
-            JSONArray array = new JSONArray("[[\"\",\"Sun日(11.2)\",\"Mon一(11.3)\",\"Tue二(11.4)\",\"Wed三(11.5)\",\"Thu四(11.6)\",\"Fri五(11.7)\",\"Sat六(11.8)\"]," +
-                    "[\"108:00-08:50\",\"\",\"\",\"\",\"\",\"\",\"陳日憲\",\"\"]," +
-                    "[\"209:00-09:50\",\"\",\"\",\"\",\"\",\"\",\"陳日憲\",\"\"]," +
-                    "[\"310:00-10:50\",\"\",\"\",\"3A演算法實習課\",\"線性代數-2A曾定章\",\"影像處理曾定章\",\"陳日憲\",\"\"]," +
-                    "[\"411:00-11:50\",\"\",\"\",\"3A演算法實習課\",\"線性代數-2A曾定章\",\"影像處理曾定章\",\"陳日憲\",\"\"]," +
-                    "[\"Z12:00-12:50\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]," +
-                    "[\"513:00-13:50\",\"\",\"影像處理曾定章\",\"\",\"演算法-3A何錦文\",\"演算法-3A何錦文\",\"林鼎國\",\"\"]," +
-                    "[\"614:00-14:50\",\"\",\"線性代數-2A曾定章\",\"機器學習栗永徽\",\"\",\"演算法-3A何錦文\",\"林鼎國\",\"\"]," +
-                    "[\"715:00-15:50\",\"\",\"計算機網路-3B曾黎明\",\"機器學習栗永徽\",\"\",\"離散數學-2B孫敏德\",\"林鼎國\",\"\"]," +
-                    "[\"816:00-16:50\",\"\",\"計算機網路-3B曾黎明\",\"機器學習栗永徽\",\"\",\"離散數學-2B孫敏德\",\"林鼎國\",\"\"]," +
-                    "[\"917:00-17:50\",\"\",\"計算機網路-3B曾黎明\",\"\",\"劉于碩\",\"離散數學-2B孫敏德\",\"\",\"\"]," +
-                    "[\"A18:00-18:50\",\"\",\"\",\"\",\"劉于碩\",\"\",\"\",\"\"]," +
-                    "[\"B19:00-19:50\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]," +
-                    "[\"C20:00-20:50\",\"\",\"\",\"蘇俊儒\",\"陳姿妤\",\"\",\"\",\"\"]," +
-                    "[\"D21:00-21:50\",\"\",\"\",\"蘇俊儒\",\"陳姿妤\",\"\",\"\",\"\"]]");
-            JSONArray new_array = new JSONArray();
-            for (int i = 0; i < array.length(); i++) {
-                new_array.put(new JSONArray().put(array.getJSONArray(i).getString(0))
-                        .put(array.getJSONArray(i).getString(3)));
-            }
-            return new_array;
-        } catch (JSONException exception) {
-            Log.i("JSON Exception", "Failed to parse JSON array");
-        }
-        return null;
-    }
 
 
-    private void SetExistingTable(TableLayout tableLayout, String classroom, Date date) {
-        JSONArray array = GetClassroomTable(null, null);
+    private void SetExistingTable(TableLayout tableLayout, JSONArray array) {
         tableLayout.removeAllViews();
         tableLayout.setStretchAllColumns(true);
         try {
