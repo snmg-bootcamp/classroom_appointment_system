@@ -17,13 +17,30 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.Date;
+import java.util.Arrays;
 
-
-public class ExistingAppointmentTab extends Fragment {
+public class ExistingAppointmentTab extends Fragment implements NotifyViewAppointment {
 
     public ExistingAppointmentTab() {
+    }
+
+
+
+
+    public void NotifyViewListener(JSONObject result){
+        try {
+            if (result.getInt("status_code") == 200) {
+                JSONArray table = result.getJSONArray("response");
+                if(getActivity() != null && getActivity().findViewById(R.id.existing_appointment_tab) != null) {
+                    SetExistingTable((TableLayout) getActivity().findViewById(R.id.existing_appointment_tab), table);
+                }
+            }
+        }
+        catch(JSONException e){
+            Log.i("Malformed response from server", result.toString());
+        }
     }
 
     @Override
@@ -40,7 +57,22 @@ public class ExistingAppointmentTab extends Fragment {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
         date_text.setText(sharedPref.getString("date_year", "2013") + "-" + sharedPref.getString("date_month", "1") + "-" + sharedPref.getString("date_day", "1"));
+        RefreshClass request = new RefreshClass();
+        request.refresh();
         super.onResume();
+    }
+
+
+    static public class RefreshClass{
+        static public MainActivityDrawer mRequest = null;
+        RefreshClass (){
+        }
+        public void refresh(){
+            if(mRequest != null){
+                mRequest.actionRefreshAppointment();
+            }
+        }
+
     }
 
     @Override
@@ -54,67 +86,51 @@ public class ExistingAppointmentTab extends Fragment {
         TextView classroom_text = (TextView) rootView.findViewById(R.id.classroom_selection_value);
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
-
-
-        SetExistingTable((TableLayout) rootView.findViewById(R.id.existing_appointment_tab), null, null);
-
+        MainActivityDrawer.NotifyClass drawer = new MainActivityDrawer.NotifyClass();
+        drawer.mNotifyView = this;
 
         return rootView;
     }
 
-    private JSONArray GetClassroomTable(String classroom, Date date) {
-        try {
-            JSONArray array = new JSONArray("[[\"\",\"Sun日(11.2)\",\"Mon一(11.3)\",\"Tue二(11.4)\",\"Wed三(11.5)\",\"Thu四(11.6)\",\"Fri五(11.7)\",\"Sat六(11.8)\"]," +
-                    "[\"108:00-08:50\",\"\",\"\",\"\",\"\",\"\",\"陳日憲\",\"\"]," +
-                    "[\"209:00-09:50\",\"\",\"\",\"\",\"\",\"\",\"陳日憲\",\"\"]," +
-                    "[\"310:00-10:50\",\"\",\"\",\"3A演算法實習課\",\"線性代數-2A曾定章\",\"影像處理曾定章\",\"陳日憲\",\"\"]," +
-                    "[\"411:00-11:50\",\"\",\"\",\"3A演算法實習課\",\"線性代數-2A曾定章\",\"影像處理曾定章\",\"陳日憲\",\"\"]," +
-                    "[\"Z12:00-12:50\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]," +
-                    "[\"513:00-13:50\",\"\",\"影像處理曾定章\",\"\",\"演算法-3A何錦文\",\"演算法-3A何錦文\",\"林鼎國\",\"\"]," +
-                    "[\"614:00-14:50\",\"\",\"線性代數-2A曾定章\",\"機器學習栗永徽\",\"\",\"演算法-3A何錦文\",\"林鼎國\",\"\"]," +
-                    "[\"715:00-15:50\",\"\",\"計算機網路-3B曾黎明\",\"機器學習栗永徽\",\"\",\"離散數學-2B孫敏德\",\"林鼎國\",\"\"]," +
-                    "[\"816:00-16:50\",\"\",\"計算機網路-3B曾黎明\",\"機器學習栗永徽\",\"\",\"離散數學-2B孫敏德\",\"林鼎國\",\"\"]," +
-                    "[\"917:00-17:50\",\"\",\"計算機網路-3B曾黎明\",\"\",\"劉于碩\",\"離散數學-2B孫敏德\",\"\",\"\"]," +
-                    "[\"A18:00-18:50\",\"\",\"\",\"\",\"劉于碩\",\"\",\"\",\"\"]," +
-                    "[\"B19:00-19:50\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]," +
-                    "[\"C20:00-20:50\",\"\",\"\",\"蘇俊儒\",\"陳姿妤\",\"\",\"\",\"\"]," +
-                    "[\"D21:00-21:50\",\"\",\"\",\"蘇俊儒\",\"陳姿妤\",\"\",\"\",\"\"]]");
-            JSONArray new_array = new JSONArray();
-            for (int i = 0; i < array.length(); i++) {
-                new_array.put(new JSONArray().put(array.getJSONArray(i).getString(0))
-                        .put(array.getJSONArray(i).getString(3)));
-            }
-            return new_array;
-        } catch (JSONException exception) {
-            Log.i("JSON Exception", "Failed to parse JSON array");
-        }
-        return null;
-    }
 
 
-    private void SetExistingTable(TableLayout tableLayout, String classroom, Date date) {
-        JSONArray array = GetClassroomTable(null, null);
+    private void SetExistingTable(TableLayout tableLayout, JSONArray array) {
         tableLayout.removeAllViews();
         tableLayout.setStretchAllColumns(true);
+        String[] timeArray = getResources().getStringArray(R.array.timevalue);
+        System.out.println(Arrays.toString(timeArray));
         try {
             for (int i = 0; i < array.length(); i++) {
                 TableRow row = new TableRow(getActivity());
                 TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
                 row.setLayoutParams(lp);
                 tableLayout.addView(row, i);
-                for (int j = 0; j < array.getJSONArray(i).length(); j++) {
-                    TextView text = new TextView(getActivity());
-                    text.setText(array.getJSONArray(i).getString(j));
-                    text.setBackgroundResource(R.drawable.cell_shape);
-                    text.setPadding(16, 4, 12, 4);
-
-                    row.addView(text);
-
+                TextView text = new TextView(getActivity());
+                try {
+                    if (i == 0) {
+                        text.setText("");
+                        text.setBackgroundResource(R.drawable.cell_shape);
+                        text.setPadding(16, 4, 12, 4);
+                    } else {
+                        text.setText(timeArray[i - 1]);
+                        text.setBackgroundResource(R.drawable.cell_shape);
+                        text.setPadding(16, 4, 12, 4);
+                    }
+                }
+                catch(ArrayIndexOutOfBoundsException e){
+                    Log.i("ArrayIndexOutOfBoundsException", e.toString());
                 }
 
+                TextView text2 = new TextView(getActivity());
+                text2.setText(array.get(i).toString());
+                text2.setBackgroundResource(R.drawable.cell_shape);
+                text2.setPadding(16, 4, 12, 4);
+
+                row.addView(text);
+                row.addView(text2);
             }
         } catch (JSONException exception) {
-            Log.i("JSON Exception", "Failed to parse JSON array");
+            Log.i("JSON Exception", "Failed to parse JSON array: " + array.toString());
         }
 
     }

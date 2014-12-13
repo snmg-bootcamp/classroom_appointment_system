@@ -7,8 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MyAppointmentTab extends Fragment {
+import org.json.JSONObject;
+
+public class MyAppointmentTab extends Fragment implements InternetComm.ApiResponse {
     public MyAppointmentTab() {
+    }
+
+    public void postProcessing(JSONObject result){
+
     }
 
     @Override

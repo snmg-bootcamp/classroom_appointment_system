@@ -35,7 +35,7 @@ public class NewAppointmentActivity extends Activity
                     this.onBackPressed();
                     break;
                 default:
-                    Toast.makeText(this, "Failed to create appointent", Toast.LENGTH_LONG);
+                    Toast.makeText(this, "Failed to create appointment", Toast.LENGTH_LONG);
                     break;
 
             }

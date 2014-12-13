@@ -208,7 +208,7 @@ public class LoginActivity extends Activity {
             }
             if(result != null) {
                 Log.i(Constant.DEBUG_TAG, result.toString());
-                // TODO: register the new account here.
+
                 try {
                     if (result.getInt("status_code") == 200) {
                         return new InternetComm.userStruct(true, result.getString("response"), "Connection to server failed");

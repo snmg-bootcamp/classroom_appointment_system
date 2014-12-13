@@ -4,7 +4,9 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -22,7 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 public class MainActivityDrawer extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, InternetComm.ApiResponse {
 
@@ -37,17 +38,40 @@ public class MainActivityDrawer extends Activity
     private CharSequence mTitle;
     public static String sessionid;
     private InternetComm.ApiRequest mLogoutTask = null;
+    private InternetComm.ApiRequest mRefreshTask = null;
+    public MainActivityDrawer drawerActivity = this;
 
+    public class ExistingAppointmentTabRequestClass{
+        public void refresh(){
+            actionRefreshAppointment();
+        }
+    }
+    static public class NotifyClass {
+        static public NotifyViewAppointment mNotifyView = null;
+        public void doNotify(JSONObject result){
+            if(mNotifyView != null){
+                mNotifyView.NotifyViewListener(result);
+            }
+        }
+    }
 
 
     public void postProcessing(JSONObject result){
-        Log.i("", "Executing postProcessing method");
-        try {
-            finish();
-            LoginActivity.mNotifyView.setText(result.getString("response"));
+        if(mLogoutTask != null) {
+            Log.i("", "Executing postProcessing method");
+            try {
+                finish();
+                LoginActivity.mNotifyView.setText(result.getString("response"));
+            } catch (JSONException e) {
+                Log.i("JSON Exception", "Failed to parse malformed response" + result.toString());
+            }
+            mLogoutTask = null;
         }
-        catch (JSONException e){
-            Log.i("JSON Exception", "Failed to parse malformed response" + result.toString());
+        else if(mRefreshTask != null){
+            Log.i("result: ", result.toString());
+            NotifyClass mNotify = new NotifyClass();
+            mNotify.doNotify(result);
+
         }
     }
 
@@ -67,6 +91,8 @@ public class MainActivityDrawer extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        ExistingAppointmentTab.RefreshClass.mRequest = this;
     }
 
     @Override
@@ -133,6 +159,63 @@ public class MainActivityDrawer extends Activity
         return super.onCreateOptionsMenu(menu);
     }
 
+
+
+    private void actionAddAppointment(){
+        Intent intent = new Intent(this, NewAppointmentActivity.class);
+        startActivity(intent);
+    }
+
+    public void actionRefreshAppointment(){
+        InternetComm comm = new InternetComm(this);
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        Map<String, String> info = new HashMap<String, String>();
+        info.put("client_ver", Constant.CLIENT_VER);
+        info.put("sessionid", MainActivityDrawer.sessionid);
+        info.put("classroom", sharedPref.getString("classroom", "A203"));
+        String date = "";
+        String temp_month = sharedPref.getString("date_month", "1");
+        String temp_day = sharedPref.getString("date_day", "1");
+        date += sharedPref.getString("date_year", "2013");
+        if(Integer.parseInt(temp_month) < 10){
+            date += "0" + temp_month;
+        }
+        else {
+            date += temp_month;
+        }
+        if(Integer.parseInt(temp_day) < 10){
+            date += "0" + temp_day;
+        }
+        else {
+            date += temp_day;
+        }
+        info.put("appointment-date", date);
+        info.put("last-modified", "0");
+        JSONObject data = new JSONObject(info);
+
+        InternetComm.urlWithJSON result = comm.createURLRequest(Constant.VIEW_APPOINTMENT, data);
+
+        mRefreshTask = new InternetComm.ApiRequest();
+        mRefreshTask.delegate = this;
+        mRefreshTask.execute(result);
+    }
+
+    private void actionLogout(){
+        Toast.makeText(getApplicationContext(), "Logging out...", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, LoginActivity.class);
+        InternetComm comm = new InternetComm(this);
+        Map info = new HashMap<String, String>();
+        info.put("client_ver", Constant.CLIENT_VER);
+        info.put("sessionid", sessionid);
+        JSONObject data = new JSONObject(info);
+
+        InternetComm.urlWithJSON result = comm.createURLRequest(Constant.LOGOUT, data);
+        mLogoutTask = new InternetComm.ApiRequest();
+        mLogoutTask.delegate = this;
+        mLogoutTask.execute(result);
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -142,31 +225,18 @@ public class MainActivityDrawer extends Activity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.add_appointment) {
-            Intent intent = new Intent(this, NewAppointmentActivity.class);
-            startActivity(intent);
+            actionAddAppointment();
             return true;
         }
 
         if(id == R.id.refresh_appointment){
             Toast.makeText(getApplicationContext(), "Refreshing data", Toast.LENGTH_SHORT).show();
+            actionRefreshAppointment();
             return true;
         }
 
         if(id == R.id.action_logout){
-            Toast.makeText(getApplicationContext(), "Logging out...", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, LoginActivity.class);
-            InternetComm comm = new InternetComm(this);
-            Map info = new HashMap<String, String>();
-            info.put("client_ver", Constant.CLIENT_VER);
-            info.put("sessionid", sessionid);
-            JSONObject data = new JSONObject(info);
-
-            InternetComm.urlWithJSON result = comm.createURLRequest(Constant.LOGOUT, data);
-            mLogoutTask = new InternetComm.ApiRequest();
-            mLogoutTask.delegate = this;
-            mLogoutTask.execute(result);
-
-
+            actionLogout();
         }
 
         return super.onOptionsItemSelected(item);
