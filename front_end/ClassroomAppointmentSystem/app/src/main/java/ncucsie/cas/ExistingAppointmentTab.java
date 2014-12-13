@@ -22,10 +22,11 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.Date;
 
-public class ExistingAppointmentTab extends Fragment implements NotifyViewAppointment{
+public class ExistingAppointmentTab extends Fragment implements NotifyViewAppointment {
 
     public ExistingAppointmentTab() {
     }
+
 
 
 
@@ -57,7 +58,22 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
         date_text.setText(sharedPref.getString("date_year", "2013") + "-" + sharedPref.getString("date_month", "1") + "-" + sharedPref.getString("date_day", "1"));
+        RefreshClass request = new RefreshClass();
+        request.refresh();
         super.onResume();
+    }
+
+
+    static public class RefreshClass{
+        static public MainActivityDrawer mRequest = null;
+        RefreshClass (){
+        }
+        public void refresh(){
+            if(mRequest != null){
+                mRequest.actionRefreshAppointment();
+            }
+        }
+
     }
 
     @Override

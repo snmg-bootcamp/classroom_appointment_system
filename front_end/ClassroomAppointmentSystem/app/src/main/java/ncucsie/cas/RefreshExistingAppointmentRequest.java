@@ -1,5 +1,7 @@
 package ncucsie.cas;
 
+import org.json.JSONObject;
+
 public interface RefreshExistingAppointmentRequest{
-    void refreshExistingAppointment();
+    public void refreshAppointmentRequest();
 }

@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -20,12 +21,13 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class MainActivityDrawer extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, InternetComm.ApiResponse, RefreshExistingAppointmentRequest {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, InternetComm.ApiResponse {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -39,14 +41,13 @@ public class MainActivityDrawer extends Activity
     public static String sessionid;
     private InternetComm.ApiRequest mLogoutTask = null;
     private InternetComm.ApiRequest mRefreshTask = null;
-    private RefreshExistingAppointmentRequest mRefreshExistingRequest = null;
+    public MainActivityDrawer drawerActivity = this;
 
-    public NotifyViewAppointment mNotifyViewAppointment = null;
-    public void refreshExistingAppointment(){
-
+    public class ExistingAppointmentTabRequestClass{
+        public void refresh(){
+            actionRefreshAppointment();
+        }
     }
-
-
     static public class NotifyClass {
         static public NotifyViewAppointment mNotifyView = null;
         public void doNotify(JSONObject result){
@@ -55,6 +56,7 @@ public class MainActivityDrawer extends Activity
             }
         }
     }
+
 
     public void postProcessing(JSONObject result){
         if(mLogoutTask != null) {
@@ -91,6 +93,8 @@ public class MainActivityDrawer extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        ExistingAppointmentTab.RefreshClass.mRequest = this;
     }
 
     @Override
@@ -156,6 +160,8 @@ public class MainActivityDrawer extends Activity
         }
         return super.onCreateOptionsMenu(menu);
     }
+
+
 
     private void actionAddAppointment(){
         Intent intent = new Intent(this, NewAppointmentActivity.class);
