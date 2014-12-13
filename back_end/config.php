@@ -2,7 +2,7 @@
 	$version = 0.01;
 	$dsn = 'mysql:dbname=appointment;host=127.0.0.1;charset=utf8';
 	$user = 'snmg';
-	$password = 'snmg5566';
+	$password = '******';
 	$ClassList = array(
 		"0" => "A203",
 		"1" => "A204",

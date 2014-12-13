@@ -81,6 +81,28 @@
 						} catch(PDOException $e) {
 							printf("DatabaseError: %s", $e->getMessage());
 						}
+
+						try {
+							$sql = "SELECT add_time FROM user WHERE name = '$name'";
+							$str = $link->prepare($sql);
+							$str->execute();
+							$row = $str->fetch(PDO::FETCH_ASSOC);
+							if($row == NULL)
+							{
+								$sql = "INSERT INTO user (name, add_time, del_time) VALUES ('$name', 1, 0)";
+								$str = $link->prepare($sql);
+								$str->execute();
+							}
+							else 
+							{
+								$sql = "UPDATE `user` SET `add_time`=`add_time`+1 WHERE (`name` = '$name')";
+								$str = $link->prepare($sql);
+								$str->execute();
+							}
+						} catch(PDOException $e) {
+							printf("DatabaseError: %s", $e->getMessage());
+						}
+
 						$status = 200;	// success
 						$response = "successful";
 					}
