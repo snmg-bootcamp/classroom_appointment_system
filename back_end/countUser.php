@@ -1,5 +1,5 @@
 <?php
-	// return the times of all classrooms appointment
+	// return the times of user's appointment
 
 	include("func.php");
 	include("config.php");
@@ -11,10 +11,10 @@
 	if(isset($_POST['data'])) 
 	{
 		$data = json_decode($_POST['data']);
-		if(isset($data -> {'client_ver'}) && isset($data -> {'classroom'}))
+		if(isset($data -> {'client_ver'}) && isset($data -> {'name'}))
 		{
 			$client_ver = $data -> {'client_ver'};
-			$classroom = $data -> {'classroom'};
+			$name = $data -> {'name'};
 			if($client_ver != $version)
 			{
 				$status = 401;
@@ -30,7 +30,7 @@
 				//$test = $link->query("SELECT * FROM `classroom` WHERE `name` = `$classroom`")->fetch();
 				//echo $test;
 				$arr = array();
-				$sql = "SELECT name, add_time, del_time FROM classroom WHERE name='$classroom'"; 
+				$sql = "SELECT name, add_time, del_time FROM user WHERE name='$name'"; 
 				$sth = $link->prepare($sql);	// avoid sql inj
 				$sth->execute();
 				$row = $sth->fetch(PDO::FETCH_ASSOC);
@@ -59,7 +59,7 @@
 		}
 		*/
 		$arr = array();
-		$sql = 'SELECT name, add_time, del_time FROM classroom ORDER BY name';
+		$sql = 'SELECT name, add_time, del_time FROM user ORDER BY add_time';
 		foreach($link->query($sql) as $row) {
 			//print $row['name']."\t";
 			//print $row['add_time']."\t";

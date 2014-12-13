@@ -227,8 +227,7 @@ post data:
 data={
     "client_ver":0.01,
     "delete-number":"15252",
-    "classroom":"A203",
-    "sessionid":"102502042BRT6ss",
+    "sessionid":"102502042aBcDeFg",
     "last-modified":"12345"
 }
 example 7 response:
@@ -237,6 +236,80 @@ example 7 response:
     "last_modified":"12345",
     "response":"successful"
 }
+
+
+
+example 8:
+if user want to view one classroom's time of add_appointment & delete_appointment,
+post data:
+data={
+    "client_ver":0.01,
+    "classroom":"A203"
+}
+
+example 8 response:
+{
+    "status_code":200,
+    "response":
+    {
+        "A203":["5","1"]
+    }
+}
+(["5","1"], 5 is time of add_appointment, 1 is time of delete_appointment)
+
+if user didn't send and post data, then it will response all classrooms' infomation,
+like:
+{
+    "status_code":200,
+    "response":
+    {
+        "A203":["3","1"],
+        "A204":["0","0"],
+        "A205":["0","0"],
+        "A206":["0","0"],
+        "A207":["0","0"],
+        "A208":["0","0"],
+        "A209":["0","0"],
+        "A210":["0","0"],
+        "A211":["0","0"],
+        "A212":["0","0"],
+        "A301":["0","0"],
+        "A302":["0","0"],
+        "A303":["0","0"]
+    }
+}
+
+
+
+example 9:
+if user want to view self time of add_appointment & delete_appointment,
+post data:
+data={
+    "client_ver":0.01,
+    "name":"黃詩凱"
+}
+
+example 9 response:
+{
+    "status_code":200,
+    "response":
+    {
+        "黃詩凱":["2","0"]
+    }
+}
+(["2","0"], 2 is time of add_appointment, 0 is time of delete_appointment)
+
+if user didn't send any post data, then it will response all user's information,
+like:
+{
+    "status_code":200,
+    "response":
+    {
+        "黃詩凱2":["1","1"],
+        "黃詩凱":["2","0"]
+    }
+}
+
 
 
 
