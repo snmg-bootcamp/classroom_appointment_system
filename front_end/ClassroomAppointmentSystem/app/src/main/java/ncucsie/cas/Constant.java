@@ -18,11 +18,11 @@ public interface Constant {
     public final static int LOGIN = 5;
     public final static int LOGOUT = 6;
 
-    public final static String VIEW_APPOINTMENT_PAGE = "viewAppointment.php";
+    public final static String VIEW_APPOINTMENT_PAGE = "getOneDayTable.php";
     public final static String ADD_APPOINTMENT_PAGE = "addAppointment.php";
     public final static String MODIFY_APPOINTMENT_PAGE = "modifyAppointment.php";
     public final static String DELETE_APPOINTMENT_PAGE = "deleteAppointment.php";
-    public final static String MY_APPOINTMENT_PAGE = "myAppointment.php";
+    public final static String MY_APPOINTMENT_PAGE = "viewAppointment.php";
     public final static String LOGIN_PAGE = "login.php";
     public final static String LOGOUT_PAGE = "logout.php";
 

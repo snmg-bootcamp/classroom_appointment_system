@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class MyAppointmentTab extends Fragment implements InternetComm.ApiResponse {
     public MyAppointmentTab() {
     }
-    private InternetComm.ApiRequest mNewAppointmentRequest = null;
+
     public void postProcessing(JSONObject result){
 
     }
