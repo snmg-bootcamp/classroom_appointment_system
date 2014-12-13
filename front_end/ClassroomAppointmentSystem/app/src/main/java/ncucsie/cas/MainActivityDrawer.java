@@ -48,7 +48,7 @@ public class MainActivityDrawer extends Activity
     public void refreshExistingAppointment(){
 
     }
-    
+
 
     static public class NotifyClass {
         static public NotifyViewAppointment mNotifyView = null;

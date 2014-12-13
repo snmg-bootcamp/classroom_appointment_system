@@ -36,7 +36,7 @@ public class ExistingAppointmentTab extends Fragment implements MainActivityDraw
         try {
             if (result.getInt("status_code") == 200) {
                 JSONArray table = result.getJSONArray("response");
-                if(getActivity().findViewById(R.id.existing_appointment_tab) != null) {
+                if(getActivity() != null && getActivity().findViewById(R.id.existing_appointment_tab) != null) {
                     SetExistingTable((TableLayout) getActivity().findViewById(R.id.existing_appointment_tab), table);
                 }
             }
