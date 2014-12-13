@@ -103,6 +103,7 @@
 							printf("DatabaseError: %s", $e->getMessage());
 						}
 
+						$link = NULL;
 						$status = 200;	// success
 						$response = "successful";
 					}
