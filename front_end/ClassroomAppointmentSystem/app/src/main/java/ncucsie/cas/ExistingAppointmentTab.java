@@ -22,15 +22,12 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.Date;
 
-
-public class ExistingAppointmentTab extends Fragment implements MainActivityDrawer.NotifyViewAppointment{
+public class ExistingAppointmentTab extends Fragment implements NotifyViewAppointment{
 
     public ExistingAppointmentTab() {
     }
 
-    interface RefreshExistingAppointmentRequest{
-        void refreshExistingAppointment();
-    }
+
 
     public void NotifyViewListener(JSONObject result){
         try {

@@ -24,9 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 public class MainActivityDrawer extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, InternetComm.ApiResponse {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, InternetComm.ApiResponse, RefreshExistingAppointmentRequest {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -40,10 +39,8 @@ public class MainActivityDrawer extends Activity
     public static String sessionid;
     private InternetComm.ApiRequest mLogoutTask = null;
     private InternetComm.ApiRequest mRefreshTask = null;
-    private ExistingAppointmentTab.RefreshExistingAppointmentRequest mRefreshExistingRequest = null;
-    public interface NotifyViewAppointment {
-        void NotifyViewListener(JSONObject result);
-    }
+    private RefreshExistingAppointmentRequest mRefreshExistingRequest = null;
+
     public NotifyViewAppointment mNotifyViewAppointment = null;
     public void refreshExistingAppointment(){
 
