@@ -26,7 +26,7 @@ import java.util.Map;
 
 
 public class MainActivityDrawer extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, InternetComm.ApiResponse, ExistingAppointmentTab.RefreshExistingAppointmentRequest {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, InternetComm.ApiResponse {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -40,13 +40,23 @@ public class MainActivityDrawer extends Activity
     public static String sessionid;
     private InternetComm.ApiRequest mLogoutTask = null;
     private InternetComm.ApiRequest mRefreshTask = null;
-
+    private ExistingAppointmentTab.RefreshExistingAppointmentRequest mRefreshExistingRequest = null;
     public interface NotifyViewAppointment {
         void NotifyViewListener(JSONObject result);
     }
-
+    public NotifyViewAppointment mNotifyViewAppointment = null;
     public void refreshExistingAppointment(){
 
+    }
+    
+
+    static public class NotifyClass {
+        static public NotifyViewAppointment mNotifyView = null;
+        public void doNotify(JSONObject result){
+            if(mNotifyView != null){
+                mNotifyView.NotifyViewListener(result);
+            }
+        }
     }
 
     public void postProcessing(JSONObject result){
@@ -62,7 +72,9 @@ public class MainActivityDrawer extends Activity
         }
         else if(mRefreshTask != null){
             Log.i("result: ", result.toString());
-            mRefreshTask = null;
+            NotifyClass mNotify = new NotifyClass();
+            mNotify.doNotify(result);
+
         }
     }
 

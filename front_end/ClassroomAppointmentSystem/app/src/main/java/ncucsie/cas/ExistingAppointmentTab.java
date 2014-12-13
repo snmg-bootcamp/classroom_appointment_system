@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.Date;
 
 
@@ -35,8 +36,9 @@ public class ExistingAppointmentTab extends Fragment implements MainActivityDraw
         try {
             if (result.getInt("status_code") == 200) {
                 JSONArray table = result.getJSONArray("response");
-                SetExistingTable((TableLayout) getActivity().findViewById(R.id.existing_appointment_tab), table);
-
+                if(getActivity().findViewById(R.id.existing_appointment_tab) != null) {
+                    SetExistingTable((TableLayout) getActivity().findViewById(R.id.existing_appointment_tab), table);
+                }
             }
         }
         catch(JSONException e){
@@ -72,8 +74,8 @@ public class ExistingAppointmentTab extends Fragment implements MainActivityDraw
         TextView classroom_text = (TextView) rootView.findViewById(R.id.classroom_selection_value);
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
-
-
+        MainActivityDrawer.NotifyClass drawer = new MainActivityDrawer.NotifyClass();
+        drawer.mNotifyView = this;
 
         return rootView;
     }
@@ -83,25 +85,40 @@ public class ExistingAppointmentTab extends Fragment implements MainActivityDraw
     private void SetExistingTable(TableLayout tableLayout, JSONArray array) {
         tableLayout.removeAllViews();
         tableLayout.setStretchAllColumns(true);
+        String[] timeArray = getResources().getStringArray(R.array.timevalue);
+        System.out.println(Arrays.toString(timeArray));
         try {
             for (int i = 0; i < array.length(); i++) {
                 TableRow row = new TableRow(getActivity());
                 TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
                 row.setLayoutParams(lp);
                 tableLayout.addView(row, i);
-                for (int j = 0; j < array.getJSONArray(i).length(); j++) {
-                    TextView text = new TextView(getActivity());
-                    text.setText(array.getJSONArray(i).getString(j));
-                    text.setBackgroundResource(R.drawable.cell_shape);
-                    text.setPadding(16, 4, 12, 4);
-
-                    row.addView(text);
-
+                TextView text = new TextView(getActivity());
+                try {
+                    if (i == 0) {
+                        text.setText("");
+                        text.setBackgroundResource(R.drawable.cell_shape);
+                        text.setPadding(16, 4, 12, 4);
+                    } else {
+                        text.setText(timeArray[i - 1]);
+                        text.setBackgroundResource(R.drawable.cell_shape);
+                        text.setPadding(16, 4, 12, 4);
+                    }
+                }
+                catch(ArrayIndexOutOfBoundsException e){
+                    Log.i("ArrayIndexOutOfBoundsException", e.toString());
                 }
 
+                TextView text2 = new TextView(getActivity());
+                text2.setText(array.get(i).toString());
+                text2.setBackgroundResource(R.drawable.cell_shape);
+                text2.setPadding(16, 4, 12, 4);
+
+                row.addView(text);
+                row.addView(text2);
             }
         } catch (JSONException exception) {
-            Log.i("JSON Exception", "Failed to parse JSON array");
+            Log.i("JSON Exception", "Failed to parse JSON array: " + array.toString());
         }
 
     }
