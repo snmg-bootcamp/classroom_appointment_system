@@ -20,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.Date;
 
 public class ExistingAppointmentTab extends Fragment implements NotifyViewAppointment {
 
