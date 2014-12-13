@@ -56,6 +56,7 @@ public class MainActivityDrawer extends Activity
         }
         else if(mRefreshTask != null){
             Log.i("result: ", result.toString());
+            mRefreshTask = null;
         }
     }
 
