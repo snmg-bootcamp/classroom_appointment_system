@@ -142,6 +142,63 @@ public class MainActivityDrawer extends Activity
         return super.onCreateOptionsMenu(menu);
     }
 
+    private void actionAddAppointment(){
+        Intent intent = new Intent(this, NewAppointmentActivity.class);
+        startActivity(intent);
+    }
+
+    public void actionRefreshAppointment(){
+        Toast.makeText(getApplicationContext(), "Refreshing data", Toast.LENGTH_SHORT).show();
+
+        InternetComm comm = new InternetComm(this);
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        Map<String, String> info = new HashMap<String, String>();
+        info.put("client_ver", Constant.CLIENT_VER);
+        info.put("sessionid", MainActivityDrawer.sessionid);
+        info.put("classroom", sharedPref.getString("classroom", "A203"));
+        String date = "";
+        String temp_month = sharedPref.getString("date_month", "1");
+        String temp_day = sharedPref.getString("date_day", "1");
+        date += sharedPref.getString("date_year", "2013");
+        if(Integer.parseInt(temp_month) < 10){
+            date += "0" + temp_month;
+        }
+        else {
+            date += temp_month;
+        }
+        if(Integer.parseInt(temp_day) < 10){
+            date += "0" + temp_day;
+        }
+        else {
+            date += temp_day;
+        }
+        info.put("appointment-date", date);
+        info.put("last-modified", "0");
+        JSONObject data = new JSONObject(info);
+
+        InternetComm.urlWithJSON result = comm.createURLRequest(Constant.VIEW_APPOINTMENT, data);
+
+        mRefreshTask = new InternetComm.ApiRequest();
+        mRefreshTask.delegate = this;
+        mRefreshTask.execute(result);
+    }
+
+    private void actionLogout(){
+        Toast.makeText(getApplicationContext(), "Logging out...", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, LoginActivity.class);
+        InternetComm comm = new InternetComm(this);
+        Map info = new HashMap<String, String>();
+        info.put("client_ver", Constant.CLIENT_VER);
+        info.put("sessionid", sessionid);
+        JSONObject data = new JSONObject(info);
+
+        InternetComm.urlWithJSON result = comm.createURLRequest(Constant.LOGOUT, data);
+        mLogoutTask = new InternetComm.ApiRequest();
+        mLogoutTask.delegate = this;
+        mLogoutTask.execute(result);
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -151,63 +208,17 @@ public class MainActivityDrawer extends Activity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.add_appointment) {
-            Intent intent = new Intent(this, NewAppointmentActivity.class);
-            startActivity(intent);
+            actionAddAppointment();
             return true;
         }
 
         if(id == R.id.refresh_appointment){
-            Toast.makeText(getApplicationContext(), "Refreshing data", Toast.LENGTH_SHORT).show();
-
-            InternetComm comm = new InternetComm(this);
-            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-            Map<String, String> info = new HashMap<String, String>();
-            info.put("client_ver", Constant.CLIENT_VER);
-            info.put("sessionid", MainActivityDrawer.sessionid);
-            info.put("classroom", sharedPref.getString("classroom", "A203"));
-            String date = "";
-            String temp_month = sharedPref.getString("date_month", "1");
-            String temp_day = sharedPref.getString("date_day", "1");
-            date += sharedPref.getString("date_year", "2013");
-            if(Integer.parseInt(temp_month) < 10){
-                date += "0" + temp_month;
-            }
-            else {
-                date += temp_month;
-            }
-            if(Integer.parseInt(temp_day) < 10){
-                date += "0" + temp_day;
-            }
-            else {
-                date += temp_day;
-            }
-            info.put("appointment-date", date);
-            info.put("last-modified", "0");
-            JSONObject data = new JSONObject(info);
-
-            InternetComm.urlWithJSON result = comm.createURLRequest(Constant.VIEW_APPOINTMENT, data);
-
-            mRefreshTask = new InternetComm.ApiRequest();
-            mRefreshTask.delegate = this;
-            mRefreshTask.execute(result);
+            actionRefreshAppointment();
             return true;
         }
 
         if(id == R.id.action_logout){
-            Toast.makeText(getApplicationContext(), "Logging out...", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, LoginActivity.class);
-            InternetComm comm = new InternetComm(this);
-            Map info = new HashMap<String, String>();
-            info.put("client_ver", Constant.CLIENT_VER);
-            info.put("sessionid", sessionid);
-            JSONObject data = new JSONObject(info);
-
-            InternetComm.urlWithJSON result = comm.createURLRequest(Constant.LOGOUT, data);
-            mLogoutTask = new InternetComm.ApiRequest();
-            mLogoutTask.delegate = this;
-            mLogoutTask.execute(result);
-
-
+            actionLogout();
         }
 
         return super.onOptionsItemSelected(item);
