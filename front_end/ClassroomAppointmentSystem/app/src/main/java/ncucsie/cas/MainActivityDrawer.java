@@ -26,7 +26,7 @@ import java.util.Map;
 
 
 public class MainActivityDrawer extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, InternetComm.ApiResponse {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, InternetComm.ApiResponse, ExistingAppointmentTab.RefreshExistingAppointmentRequest {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -43,6 +43,10 @@ public class MainActivityDrawer extends Activity
 
     public interface NotifyViewAppointment {
         void NotifyViewListener(JSONObject result);
+    }
+
+    public void refreshExistingAppointment(){
+
     }
 
     public void postProcessing(JSONObject result){

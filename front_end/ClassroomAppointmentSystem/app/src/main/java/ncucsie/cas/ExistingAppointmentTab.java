@@ -27,6 +27,10 @@ public class ExistingAppointmentTab extends Fragment implements MainActivityDraw
     public ExistingAppointmentTab() {
     }
 
+    interface RefreshExistingAppointmentRequest{
+        void refreshExistingAppointment();
+    }
+
     public void NotifyViewListener(JSONObject result){
         try {
             if (result.getInt("status_code") == 200) {
@@ -69,8 +73,7 @@ public class ExistingAppointmentTab extends Fragment implements MainActivityDraw
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
 
-        MainActivityDrawer drawer = new MainActivityDrawer();
-        drawer.actionRefreshAppointment();
+
 
         return rootView;
     }
