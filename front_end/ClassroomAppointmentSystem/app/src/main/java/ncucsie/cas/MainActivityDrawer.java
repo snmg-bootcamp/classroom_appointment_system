@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -168,7 +169,7 @@ public class MainActivityDrawer extends Activity
 
     public void actionRefreshAppointment(){
         InternetComm comm = new InternetComm(this);
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Map<String, String> info = new HashMap<String, String>();
         info.put("client_ver", Constant.CLIENT_VER);
         info.put("sessionid", MainActivityDrawer.sessionid);
@@ -189,6 +190,7 @@ public class MainActivityDrawer extends Activity
         else {
             date += temp_day;
         }
+        Log.i("Date: ", date);
         info.put("appointment-date", date);
         info.put("last-modified", "0");
         JSONObject data = new JSONObject(info);
