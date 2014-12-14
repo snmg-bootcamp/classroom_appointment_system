@@ -29,4 +29,8 @@ public interface Constant {
 
     public final static String USER_EXTRA = "com.ncucsie.cas.user_extra";
     public final static String CLIENT_VER = "0.01";
+    public final static String USER_REQUEST = "__client_request__";
+    public final static String REFRESH_REQUEST = "__client_refresh__";
+    public final static String REFRESH_REQUEST2 = "__client_refresh2__";
+    public final static String LOGOUT_REQUEST = "__client_logout__";
 }

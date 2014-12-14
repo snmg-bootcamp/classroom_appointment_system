@@ -68,27 +68,30 @@ public class MainActivityDrawer extends Activity
 
 
     public void postProcessing(JSONObject result){
-        if(mLogoutTask != null) {
-            try {
-                finish();
-                LoginActivity.mNotifyView.setText(result.getString("response"));
-            } catch (JSONException e) {
-                Log.i("JSON Exception", "Failed to parse malformed response" + result.toString());
+        try {
+            if (mLogoutTask != null && result.getString(Constant.USER_REQUEST).equals(Constant.LOGOUT_REQUEST)) {
+                try {
+                    finish();
+                    LoginActivity.mNotifyView.setText(result.getString("response"));
+                } catch (JSONException e) {
+                    Log.i("JSON Exception", "Failed to parse malformed response" + result.toString());
+                }
+                mLogoutTask = null;
             }
-            mLogoutTask = null;
-        }
-        if(mRefreshTask != null){
-            Log.i("result: ", result.toString());
-            NotifyClass mNotify = new NotifyClass();
-            mNotify.doNotify(result);
-            mRefreshTask = null;
+            if (mRefreshTask != null && result.getString(Constant.USER_REQUEST).equals(Constant.REFRESH_REQUEST)) {
+                Log.i("result: ", result.toString());
+                NotifyClass mNotify = new NotifyClass();
+                mNotify.doNotify(result);
 
+            }
+            if (mRefreshTask2 != null && result.getString(Constant.USER_REQUEST).equals(Constant.REFRESH_REQUEST2)) {
+                Log.i("result: ", result.toString());
+                NotifyClass2 mNotify = new NotifyClass2();
+                mNotify.doNotify(result);
+            }
         }
-        if(mRefreshTask2 != null){
-            Log.i("result: ", result.toString());
-            NotifyClass2 mNotify = new NotifyClass2();
-            mNotify.doNotify(result);
-            mRefreshTask2 = null;
+        catch (JSONException e){
+            Log.d("JSONException in postProcessing", e.toString());
         }
     }
 
@@ -213,7 +216,7 @@ public class MainActivityDrawer extends Activity
 
         InternetComm.urlWithJSON result = comm.createURLRequest(Constant.VIEW_APPOINTMENT, data);
 
-        mRefreshTask = new InternetComm.ApiRequest();
+        mRefreshTask = new InternetComm.ApiRequest(Constant.REFRESH_REQUEST);
         mRefreshTask.delegate = this;
         mRefreshTask.execute(result);
 
@@ -227,7 +230,7 @@ public class MainActivityDrawer extends Activity
         data = new JSONObject(info);
         result = comm.createURLRequest(Constant.MY_APPOINTMENT, data);
 
-        mRefreshTask2 = new InternetComm.ApiRequest();
+        mRefreshTask2 = new InternetComm.ApiRequest(Constant.REFRESH_REQUEST2);
         mRefreshTask2.delegate = this;
         mRefreshTask2.execute(result);
 
@@ -245,7 +248,7 @@ public class MainActivityDrawer extends Activity
         JSONObject data = new JSONObject(info);
 
         InternetComm.urlWithJSON result = comm.createURLRequest(Constant.LOGOUT, data);
-        mLogoutTask = new InternetComm.ApiRequest();
+        mLogoutTask = new InternetComm.ApiRequest(Constant.LOGOUT_REQUEST);
         mLogoutTask.delegate = this;
         mLogoutTask.execute(result);
 
