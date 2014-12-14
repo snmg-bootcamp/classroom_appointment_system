@@ -146,7 +146,7 @@ public class NewAppointmentActivity extends Activity
 
         InternetComm.urlWithJSON result = comm.createURLRequest(Constant.ADD_APPOINTMENT, data);
 
-        mNewAppointmentRequest = new InternetComm.ApiRequest();
+        mNewAppointmentRequest = new InternetComm.ApiRequest(Constant.NEW_APPOINTMENT_REQUEST);
         mNewAppointmentRequest.delegate = this;
         mNewAppointmentRequest.execute(result);
     }

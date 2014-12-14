@@ -33,4 +33,5 @@ public interface Constant {
     public final static String REFRESH_REQUEST = "__client_refresh__";
     public final static String REFRESH_REQUEST2 = "__client_refresh2__";
     public final static String LOGOUT_REQUEST = "__client_logout__";
+    public final static String NEW_APPOINTMENT_REQUEST = "__client_new_appointment_request__";
 }
