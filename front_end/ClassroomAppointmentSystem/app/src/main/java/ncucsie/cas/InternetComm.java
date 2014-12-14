@@ -77,10 +77,14 @@ public class InternetComm {
 
         @Override
         protected void onPostExecute(JSONObject result) {
-            //TODO: remove placeholder
-            Log.i("Server Response", result.toString());
-            if(delegate != null){
-                delegate.postProcessing(result);
+            if(result != null) {
+                Log.i("Server Response", result.toString());
+                if (delegate != null) {
+                    delegate.postProcessing(result);
+                }
+            }
+            else {
+                Log.d("Received no response from server", "");
             }
             //perform update action after successful update or when failed to update, notify the user immediately
         }
