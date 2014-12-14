@@ -207,7 +207,7 @@ public class LoginActivity extends Activity {
                 return new InternetComm.userStruct(false, null, "Connection to server failed");
             }
             if(result != null) {
-                Log.i(Constant.DEBUG_TAG, result.toString());
+                Log.d(Constant.DEBUG_TAG, result.toString());
 
                 try {
                     if (result.getInt("status_code") == 200) {
@@ -216,7 +216,7 @@ public class LoginActivity extends Activity {
                         return new InternetComm.userStruct(false, null, "Username or password is incorrect");
                     }
                 } catch (JSONException e) {
-                    Log.i(Constant.DEBUG_TAG, "failed to parse login response" + result.toString());
+                    Log.d(Constant.DEBUG_TAG, "failed to parse login response" + result.toString());
                     return new InternetComm.userStruct(false, null, "Received malformed response");
                 }
             }

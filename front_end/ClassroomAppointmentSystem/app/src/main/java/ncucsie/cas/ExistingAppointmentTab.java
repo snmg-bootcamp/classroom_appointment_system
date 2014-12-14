@@ -39,7 +39,7 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
             }
         }
         catch(JSONException e){
-            Log.i("Malformed response from server", result.toString());
+            Log.d("Malformed response from server", result.toString());
         }
     }
 
@@ -118,7 +118,7 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
                     }
                 }
                 catch(ArrayIndexOutOfBoundsException e){
-                    Log.i("ArrayIndexOutOfBoundsException", e.toString());
+                    Log.d("ArrayIndexOutOfBoundsException", e.toString());
                 }
 
                 TextView text2 = new TextView(getActivity());
@@ -130,7 +130,7 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
                 row.addView(text2);
             }
         } catch (JSONException exception) {
-            Log.i("JSON Exception", "Failed to parse JSON array: " + array.toString());
+            Log.d("JSON Exception", "Failed to parse JSON array: " + array.toString());
         }
 
     }

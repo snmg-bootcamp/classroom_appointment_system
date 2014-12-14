@@ -24,11 +24,11 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
 
                 }
                 */
-                Log.i("NotifyMyAppointment Response: ", table.toString());
+                Log.d("NotifyMyAppointment Response: ", table.toString());
             }
         }
         catch(JSONException e){
-            Log.i("Malformed response from server", result.toString());
+            Log.d("Malformed response from server", result.toString());
         }
     }
 

@@ -79,7 +79,7 @@ public class InternetComm {
         @Override
         protected void onPostExecute(JSONObject result) {
             if(result != null) {
-                Log.i("Server Response", result.toString());
+                Log.d("Server Response", result.toString());
                 if (delegate != null) {
                     try {
                         delegate.postProcessing(result.put(Constant.USER_REQUEST, request));
@@ -196,7 +196,7 @@ public class InternetComm {
             while ((line = bufferedReader.readLine()) != null)
                 result += line;
         } catch (Exception IOException){
-            Log.i(Constant.DEBUG_TAG, "IO exception in bufferedReader.readLine()");
+            Log.d(Constant.DEBUG_TAG, "IO exception in bufferedReader.readLine()");
         }
         return new JSONObject(result);
     }

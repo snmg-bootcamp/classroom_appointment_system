@@ -74,18 +74,18 @@ public class MainActivityDrawer extends Activity
                     finish();
                     LoginActivity.mNotifyView.setText(result.getString("response"));
                 } catch (JSONException e) {
-                    Log.i("JSON Exception", "Failed to parse malformed response" + result.toString());
+                    Log.d("JSON Exception", "Failed to parse malformed response" + result.toString());
                 }
                 mLogoutTask = null;
             }
             if (mRefreshTask != null && result.getString(Constant.USER_REQUEST).equals(Constant.REFRESH_REQUEST)) {
-                Log.i("result: ", result.toString());
+                Log.d("result: ", result.toString());
                 NotifyClass mNotify = new NotifyClass();
                 mNotify.doNotify(result);
 
             }
             if (mRefreshTask2 != null && result.getString(Constant.USER_REQUEST).equals(Constant.REFRESH_REQUEST2)) {
-                Log.i("result: ", result.toString());
+                Log.d("result: ", result.toString());
                 NotifyClass2 mNotify = new NotifyClass2();
                 mNotify.doNotify(result);
             }
@@ -209,7 +209,7 @@ public class MainActivityDrawer extends Activity
         else {
             date += temp_day;
         }
-        Log.i("Date: ", date);
+        Log.d("Date: ", date);
         info.put("appointment-date", date);
         info.put("last-modified", "0");
         JSONObject data = new JSONObject(info);

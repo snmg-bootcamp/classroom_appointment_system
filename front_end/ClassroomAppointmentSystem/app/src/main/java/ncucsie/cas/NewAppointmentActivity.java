@@ -42,7 +42,7 @@ public class NewAppointmentActivity extends Activity
             }
         }
         catch (JSONException e){
-            Log.i("JSON Exception", "Malformed response" + result.toString());
+            Log.d("JSON Exception", "Malformed response" + result.toString());
         }
         notFinished = false;
         cancelActionView.setEnabled(true);
