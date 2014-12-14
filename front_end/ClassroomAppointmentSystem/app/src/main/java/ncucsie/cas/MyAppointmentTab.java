@@ -25,7 +25,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
             if (result.getInt("status_code") == 200) {
                 JSONArray table = result.getJSONArray("response");
                 if(getActivity() != null && getActivity().findViewById(R.id.my_appointment_list) != null) {
-                    ArrayList lists = getListData(new JSONArray(result));
+                    ArrayList lists = getListData(table);
                     final ListView list = (ListView) getActivity().findViewById(R.id.my_appointment_list);
                     list.setAdapter(new CustomListAdapter(this.getActivity(), lists));
                     list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -72,13 +72,13 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
         try {
             for (int i = 0; i < array.length(); i++) {
                 myAppointmentClass appointment = new myAppointmentClass();
-                appointment.setNum(Integer.parseInt((new JSONArray(array.get(i))).get(0).toString()));
-                appointment.setDate((new JSONArray(array.get(i))).get(1).toString());
-                appointment.setClassroom((new JSONArray(array.get(i))).get(2).toString());
-                appointment.setTime((new JSONArray(array.get(i))).get(3).toString());
-                appointment.setName((new JSONArray(array.get(i))).get(4).toString());
-                appointment.setTeacher((new JSONArray(array.get(i))).get(5).toString());
-                appointment.setHiddenNum((new JSONArray(array.get(i))).get(6).toString());
+                appointment.setNum(Integer.parseInt(array.getJSONArray(i).get(0).toString()));
+                appointment.setDate(array.getJSONArray(i).get(1).toString());
+                appointment.setClassroom(array.getJSONArray(i).get(2).toString());
+                appointment.setTime(array.getJSONArray(i).get(3).toString());
+                appointment.setName(array.getJSONArray(i).get(4).toString());
+                appointment.setTeacher(array.getJSONArray(i).get(5).toString());
+                appointment.setHiddenNum(array.getJSONArray(i).get(6).toString());
                 results.add(appointment);
             }
         }
