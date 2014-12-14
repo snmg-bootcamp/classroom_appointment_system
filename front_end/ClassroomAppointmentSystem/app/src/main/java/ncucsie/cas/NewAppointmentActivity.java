@@ -1,6 +1,5 @@
 package ncucsie.cas;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
