@@ -1,5 +1,6 @@
 package ncucsie.cas;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ public class NewAppointmentActivity extends Activity
 
     boolean notFinished = false;
     private InternetComm.ApiRequest mNewAppointmentRequest = null;
+    View cancelActionView;
 
 
     public void postProcessing(JSONObject result){
@@ -44,6 +46,7 @@ public class NewAppointmentActivity extends Activity
             Log.i("JSON Exception", "Malformed response" + result.toString());
         }
         notFinished = false;
+        cancelActionView.setEnabled(true);
     }
 
 
@@ -59,10 +62,9 @@ public class NewAppointmentActivity extends Activity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_appointment_activity);
-
         View actionBarButtons = getLayoutInflater().inflate(R.layout.custom_form_custom_actionbar,
                 new LinearLayout(this), false);
-        View cancelActionView = actionBarButtons.findViewById(R.id.action_cancel);
+        cancelActionView = actionBarButtons.findViewById(R.id.action_cancel);
         cancelActionView.setOnClickListener(mActionBarListener);
         View doneActionView = actionBarButtons.findViewById(R.id.action_done);
         doneActionView.setOnClickListener(mActionBarListener);
@@ -114,6 +116,7 @@ public class NewAppointmentActivity extends Activity
         switch (itemId) {
             case R.id.action_done:
                 notFinished = true;
+                cancelActionView.setEnabled(false);
                 sendNewAppointment();
                 break;
             case R.id.action_cancel:

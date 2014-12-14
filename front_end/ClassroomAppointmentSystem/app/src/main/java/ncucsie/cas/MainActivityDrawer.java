@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +40,8 @@ public class MainActivityDrawer extends Activity
     public static String sessionid;
     private InternetComm.ApiRequest mLogoutTask = null;
     private InternetComm.ApiRequest mRefreshTask = null;
+    private InternetComm.ApiRequest mRefreshTask2 = null;
+
     public MainActivityDrawer drawerActivity = this;
 
     public class ExistingAppointmentTabRequestClass{
@@ -55,10 +58,18 @@ public class MainActivityDrawer extends Activity
         }
     }
 
+    static public class NotifyClass2 {
+        static public NotifyMyAppointment mNotifyView2 = null;
+        public void doNotify(JSONObject result){
+            if(mNotifyView2 != null){
+                mNotifyView2.NotifyViewListener(result);
+            }
+        }
+    }
+
 
     public void postProcessing(JSONObject result){
         if(mLogoutTask != null) {
-            Log.i("", "Executing postProcessing method");
             try {
                 finish();
                 LoginActivity.mNotifyView.setText(result.getString("response"));
@@ -67,11 +78,18 @@ public class MainActivityDrawer extends Activity
             }
             mLogoutTask = null;
         }
-        else if(mRefreshTask != null){
+        if(mRefreshTask != null){
             Log.i("result: ", result.toString());
             NotifyClass mNotify = new NotifyClass();
             mNotify.doNotify(result);
+            mRefreshTask = null;
 
+        }
+        if(mRefreshTask2 != null){
+            Log.i("result: ", result.toString());
+            NotifyClass2 mNotify = new NotifyClass2();
+            mNotify.doNotify(result);
+            mRefreshTask2 = null;
         }
     }
 
@@ -168,7 +186,7 @@ public class MainActivityDrawer extends Activity
 
     public void actionRefreshAppointment(){
         InternetComm comm = new InternetComm(this);
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Map<String, String> info = new HashMap<String, String>();
         info.put("client_ver", Constant.CLIENT_VER);
         info.put("sessionid", MainActivityDrawer.sessionid);
@@ -189,6 +207,7 @@ public class MainActivityDrawer extends Activity
         else {
             date += temp_day;
         }
+        Log.i("Date: ", date);
         info.put("appointment-date", date);
         info.put("last-modified", "0");
         JSONObject data = new JSONObject(info);
@@ -198,6 +217,23 @@ public class MainActivityDrawer extends Activity
         mRefreshTask = new InternetComm.ApiRequest();
         mRefreshTask.delegate = this;
         mRefreshTask.execute(result);
+
+
+
+        info = new HashMap<String, String>();
+        info.put("client_ver", Constant.CLIENT_VER);
+        info.put("sessionid", MainActivityDrawer.sessionid);
+        info.put("last-modified", "");
+
+        data = new JSONObject(info);
+        result = comm.createURLRequest(Constant.MY_APPOINTMENT, data);
+
+        mRefreshTask2 = new InternetComm.ApiRequest();
+        mRefreshTask2.delegate = this;
+        mRefreshTask2.execute(result);
+
+
+
     }
 
     private void actionLogout(){
