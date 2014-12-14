@@ -63,9 +63,6 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
         MainActivityDrawer.NotifyClass2.mNotifyView2 = this;
 
 
-
-        final ListView list = (ListView) getActivity().findViewById(R.id.my_appointment_list);
-
         return rootView;
     }
 
