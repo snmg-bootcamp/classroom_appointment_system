@@ -25,7 +25,17 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
             if (result.getInt("status_code") == 200) {
                 JSONArray table = result.getJSONArray("response");
                 if(getActivity() != null && getActivity().findViewById(R.id.my_appointment_list) != null) {
+                    ArrayList lists = getListData(new JSONArray(result));
+                    final ListView list = (ListView) getActivity().findViewById(R.id.my_appointment_list);
+                    list.setAdapter(new CustomListAdapter(this.getActivity(), lists));
+                    list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                            Object o = list.getItemAtPosition(position);
+                            myAppointmentClass item = (myAppointmentClass) o;
+                        }
 
+                    });
                 }
 
                 Log.d("NotifyMyAppointment Response: ", table.toString());
@@ -53,19 +63,8 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
         MainActivityDrawer.NotifyClass2.mNotifyView2 = this;
 
 
-        ArrayList image_details = getListData();
+
         final ListView list = (ListView) getActivity().findViewById(R.id.my_appointment_list);
-        list.setAdapter(new CustomListAdapter(this.getActivity(), image_details));
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Object o = list.getItemAtPosition(position);
-                myAppointmentClass newsData = (myAppointmentClass) o;
-            }
-
-        });
-
-
 
         return rootView;
     }
@@ -73,10 +72,21 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
 
     private ArrayList getListData(JSONArray array) {
         ArrayList<myAppointmentClass> results = new ArrayList<myAppointmentClass>();
-        for(int i=0;i<array.length();i++) {
-            myAppointmentClass appointment = new myAppointmentClass();
-
-            results.add(appointment);
+        try {
+            for (int i = 0; i < array.length(); i++) {
+                myAppointmentClass appointment = new myAppointmentClass();
+                appointment.setNum(Integer.parseInt((new JSONArray(array.get(i))).get(0).toString()));
+                appointment.setDate((new JSONArray(array.get(i))).get(1).toString());
+                appointment.setClassroom((new JSONArray(array.get(i))).get(2).toString());
+                appointment.setTime((new JSONArray(array.get(i))).get(3).toString());
+                appointment.setName((new JSONArray(array.get(i))).get(4).toString());
+                appointment.setTeacher((new JSONArray(array.get(i))).get(5).toString());
+                appointment.setHiddenNum((new JSONArray(array.get(i))).get(6).toString());
+                results.add(appointment);
+            }
+        }
+        catch (JSONException e){
+            Log.d("JSONException: ", e.toString());
         }
 
 
