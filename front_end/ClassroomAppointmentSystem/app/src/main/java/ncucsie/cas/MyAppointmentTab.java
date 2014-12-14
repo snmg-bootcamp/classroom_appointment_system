@@ -60,7 +60,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = list.getItemAtPosition(position);
-                myAppointmentClass newsData = (myAppointmentClass) o;
+                myAppointmentClass item = (myAppointmentClass) o;
             }
 
         });
