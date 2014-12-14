@@ -113,6 +113,7 @@ public class MainActivityDrawer extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         ExistingAppointmentTab.RefreshClass.mRequest = this;
+        MyAppointmentTab.RefreshClass.mRequest = this;
     }
 
     @Override

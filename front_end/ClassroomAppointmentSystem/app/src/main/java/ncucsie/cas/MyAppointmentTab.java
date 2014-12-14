@@ -45,7 +45,23 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
             Log.d("Malformed response from server", result.toString());
         }
     }
+    static public class RefreshClass{
+        static public MainActivityDrawer mRequest = null;
+        RefreshClass (){
+        }
+        public void refresh(){
+            if(mRequest != null){
+                mRequest.actionRefreshAppointment();
+            }
+        }
 
+    }
+
+    @Override
+    public void onResume() {
+        RefreshClass request = new RefreshClass();
+        request.refresh();
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -79,6 +95,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
                 appointment.setName(array.getJSONArray(i).get(4).toString());
                 appointment.setTeacher(array.getJSONArray(i).get(5).toString());
                 appointment.setHiddenNum(array.getJSONArray(i).get(6).toString());
+                appointment.setData(array);
                 results.add(appointment);
             }
         }
