@@ -2,7 +2,7 @@ package ncucsie.cas;
 
 import org.json.JSONArray;
 
-public class myAppointmentClass {
+public class MyAppointmentClass {
 
     private String date;
     private String classroom;

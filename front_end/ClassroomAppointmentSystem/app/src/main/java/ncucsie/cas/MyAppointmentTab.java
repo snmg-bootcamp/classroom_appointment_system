@@ -32,7 +32,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
                         @Override
                         public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                             Object o = list.getItemAtPosition(position);
-                            myAppointmentClass item = (myAppointmentClass) o;
+                            MyAppointmentClass item = (MyAppointmentClass) o;
                         }
 
                     });
@@ -85,10 +85,10 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
 
 
     private ArrayList getListData(JSONArray array) {
-        ArrayList<myAppointmentClass> results = new ArrayList<myAppointmentClass>();
+        ArrayList<MyAppointmentClass> results = new ArrayList<MyAppointmentClass>();
         try {
             for (int i = 0; i < array.length(); i++) {
-                myAppointmentClass appointment = new myAppointmentClass();
+                MyAppointmentClass appointment = new MyAppointmentClass();
                 appointment.setNum(Integer.parseInt(array.getJSONArray(i).get(0).toString()));
                 appointment.setDate(array.getJSONArray(i).get(1).toString());
                 appointment.setClassroom(array.getJSONArray(i).get(2).toString());
