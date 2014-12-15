@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -65,6 +66,9 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment, N
                         @Override
                         public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                             MyAppointmentClass item = (MyAppointmentClass) list.getItemAtPosition(position);
+                            Intent intent = new Intent(getActivity(), NewAppointmentActivity.class);
+                            intent.putExtra(Constant.MODIFY_DATA, item.getData().toString());
+                            startActivity(intent);
                         }
 
                     });
