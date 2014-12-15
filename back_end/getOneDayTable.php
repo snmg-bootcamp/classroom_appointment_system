@@ -34,8 +34,8 @@
 			}
 			else {
 				$url = 'http://classroom.csie.ncu.edu.tw/appointment_schedule/changeweek/'.$class.'/'.$year.'-'.$month.'-'.$day ;
-				//echo getUrlContent($resource, $url);
-				$status = 200;	// successc
+				
+				$status = 200;	// successful
 				$response = getOneDay(getUrlContent($url, $token), $week, $month, $day);
 			}
 		}

@@ -4,7 +4,7 @@
 	include('config.php');
 	include('func.php');
 	
-	$status         = "400";    // default status code (error)
+	$status         = 400;    // default status code (error)
 	$last_modified  = NULL;
 	$last_modified  = NULL;
 
@@ -33,10 +33,7 @@
 					$url = 'http://classroom.csie.ncu.edu.tw/appointment_schedule/'.$ClassList[$i];
 					$total[$ClassList[$i]] = filter(getUrlContent($url, $token));
 				}
-				/*
-				print_r($total);
-				echo "<br><br>";
-				*/
+
 				$response = $total;
 				$status = 200;
 			}

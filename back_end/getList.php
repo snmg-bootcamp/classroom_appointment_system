@@ -31,10 +31,7 @@
 			}
 			else {
 				$url = 'http://classroom.csie.ncu.edu.tw/appointment_schedule/list/'.$class;
-				echo getUrlContent($url, $token);
 				preg_match_all('/\<td\>([^<]*)\<\/td\>/', getUrlContent($url, $token), $match);
-				//print_r($match);
-				//echo json_encode($match[1], JSON_UNESCAPED_UNICODE);
 				$response = $match[1];
 				$status = 200;
 			}
