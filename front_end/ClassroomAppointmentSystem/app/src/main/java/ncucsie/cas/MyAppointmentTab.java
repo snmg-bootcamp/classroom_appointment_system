@@ -164,7 +164,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment, N
                 appointment.setName(array.getJSONArray(i).get(4).toString());
                 appointment.setTeacher(array.getJSONArray(i).get(5).toString());
                 appointment.setHiddenNum(array.getJSONArray(i).get(6).toString());
-                appointment.setData(array);
+                appointment.setData(array.getJSONArray(i));
                 results.add(appointment);
             }
         }

@@ -166,6 +166,9 @@ public class NewAppointmentActivity extends Activity
                 Log.d("JSON Exception", e.toString());
             }
         }
+        else {
+            modifyAppointment = false;
+        }
     }
 
     private final View.OnClickListener mActionBarListener = new View.OnClickListener() {
