@@ -31,6 +31,8 @@ public class NewAppointmentActivity extends Activity
     public void postProcessing(boolean has_data, JSONObject result){
         if(!has_data){
             Toast.makeText(this, "Received no response from server, try again later", Toast.LENGTH_LONG).show();
+            notFinished = false;
+            cancelActionView.setEnabled(true);
             return;
         }
         try {
