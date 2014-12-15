@@ -44,9 +44,7 @@ public class MainActivityDrawer extends Activity
 
     public MainActivityDrawer drawerActivity = this;
 
-    public void actionDeleteAppointment(int num) {
 
-    }
 
     public class ExistingAppointmentTabRequestClass{
         public void refresh(){
@@ -204,6 +202,20 @@ public class MainActivityDrawer extends Activity
     private void actionAddAppointment(){
         Intent intent = new Intent(this, NewAppointmentActivity.class);
         startActivity(intent);
+    }
+
+    public void actionDeleteAppointment(int num) {
+        InternetComm comm = new InternetComm(this);
+        Map<String, String> info = new HashMap<String, String>();
+        info.put("client_ver", Constant.CLIENT_VER);
+        info.put("sessionid", MainActivityDrawer.sessionid);
+        info.put("delete-number", Integer.toString(num));
+        info.put("last-modified", "");
+
+        InternetComm.urlWithJSON result = comm.createURLRequest(Constant.DELETE_APPOINTMENT, new JSONObject(info));
+        mDeleteTask = new InternetComm.ApiRequest(Constant.DELETE_REQUEST);
+        mDeleteTask.delegate = this;
+        mDeleteTask.execute(result);
     }
 
     public void actionRefreshAppointment(){
