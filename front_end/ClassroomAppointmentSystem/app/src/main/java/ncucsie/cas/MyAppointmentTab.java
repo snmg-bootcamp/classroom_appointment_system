@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,17 +19,33 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
+public class MyAppointmentTab extends Fragment implements NotifyMyAppointment, NotifyDeleteAppointment {
     public MyAppointmentTab() {
     }
 
-    public class DeleteAppointmentRequest {
-        private int num;
-        public MainActivityDrawer mRequest = null;
-        DeleteAppointmentRequest (int num){
-            this.num = num;
+    public void NotifyDeleteListener(JSONObject result){
+        try {
+            if(result.getInt("status_code") == 200){
+                result.getString(Constant.DELETE_REQUEST);
+                Toast.makeText(getActivity(), "Deleted appointment successfully", Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(getActivity(), "Failed to delete appointment", Toast.LENGTH_LONG).show();
+            }
+
+            RefreshClass request = new RefreshClass();
+            request.refresh();
         }
-        public void delete(){
+        catch(JSONException e){
+            Log.d("Malformed response from server", result.toString());
+        }
+    }
+
+    static public class DeleteAppointmentRequest {
+        static public MainActivityDrawer mRequest = null;
+        DeleteAppointmentRequest (){
+        }
+        public void delete(int num){
             if(mRequest != null){
                 mRequest.actionDeleteAppointment(num);
             }
@@ -64,7 +81,8 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 MyAppointmentClass item = (MyAppointmentClass) list.getItemAtPosition(position);
-
+                                                DeleteAppointmentRequest mRequest = new DeleteAppointmentRequest();
+                                                mRequest.delete(Integer.parseInt(item.getHiddenNum()));
                                             }
 
                                         })

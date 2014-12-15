@@ -131,6 +131,7 @@ public class MainActivityDrawer extends Activity
 
         ExistingAppointmentTab.RefreshClass.mRequest = this;
         MyAppointmentTab.RefreshClass.mRequest = this;
+        MyAppointmentTab.DeleteAppointmentRequest.mRequest = this;
     }
 
     @Override
@@ -213,7 +214,7 @@ public class MainActivityDrawer extends Activity
         info.put("last-modified", "");
 
         InternetComm.urlWithJSON result = comm.createURLRequest(Constant.DELETE_APPOINTMENT, new JSONObject(info));
-        mDeleteTask = new InternetComm.ApiRequest(Constant.DELETE_REQUEST);
+        mDeleteTask = new InternetComm.ApiRequest(Constant.DELETE_REQUEST, Integer.toString(num));
         mDeleteTask.delegate = this;
         mDeleteTask.execute(result);
     }

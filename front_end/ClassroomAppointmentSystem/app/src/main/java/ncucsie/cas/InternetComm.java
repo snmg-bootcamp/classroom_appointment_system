@@ -59,6 +59,11 @@ public class InternetComm {
 
     public static class ApiRequest extends AsyncTask<urlWithJSON, Void, JSONObject> {
         private String request = null;
+        private String delete_request = null;
+        ApiRequest(String request, String delete_request){
+            this.request = request;
+            this.delete_request = delete_request;
+        }
         ApiRequest(String request){
             this.request = request;
         }
@@ -82,7 +87,11 @@ public class InternetComm {
                 Log.d("Server Response", result.toString());
                 if (delegate != null) {
                     try {
-                        delegate.postProcessing(result.put(Constant.USER_REQUEST, request));
+                        JSONObject data = result.put(Constant.USER_REQUEST, request);
+                        if(delete_request != null){
+                            data.put(Constant.DELETE_REQUEST, delete_request);
+                        }
+                        delegate.postProcessing(data);
                     }
                     catch (JSONException e){
                         Log.d("JSONException at onPostExecute", e.toString());
