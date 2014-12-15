@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +37,9 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
                 if(getActivity() != null && getActivity().findViewById(R.id.existing_appointment_tab) != null) {
                     SetExistingTable((TableLayout) getActivity().findViewById(R.id.existing_appointment_tab), table);
                 }
+            }
+            else{
+                Toast.makeText(getActivity(), "Failed to refresh appointment" + result.getString("response"), Toast.LENGTH_LONG).show();
             }
         }
         catch(JSONException e){

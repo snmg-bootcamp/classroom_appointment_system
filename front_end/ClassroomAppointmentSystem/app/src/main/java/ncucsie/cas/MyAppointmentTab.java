@@ -100,6 +100,9 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment, N
 
                 Log.d("NotifyMyAppointment Response: ", table.toString());
             }
+            else{
+                Toast.makeText(getActivity(), "Failed to get appointment from server" + result.getString("response"), Toast.LENGTH_LONG).show();
+            }
         }
         catch(JSONException e){
             Log.d("Malformed response from server", result.toString());
