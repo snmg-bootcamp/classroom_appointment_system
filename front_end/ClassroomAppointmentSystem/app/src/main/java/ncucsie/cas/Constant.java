@@ -27,7 +27,7 @@ public interface Constant {
     public final static String LOGOUT_PAGE = "logout.php";
 
 
-    public final static String USER_EXTRA = "com.ncucsie.cas.user_extra";
+    public final static String USER_SESSION = "com.ncucsie.cas.user_extra";
     public final static String CLIENT_VER = "0.01";
     public final static String USER_REQUEST = "__client_request__";
     public final static String REFRESH_REQUEST = "__client_refresh__";

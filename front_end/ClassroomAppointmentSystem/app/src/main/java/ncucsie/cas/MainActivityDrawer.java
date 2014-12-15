@@ -115,7 +115,7 @@ public class MainActivityDrawer extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity_drawer);
         Intent intent = getIntent();
-        sessionid = intent.getStringExtra(Constant.USER_EXTRA);
+        sessionid = intent.getStringExtra(Constant.USER_SESSION);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);

@@ -232,7 +232,7 @@ public class LoginActivity extends Activity {
 
             if (success.result) {
                 Intent intent = new Intent(LoginActivity.this, MainActivityDrawer.class);
-                intent.putExtra(Constant.USER_EXTRA, success.sessionid);
+                intent.putExtra(Constant.USER_SESSION, success.sessionid);
                 startActivity(intent);
             } else {
                 mPasswordView.setError(success.failed_message);
