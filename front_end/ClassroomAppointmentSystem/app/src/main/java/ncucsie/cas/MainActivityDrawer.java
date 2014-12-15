@@ -63,10 +63,10 @@ public class MainActivityDrawer extends Activity
     }
 
     static public class NotifyClass2 {
-        static public NotifyMyAppointment mNotifyView2 = null;
+        static public NotifyMyAppointment mNotifyView = null;
         public void doNotify(JSONObject result){
-            if(mNotifyView2 != null){
-                mNotifyView2.NotifyViewListener(result);
+            if(mNotifyView != null){
+                mNotifyView.NotifyViewListener(result);
             }
         }
     }
