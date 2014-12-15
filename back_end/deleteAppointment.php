@@ -8,6 +8,7 @@
 
 	//check the user whether send auth token and request data (json format)
 	if(isset($_POST['data'])) {
+		
 		$data = json_decode($_POST['data']);
 		
 		if(isset($data -> {'client_ver'}) && 
@@ -29,46 +30,62 @@
 					//find user's name
 					$url = "http://classroom.csie.ncu.edu.tw/appointment_form/".$number;
 					$content = getUrlContent($url, $token);
+					
+					//get name from form
 					if(preg_match('/name=\"name\" value=\"(.*)\" size/', $content, $match))
 						$name = $match[1];
+
+					//get classroom from form
 					if(preg_match('/value=\"(.*)\" selected=\"selected\"/', $content, $match))
 						$classroom = $match[1];
 									
 					if(isset($classroom) && isset($name)) //check the name & classroom is true or wrong
 					{
+						// add a connection of db
 						try {
 							$link = new PDO($dsn, $user, $password);
 						} catch(PDOException $e) {
 							printf("DatabaseError: %s", $e->getMessage());
 						}
 						
-						$sql = "SELECT del_time FROM user WHERE name = '$name'";
-						$str = $link->prepare($sql);
-						$str->execute();
-						$row = $str->fetch(PDO::FETCH_ASSOC);
-						if($row == NULL)
-						{
-							$sql = "INSERT INTO user (name, add_time, del_time) VALUES ('$name', 0, 1)";
+						// update `user` time of delete_appointment
+						try {
+							$sql = "SELECT del_time FROM user WHERE name = '$name'";
 							$str = $link->prepare($sql);
 							$str->execute();
+							$row = $str->fetch(PDO::FETCH_ASSOC);
+
+							// if the del_time doesn't exist, then add a new user
+							if($row == NULL)
+							{
+								$sql = "INSERT INTO user (name, add_time, del_time) VALUES ('$name', 0, 1)";
+								$str = $link->prepare($sql);
+								$str->execute();
+							}
+							else
+							{
+								$sql = "UPDATE `user` SET `del_time`=`del_time`+1 WHERE ( `name` = '$name' )";
+								$str = $link->prepare($sql);
+								$str->execute();
+							}
+						} catch (PDOException $e) {
+							printf("DatabaseError: %s", $e->getMessage());
 						}
-						else
-						{
-							$sql = "UPDATE `user` SET `del_time`=`del_time`+1 WHERE ( `name` = '$name' )";
+						
+						// update `classroom` time of delete_appointment
+						try {
+							$sql = "UPDATE `classroom` SET `del_time`=`del_time`+1 WHERE ( `name`='$classroom' )";
 							$str = $link->prepare($sql);
-							$str->execute();
+							$str->execute(); 
+						} catch(PDOException $e) {
+							printf("DatabaseError: %s", $e->getMessage());
 						}
 
-						$sql = "UPDATE `classroom` SET `del_time`=`del_time`+1 WHERE ( `name`='$classroom' )";
-						$str = $link->prepare($sql);
-						$str->execute(); 
 						$url = 'http://classroom.csie.ncu.edu.tw/my_list/delete/'.$number;
-						//echo getUrlContent($resource, $url);
 						$status = 200;	// success
 						$response = "successful";
 						getUrlContent($url, $token);
-						//$response = filter(getUrlContent($url, $token));
-						$link = NULL;
+						$link = NULL;	// close the connection of db
 					}
 			}
 		}

@@ -16,8 +16,10 @@
 			$url = 'http://classroom.csie.ncu.edu.tw/appointment_rule?destination=appointment_rule';
 			$postdata = "name=$username&pass=$password&form_id=user_login_block";
 			$result = setUrlCookie($url, $postdata, $username);
+			
+			// clear the cache
 			clearstatcache();
-			//echo filesize('cookie/'.$result);
+
 			if(filesize('cookie/'.$result))
 			{
 				$response = $result;

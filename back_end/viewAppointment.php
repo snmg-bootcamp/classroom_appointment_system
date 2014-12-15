@@ -27,11 +27,9 @@
 			}
 			else {
 				$url = 'http://classroom.csie.ncu.edu.tw/my_list';
-				//echo getUrlContent($url, $token);
 				$content = getUrlContent($url, $token);
+				
 				preg_match_all('/\<td\>([^<]*)\<\/td\>/', $content, $match);
-				//print_r($match);
-				//echo json_encode($match[1], JSON_UNESCAPED_UNICODE);
 				$preg = $match[1];
 
 				preg_match_all('/\<a href=\"my_list\/edit\/([^<]*)\"\>/', $content, $match);
@@ -46,11 +44,9 @@
 						array_push($tmp, $preg[$i * 6 + $j]);
 					}
 					array_push($tmp, $preg2[$i]);
-					//array_push($result, $tmp);
 					$result[$i] = $tmp;
 				}
 				$response = $result;
-				//print_r($response);
 				$status = 200;
 			}
 		}

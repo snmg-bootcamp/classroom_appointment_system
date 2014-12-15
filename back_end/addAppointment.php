@@ -8,9 +8,9 @@
 
 	//check the user whether send auth token and request data (json format)
 	if(isset($_POST['data'])) {
-		//echo $_POST['data'];
+		
 		$data = json_decode(($_POST['data']));
-		//print_r($data);
+		
 		if(isset($data -> {'client_ver'}) && 
 		   isset($data -> {'name'}) && 
 		   isset($data -> {'phone'}) && 
@@ -44,19 +44,20 @@
 			}
 			else {
 				$url = 'http://classroom.csie.ncu.edu.tw/appointment_form';
-				//echo getUrlContent($resource, $url);
 				
+				//get form_build_id
 				preg_match('/name=\"form_build_id\" value=\"(.*)\"/', getUrlContent($url, $token), $match);
 				$form_build_id = $match[1];
 
+				//get form_token
 				preg_match('/name=\"form_token\" value=\"(.*)\"/', getUrlContent($url, $token), $match);
 				$form_token = $match[1];
 
+				//get form_id
 				preg_match('/name=\"form_id\" value=\"(.*)\"/', getUrlContent($url, $token), $match);
 				$form_id = $match[1];
 
 				$postdata = "name=$name&phone=$phone&teacher=$teacher&classroom=$classroom&date[month]=$month&date[day]=$day&date[year]=$year&start_period=$start_period&end_period=$end_period&form_build_id=$form_build_id&form_token=$form_token&form_id=$form_id";
-				//$postdata = "name=%E9%BB%83%E8%A9%A9%E5%87%B1&phone=0926890020&teacher=0&classroom=6&date%5Bmonth%5D=12&date%5Bday%5D=3&date%5Byear%5D=2014&start_period=1&end_period=1&note=&op=%E7%A2%BA%E5%AE%9A%E9%A0%90%E7%B4%84&form_build_id=form-8-vHSADXQOWN_Wxbqxz4GEw62VAiSvD8GPVl5IPLhUQ&form_token=2y0sEoQvStPxcfIBUHw2bH5lDJctHvcHG6I0vYQ-PC8&form_id=appointment_form_form";
 				
 				$content = addAppointment($url, $postdata, $token);
 				
@@ -65,28 +66,30 @@
 
 					if($match[1] == "我的預約") {
 						
+						// create a connection of db
 						try {
 							$link = new PDO($dsn, $user, $password); 
 						} catch(PDOException $e) {
 							printf("DatabaseError: %s", $e->getMessage());
 						}
 
+						// update the time of `classroom` add_appointment
 						try {
 							$sql = "UPDATE `classroom` SET `add_time`=`add_time`+1 WHERE ( `id` = '$classroom' )";
 							$str = $link->prepare($sql);
-							//echo $str->bindParam(':class', $classroom, PDO::PARAM_STR); 
-							//print_r( $str);
 							$str->execute();
-							//$str->debugDumpParams();
 						} catch(PDOException $e) {
 							printf("DatabaseError: %s", $e->getMessage());
 						}
 
+						// update the time of `user` add_appointment
 						try {
 							$sql = "SELECT add_time FROM user WHERE name = '$name'";
 							$str = $link->prepare($sql);
 							$str->execute();
 							$row = $str->fetch(PDO::FETCH_ASSOC);
+
+							// if the name doesn't exist, then insert a new user
 							if($row == NULL)
 							{
 								$sql = "INSERT INTO user (name, add_time, del_time) VALUES ('$name', 1, 0)";
@@ -103,7 +106,7 @@
 							printf("DatabaseError: %s", $e->getMessage());
 						}
 
-						$link = NULL;
+						$link = NULL;	// close connection of db
 						$status = 200;	// success
 						$response = "successful";
 					}
@@ -116,10 +119,10 @@
 					$status = 400;
 					$response = "match fail";
 				}
-				//echo $response;
 			}
 		}
 	}
+
 	$response_arr = array("status_code"    => $status, 
 						  "response"	   => $response
 					);
