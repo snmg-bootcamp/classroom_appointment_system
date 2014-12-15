@@ -42,15 +42,8 @@ public class MainActivityDrawer extends Activity
     private InternetComm.ApiRequest mRefreshTask2 = null;
     private InternetComm.ApiRequest mDeleteTask = null;
 
-    public MainActivityDrawer drawerActivity = this;
 
 
-
-    public class ExistingAppointmentTabRequestClass{
-        public void refresh(){
-            actionRefreshAppointment();
-        }
-    }
     static public class NotifyRefreshExistingAppointmentClass {
         static public NotifyViewAppointment mNotifyView = null;
         public void doNotify(JSONObject result){
