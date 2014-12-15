@@ -40,8 +40,13 @@ public class MainActivityDrawer extends Activity
     private InternetComm.ApiRequest mLogoutTask = null;
     private InternetComm.ApiRequest mRefreshTask = null;
     private InternetComm.ApiRequest mRefreshTask2 = null;
+    private InternetComm.ApiRequest mDeleteTask = null;
 
     public MainActivityDrawer drawerActivity = this;
+
+    public void actionDeleteAppointment(int num) {
+
+    }
 
     public class ExistingAppointmentTabRequestClass{
         public void refresh(){
@@ -62,6 +67,15 @@ public class MainActivityDrawer extends Activity
         public void doNotify(JSONObject result){
             if(mNotifyView2 != null){
                 mNotifyView2.NotifyViewListener(result);
+            }
+        }
+    }
+
+    static public class NotifyClass3 {
+        static public NotifyDeleteAppointment mNotifyView = null;
+        public void doNotify(JSONObject result){
+            if(mNotifyView != null){
+                mNotifyView.NotifyDeleteListener(result);
             }
         }
     }
@@ -87,6 +101,11 @@ public class MainActivityDrawer extends Activity
             if (mRefreshTask2 != null && result.getString(Constant.USER_REQUEST).equals(Constant.REFRESH_REQUEST2)) {
                 Log.d("result: ", result.toString());
                 NotifyClass2 mNotify = new NotifyClass2();
+                mNotify.doNotify(result);
+            }
+            if(mDeleteTask != null && result.getString(Constant.USER_REQUEST).equals(Constant.DELETE_REQUEST)) {
+                Log.d("result: ", result.toString());
+                NotifyClass3 mNotify = new NotifyClass3();
                 mNotify.doNotify(result);
             }
         }

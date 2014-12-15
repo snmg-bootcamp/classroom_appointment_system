@@ -22,6 +22,20 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
     public MyAppointmentTab() {
     }
 
+    public class DeleteAppointmentRequest {
+        private int num;
+        public MainActivityDrawer mRequest = null;
+        DeleteAppointmentRequest (int num){
+            this.num = num;
+        }
+        public void delete(){
+            if(mRequest != null){
+                mRequest.actionDeleteAppointment(num);
+            }
+        }
+    }
+
+
     public void NotifyViewListener(JSONObject result){
         try {
             if (result.getInt("status_code") == 200) {
