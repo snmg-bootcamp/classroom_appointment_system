@@ -4,7 +4,7 @@
 	include('config.php');
 	include('func.php');
 	
-	$status         = "400";    // default status code (error)
+	$status         = 400;    // default status code (error)
 	$last_modified  = NULL;
 	$response       = NULL;
 
@@ -32,7 +32,6 @@
 				for($i = 0; $i < 13; $i++) {
 					$url = 'http://classroom.csie.ncu.edu.tw/appointment_schedule/list/'.$ClassList[$i];
 					preg_match_all('/\<td\>([^<]*)\<\/td\>/', getUrlContent($url, $token), $match);
-					//print_r($match);
 					$total[$ClassList[$i]] = $match[1];
 				}
 				$response = $total;

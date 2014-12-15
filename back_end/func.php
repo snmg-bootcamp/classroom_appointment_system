@@ -1,4 +1,6 @@
 <?php
+
+	// do login and save the cookie
 	function setUrlCookie($url, $postdata, $username)
 	{
 		// check the user cookie whether exists
@@ -64,6 +66,7 @@
 	}
 	*/
 
+	// get the '$url' html content with sending '$token'
 	function getUrlContent($url, $token)
 	{
 		$cookie_jar = "./cookie/".$token;
@@ -75,6 +78,7 @@
 		return $content;
 	}
 
+	// add a appointment 
 	function addAppointment($url, $postdata, $token)
 	{
 		$cookie_jar = "./cookie/".$token;
@@ -93,6 +97,7 @@
 		return $content;
 	}
 
+	// separate some table's data, it could be two line
 	function separate($str)
 	{
 		$arr = array();
@@ -114,6 +119,7 @@
 		return ($flag ? $arr : $str);
 	}
 
+	// filter content to get the information that we need
 	function filter($str)
 	{
 		$arr = array(
@@ -185,6 +191,7 @@
 		return $arr;
 	}
 
+	// get one day information
 	function getOneDay($str, $week, $month, $day)
 	{
 		$weekdata = filter($str);
@@ -204,6 +211,7 @@
 		return $result;
 	}
 
+	// give year, month, day, then caculate what day is today
 	function CaculateWeekDay($y, $m, $d)
 	{
 		if($m == 1 || $m == 2)

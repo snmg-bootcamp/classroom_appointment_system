@@ -29,9 +29,7 @@
 
 			if($check)
 			{
-				//$url = 'http://classroom.csie.ncu.edu.tw/user/logout';
-				//getUrlContent($url, $token);
-				unlink('cookie/'.$token);
+				unlink('cookie/'.$token);	// delete the cookie file
 				$status   = 200;
 				$response = "successful";
 			}
