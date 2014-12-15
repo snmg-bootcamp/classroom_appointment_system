@@ -36,4 +36,8 @@
     <string name="simple_list_title">Example Title</string>
     <string name="action_logout">Logout</string>
     <string name="appointment_teacher">Teacher</string>
+    <string name="delete">Delete Appointment</string>
+    <string name="really_delete">Do you really want to delete this appointment?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
 </resources>

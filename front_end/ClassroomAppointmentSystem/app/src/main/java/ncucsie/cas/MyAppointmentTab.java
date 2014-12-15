@@ -1,7 +1,9 @@
 package ncucsie.cas;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +37,36 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
                             MyAppointmentClass item = (MyAppointmentClass) o;
                         }
 
+                    });
+                    list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                        @Override
+                        public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id) {
+                            if(getActivity() != null) {
+                                new AlertDialog.Builder(getActivity())
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setTitle(R.string.delete)
+                                        .setMessage(R.string.really_delete)
+                                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                MyAppointmentClass item = (MyAppointmentClass) list.getItemAtPosition(position);
+                                                
+                                            }
+
+                                        })
+                                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                if(getActivity() != null){
+                                                    getActivity().onBackPressed();
+                                                }
+                                            }
+                                        })
+                                        .show();
+                            }
+                            return true;
+                        }
                     });
                 }
 
