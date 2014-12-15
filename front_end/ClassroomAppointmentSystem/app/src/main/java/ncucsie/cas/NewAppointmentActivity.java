@@ -30,15 +30,20 @@ public class NewAppointmentActivity extends Activity
 
     public void postProcessing(JSONObject result){
         try {
-            int status = result.getInt("status_code");
-            switch(status){
-                case 200:
-                    this.onBackPressed();
-                    break;
-                default:
-                    Toast.makeText(this, "Failed to create appointment, " + result.getString("response"), Toast.LENGTH_LONG).show();
-                    break;
+            if(result != null) {
+                int status = result.getInt("status_code");
+                switch (status) {
+                    case 200:
+                        this.onBackPressed();
+                        break;
+                    default:
+                        Toast.makeText(this, "Failed to create appointment, " + result.getString("response"), Toast.LENGTH_LONG).show();
+                        break;
 
+                }
+            }
+            else{
+                Toast.makeText(this, "Connection to server failed, no response from server", Toast.LENGTH_LONG).show();
             }
         }
         catch (JSONException e){
