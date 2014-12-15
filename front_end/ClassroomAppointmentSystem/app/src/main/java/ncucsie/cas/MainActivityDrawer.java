@@ -79,7 +79,10 @@ public class MainActivityDrawer extends Activity
     }
 
 
-    public void postProcessing(JSONObject result){
+    public void postProcessing(boolean has_data, JSONObject result){
+        if(!has_data){
+            Toast.makeText(this, "Received no response from server, try again later", Toast.LENGTH_LONG).show();
+        }
         try {
             if (mLogoutTask != null && result.getString(Constant.USER_REQUEST).equals(Constant.LOGOUT_REQUEST)) {
                 try {

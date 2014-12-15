@@ -25,7 +25,7 @@ public class InternetComm {
         this.mContext = mContext;
     }
     public interface ApiResponse {
-        void postProcessing(JSONObject result);
+        void postProcessing(boolean has_data, JSONObject result);
     }
 
 
@@ -91,7 +91,7 @@ public class InternetComm {
                         if(delete_request != null){
                             data.put(Constant.DELETE_REQUEST, delete_request);
                         }
-                        delegate.postProcessing(data);
+                        delegate.postProcessing(true, data);
                     }
                     catch (JSONException e){
                         Log.d("JSONException at onPostExecute", e.toString());
@@ -99,7 +99,7 @@ public class InternetComm {
                 }
             }
             else {
-                delegate.postProcessing(null);
+                delegate.postProcessing(false, null);
                 System.out.println("Received no response from server");
             }
             //perform update action after successful update or when failed to update, notify the user immediately
