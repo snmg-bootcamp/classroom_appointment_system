@@ -86,7 +86,7 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
         TextView classroom_text = (TextView) rootView.findViewById(R.id.classroom_selection_value);
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
-        MainActivityDrawer.NotifyClass drawer = new MainActivityDrawer.NotifyClass();
+        MainActivityDrawer.NotifyRefreshExistingAppointmentClass drawer = new MainActivityDrawer.NotifyRefreshExistingAppointmentClass();
         drawer.mNotifyView = this;
 
         return rootView;

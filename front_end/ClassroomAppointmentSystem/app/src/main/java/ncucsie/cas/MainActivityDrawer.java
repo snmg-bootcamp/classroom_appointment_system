@@ -53,7 +53,7 @@ public class MainActivityDrawer extends Activity
             actionRefreshAppointment();
         }
     }
-    static public class NotifyClass {
+    static public class NotifyRefreshExistingAppointmentClass {
         static public NotifyViewAppointment mNotifyView = null;
         public void doNotify(JSONObject result){
             if(mNotifyView != null){
@@ -62,7 +62,7 @@ public class MainActivityDrawer extends Activity
         }
     }
 
-    static public class NotifyClass2 {
+    static public class NotifyRefreshMyAppointmentClass {
         static public NotifyMyAppointment mNotifyView = null;
         public void doNotify(JSONObject result){
             if(mNotifyView != null){
@@ -71,7 +71,7 @@ public class MainActivityDrawer extends Activity
         }
     }
 
-    static public class NotifyClass3 {
+    static public class NotifyDeleteAppointmentClass {
         static public NotifyDeleteAppointment mNotifyView = null;
         public void doNotify(JSONObject result){
             if(mNotifyView != null){
@@ -94,18 +94,18 @@ public class MainActivityDrawer extends Activity
             }
             if (mRefreshTask != null && result.getString(Constant.USER_REQUEST).equals(Constant.REFRESH_REQUEST)) {
                 Log.d("result: ", result.toString());
-                NotifyClass mNotify = new NotifyClass();
+                NotifyRefreshExistingAppointmentClass mNotify = new NotifyRefreshExistingAppointmentClass();
                 mNotify.doNotify(result);
 
             }
             if (mRefreshTask2 != null && result.getString(Constant.USER_REQUEST).equals(Constant.REFRESH_REQUEST2)) {
                 Log.d("result: ", result.toString());
-                NotifyClass2 mNotify = new NotifyClass2();
+                NotifyRefreshMyAppointmentClass mNotify = new NotifyRefreshMyAppointmentClass();
                 mNotify.doNotify(result);
             }
             if(mDeleteTask != null && result.getString(Constant.USER_REQUEST).equals(Constant.DELETE_REQUEST)) {
                 Log.d("result: ", result.toString());
-                NotifyClass3 mNotify = new NotifyClass3();
+                NotifyDeleteAppointmentClass mNotify = new NotifyDeleteAppointmentClass();
                 mNotify.doNotify(result);
             }
         }
