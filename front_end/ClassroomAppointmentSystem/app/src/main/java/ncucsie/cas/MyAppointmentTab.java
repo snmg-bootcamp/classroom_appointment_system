@@ -33,8 +33,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
                     list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                            Object o = list.getItemAtPosition(position);
-                            MyAppointmentClass item = (MyAppointmentClass) o;
+                            MyAppointmentClass item = (MyAppointmentClass) list.getItemAtPosition(position);
                         }
 
                     });
@@ -51,7 +50,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 MyAppointmentClass item = (MyAppointmentClass) list.getItemAtPosition(position);
-                                                
+
                                             }
 
                                         })
