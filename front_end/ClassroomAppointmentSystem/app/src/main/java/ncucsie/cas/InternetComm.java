@@ -99,7 +99,7 @@ public class InternetComm {
                 }
             }
             else {
-                Log.d("Received no response from server", " ");
+                System.out.println("Received no response from server");
             }
             //perform update action after successful update or when failed to update, notify the user immediately
         }
