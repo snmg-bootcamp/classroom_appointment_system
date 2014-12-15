@@ -137,7 +137,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment, N
         View rootView = inflater.inflate(R.layout.my_appointment_tab, container, false);
 
         setRetainInstance(true);
-        MainActivityDrawer.NotifyRefreshMyAppointmentClass.mNotifyView = this;
+        MainActivityDrawer.NotifyDeleteAppointmentClass.mNotifyView = this;
 
 
         return rootView;
