@@ -61,6 +61,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment {
     public void onResume() {
         RefreshClass request = new RefreshClass();
         request.refresh();
+        super.onResume();
     }
 
     @Override
