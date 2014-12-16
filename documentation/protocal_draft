@@ -98,11 +98,11 @@ example 2 sample response:
  
     "status_code":200,
     "last_modified":1415958492,
-    "response":[["1","2014-12-02\tTuesday","A203","1~1","黃詩凱"," ","15137"],["2","2014-12-02\tTuesday","A203","2~2","黃詩凱"," ","15138"]]
+    "response":[["1","2014-12-02\tTuesday","A203","1~1","黃詩凱"," ","15137","0912345678"],["2","2014-12-02\tTuesday","A203","2~2","黃詩凱"," ","15138","0912345678"]]
 
 }
 response format:
-[["number","date","class","time","name","professor","delete&edit number"], [...], ...]
+[["number","date","class","time","name","professor","delete&edit number","phone number"], [...], ...]
 
 
 
