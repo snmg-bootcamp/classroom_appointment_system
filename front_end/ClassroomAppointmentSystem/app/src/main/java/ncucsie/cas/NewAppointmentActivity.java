@@ -126,7 +126,7 @@ public class NewAppointmentActivity extends Activity
         ArrayAdapter<CharSequence> adapter_end = ArrayAdapter.createFromResource(this,
                 R.array.timevalue, android.R.layout.simple_spinner_item);
         class_end.setAdapter(adapter_end);
-
+        findViewById(R.id.teacher).setEnabled(false);
 
         Intent intent = getIntent();
         String data = intent.getStringExtra(Constant.MODIFY_DATA);
