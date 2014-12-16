@@ -194,7 +194,11 @@ public class NewAppointmentActivity extends Activity
         info.put("name", ((EditText) findViewById(R.id.name)).getText().toString());
         info.put("phone", ((EditText) findViewById(R.id.phone)).getText().toString());
         info.put("teacher", "0");
-        info.put("classroom", (Integer.toString(((Spinner) findViewById(R.id.spinner_classroom)).getSelectedItemPosition() + 6)));//this detail should be unified across requests
+        int classroom = ((Spinner) findViewById(R.id.spinner_classroom)).getSelectedItemPosition() + 6;
+        if(classroom >= 10){
+            classroom += 1;
+        }
+        info.put("classroom", (Integer.toString(classroom)));//this detail should be unified across requests
         info.put("month", Integer.toString(((Spinner) findViewById(R.id.spinner_month)).getSelectedItemPosition() + 1));
         info.put("day", ((Spinner) findViewById(R.id.spinner_day)).getSelectedItem().toString());
         info.put("year", ((Spinner) findViewById(R.id.spinner_year)).getSelectedItem().toString());
