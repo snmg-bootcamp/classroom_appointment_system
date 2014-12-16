@@ -32,12 +32,14 @@ public class NewAppointmentActivity extends Activity
     private InternetComm.ApiRequest mNewAppointmentRequest = null;
     private InternetComm.ApiRequest mModifyAppointmentRequest = null;
     View cancelActionView;
+    View doneActionView;
     boolean modifyAppointment = false;
     String hidden_num = null;
 
     public void postProcessing(boolean has_data, JSONObject result) {
         notFinished = false;
         cancelActionView.setEnabled(true);
+        doneActionView.setEnabled(true);
         if (!has_data) {
             Toast.makeText(this, "Received no response from server, try again later", Toast.LENGTH_LONG).show();
             return;
@@ -173,6 +175,7 @@ public class NewAppointmentActivity extends Activity
             case R.id.action_done:
                 notFinished = true;
                 cancelActionView.setEnabled(false);
+                doneActionView.setEnabled(false);
                 sendNewAppointment();
                 break;
             case R.id.action_cancel:
@@ -202,7 +205,7 @@ public class NewAppointmentActivity extends Activity
 
         if (!modifyAppointment) {
             JSONObject data = new JSONObject(info);
-            Log.d("JSON Data from new appointment", info.toString());
+            Log.d("JSON Data from new appointment", data.toString());
             InternetComm.urlWithJSON result = comm.createURLRequest(Constant.ADD_APPOINTMENT, data);
             mNewAppointmentRequest = new InternetComm.ApiRequest(Constant.ADD_APPOINTMENT_REQUEST);
             mNewAppointmentRequest.delegate = this;
@@ -210,7 +213,7 @@ public class NewAppointmentActivity extends Activity
         } else {
             info.put("appointment_number", hidden_num);
             JSONObject data = new JSONObject(info);
-            Log.d("JSON Data from modify appointment", info.toString());
+            Log.d("JSON Data from modify appointment", data.toString());
             InternetComm.urlWithJSON result = comm.createURLRequest(Constant.MODIFY_APPOINTMENT, data);
             mModifyAppointmentRequest = new InternetComm.ApiRequest(Constant.MODIFY_APPOINTMENT_REQUEST);
             mModifyAppointmentRequest.delegate = this;
