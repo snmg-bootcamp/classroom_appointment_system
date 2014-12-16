@@ -52,6 +52,7 @@ public class NewAppointmentActivity extends Activity
                 int status = result.getInt("status_code");
                 switch (status) {
                     case 200:
+                        Toast.makeText(this, "Successfully created appointment", Toast.LENGTH_LONG).show();
                         this.onBackPressed();
                         break;
                     default:
@@ -64,6 +65,7 @@ public class NewAppointmentActivity extends Activity
                 int status = result.getInt("status_code");
                 switch (status) {
                     case 200:
+                        Toast.makeText(this, "Successfully modified appointment", Toast.LENGTH_LONG).show();
                         this.onBackPressed();
                         break;
                     default:
