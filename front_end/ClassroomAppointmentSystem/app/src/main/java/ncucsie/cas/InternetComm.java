@@ -180,7 +180,8 @@ public class InternetComm {
             // Convert the InputStream into a string
             try {
                 return InputStreamToJSONObject(is);
-            } catch (Exception JSONException) {
+            } catch (JSONException e) {
+                Log.d("JSONException in server response", e.toString());
                 return null;
             }
             // Makes sure that the InputStream is closed after the app is
