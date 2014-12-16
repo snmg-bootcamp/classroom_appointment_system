@@ -21,20 +21,23 @@ import java.net.URL;
 
 public class InternetComm {
     Context mContext;
-    public InternetComm(Context mContext){
+
+    public InternetComm(Context mContext) {
         this.mContext = mContext;
     }
+
     public interface ApiResponse {
-        void postProcessing(JSONObject result);
+        void postProcessing(boolean has_data, JSONObject result);
     }
 
 
     static public class userStruct {
-        public userStruct(boolean a, String b, String c){
+        public userStruct(boolean a, String b, String c) {
             result = a;
             sessionid = b;
             failed_message = c;
         }
+
         public boolean result;
         public String sessionid;
         public String failed_message;
@@ -42,10 +45,11 @@ public class InternetComm {
 
 
     public class urlWithJSON {
-        public urlWithJSON(String i, JSONObject j){
+        public urlWithJSON(String i, JSONObject j) {
             url = i;
             data = j;
         }
+
         public String url;
         public JSONObject data;
     }
@@ -59,11 +63,18 @@ public class InternetComm {
 
     public static class ApiRequest extends AsyncTask<urlWithJSON, Void, JSONObject> {
         private String request = null;
-        ApiRequest(String request){
+        private String delete_request = null;
+
+        ApiRequest(String request, String delete_request) {
+            this.request = request;
+            this.delete_request = delete_request;
+        }
+
+        ApiRequest(String request) {
             this.request = request;
         }
 
-        public ApiResponse delegate=null;
+        public ApiResponse delegate = null;
 
         @Override
         protected JSONObject doInBackground(urlWithJSON... input) {
@@ -78,19 +89,22 @@ public class InternetComm {
 
         @Override
         protected void onPostExecute(JSONObject result) {
-            if(result != null) {
+            if (result != null) {
                 Log.d("Server Response", result.toString());
                 if (delegate != null) {
                     try {
-                        delegate.postProcessing(result.put(Constant.USER_REQUEST, request));
-                    }
-                    catch (JSONException e){
+                        JSONObject data = result.put(Constant.USER_REQUEST, request);
+                        if (delete_request != null) {
+                            data.put(Constant.DELETE_REQUEST, delete_request);
+                        }
+                        delegate.postProcessing(true, data);
+                    } catch (JSONException e) {
                         Log.d("JSONException at onPostExecute", e.toString());
                     }
                 }
-            }
-            else {
-                Log.d("Received no response from server", "");
+            } else {
+                delegate.postProcessing(false, null);
+                System.out.println("Received no response from server");
             }
             //perform update action after successful update or when failed to update, notify the user immediately
         }
@@ -100,41 +114,34 @@ public class InternetComm {
 
     public urlWithJSON createURLRequest(int method, JSONObject data) {
         String url;
-        url  = "http://";
+        url = "http://";
         url += Constant.SERVER_DOMAIN_NAME;
         url += ":";
         url += Constant.SERVER_PORT;
         url += Constant.SERVER_ROOT;
         urlWithJSON result;
-        if(method == Constant.LOGIN){
+        if (method == Constant.LOGIN) {
             url += Constant.LOGIN_PAGE;
-            result = new urlWithJSON(url,data);
-        }
-        else if(method == Constant.LOGOUT){
+            result = new urlWithJSON(url, data);
+        } else if (method == Constant.LOGOUT) {
             url += Constant.LOGOUT_PAGE;
-            result = new urlWithJSON(url,data);
-        }
-        else if(method == Constant.VIEW_APPOINTMENT){
+            result = new urlWithJSON(url, data);
+        } else if (method == Constant.VIEW_APPOINTMENT) {
             url += Constant.VIEW_APPOINTMENT_PAGE;
             result = new urlWithJSON(url, data);
-        }
-        else if(method == Constant.ADD_APPOINTMENT){
+        } else if (method == Constant.ADD_APPOINTMENT) {
             url += Constant.ADD_APPOINTMENT_PAGE;
             result = new urlWithJSON(url, data);
-        }
-        else if(method == Constant.MODIFY_APPOINTMENT){
+        } else if (method == Constant.MODIFY_APPOINTMENT) {
             url += Constant.MODIFY_APPOINTMENT_PAGE;
             result = new urlWithJSON(url, data);
-        }
-        else if(method == Constant.DELETE_APPOINTMENT){
+        } else if (method == Constant.DELETE_APPOINTMENT) {
             url += Constant.DELETE_APPOINTMENT_PAGE;
             result = new urlWithJSON(url, data);
-        }
-        else if(method == Constant.MY_APPOINTMENT){
+        } else if (method == Constant.MY_APPOINTMENT) {
             url += Constant.MY_APPOINTMENT_PAGE;
             result = new urlWithJSON(url, data);
-        }
-        else{
+        } else {
             result = null;
         }
         return result;
@@ -165,7 +172,6 @@ public class InternetComm {
             os.close();
 
 
-
             // Starts the query
             conn.connect();
             int response = conn.getResponseCode();
@@ -174,8 +180,7 @@ public class InternetComm {
             // Convert the InputStream into a string
             try {
                 return InputStreamToJSONObject(is);
-            }
-            catch (Exception JSONException) {
+            } catch (Exception JSONException) {
                 return null;
             }
             // Makes sure that the InputStream is closed after the app is
@@ -189,13 +194,13 @@ public class InternetComm {
 
     private static JSONObject InputStreamToJSONObject(InputStream inputStream)
             throws JSONException {
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line = "";
         String result = "";
         try {
             while ((line = bufferedReader.readLine()) != null)
                 result += line;
-        } catch (Exception IOException){
+        } catch (Exception IOException) {
             Log.d(Constant.DEBUG_TAG, "IO exception in bufferedReader.readLine()");
         }
         return new JSONObject(result);

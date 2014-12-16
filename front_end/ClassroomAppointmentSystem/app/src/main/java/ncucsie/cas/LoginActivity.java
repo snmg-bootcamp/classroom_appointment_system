@@ -4,10 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -44,6 +47,7 @@ public class LoginActivity extends Activity {
     private View mProgressView;
     private View mLoginFormView;
     public static TextView mNotifyView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,13 +185,12 @@ public class LoginActivity extends Activity {
         }
 
 
-
         @Override
         protected InternetComm.userStruct doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
             JSONObject result = null;
             InternetComm.userStruct user;
-            if(!comm.isOnline()){
+            if (!comm.isOnline()) {
                 user = new InternetComm.userStruct(false, null, "Connection not available");
                 return user;
             }
@@ -196,9 +199,9 @@ public class LoginActivity extends Activity {
                 user_pass.put("username", mUsername);
                 user_pass.put("password", mPassword);
                 JSONObject data = new JSONObject(user_pass);
-                result = InternetComm.postRequest(comm.createURLRequest(Constant.LOGIN,data));
+                result = InternetComm.postRequest(comm.createURLRequest(Constant.LOGIN, data));
             } catch (final IOException e) {
-                runOnUiThread(new Runnable(){
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -206,7 +209,7 @@ public class LoginActivity extends Activity {
                 });
                 return new InternetComm.userStruct(false, null, "Connection to server failed");
             }
-            if(result != null) {
+            if (result != null) {
                 Log.d(Constant.DEBUG_TAG, result.toString());
 
                 try {
@@ -219,8 +222,7 @@ public class LoginActivity extends Activity {
                     Log.d(Constant.DEBUG_TAG, "failed to parse login response" + result.toString());
                     return new InternetComm.userStruct(false, null, "Received malformed response");
                 }
-            }
-            else{
+            } else {
                 return new InternetComm.userStruct(false, null, "Connection to server failed");
             }
         }
@@ -232,7 +234,20 @@ public class LoginActivity extends Activity {
 
             if (success.result) {
                 Intent intent = new Intent(LoginActivity.this, MainActivityDrawer.class);
-                intent.putExtra(Constant.USER_EXTRA, success.sessionid);
+                intent.putExtra(Constant.USER_SESSION, success.sessionid);
+                SharedPreferences pref =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String prevSession = pref.getString("sessionid", null);
+                if(prevSession != null && !prevSession.equals(success.sessionid)){
+                    pref
+                        .edit()
+                        .putString(Constant.REFRESH_REQUEST, null)
+                        .putString(Constant.REFRESH_REQUEST2, null)
+                        .apply();
+                }
+                pref
+                        .edit()
+                        .putString("sessionid", success.sessionid)
+                        .apply();
                 startActivity(intent);
             } else {
                 mPasswordView.setError(success.failed_message);

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,19 +27,21 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
     public ExistingAppointmentTab() {
     }
 
+    private SharedPreferences sharedPref = null;
 
 
-
-    public void NotifyViewListener(JSONObject result){
+    public void NotifyViewListener(JSONObject result) {
         try {
             if (result.getInt("status_code") == 200) {
                 JSONArray table = result.getJSONArray("response");
-                if(getActivity() != null && getActivity().findViewById(R.id.existing_appointment_tab) != null) {
+                sharedPref.edit().putString(Constant.SAVED_REFRESH, table.toString()).commit();
+                if (getActivity() != null && getActivity().findViewById(R.id.existing_appointment_tab) != null) {
                     SetExistingTable((TableLayout) getActivity().findViewById(R.id.existing_appointment_tab), table);
                 }
+            } else {
+                Toast.makeText(getActivity(), "Failed to refresh appointment" + result.getString("response"), Toast.LENGTH_LONG).show();
             }
-        }
-        catch(JSONException e){
+        } catch (JSONException e) {
             Log.d("Malformed response from server", result.toString());
         }
     }
@@ -54,21 +57,35 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
     public void onResume() {
         TextView classroom_text = (TextView) getActivity().findViewById(R.id.classroom_selection_value);
         TextView date_text = (TextView) getActivity().findViewById(R.id.date_selection_value);
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
         date_text.setText(sharedPref.getString("date_year", "2013") + "-" + sharedPref.getString("date_month", "1") + "-" + sharedPref.getString("date_day", "1"));
+
+        String data = sharedPref.getString(Constant.SAVED_REFRESH, null);
+        if(data != null){
+            try {
+                if(getActivity().findViewById(R.id.existing_appointment_tab) != null) {
+                    SetExistingTable((TableLayout) getActivity().findViewById(R.id.existing_appointment_tab), new JSONArray(data));
+                }
+            }
+            catch (JSONException e) {
+                Log.d("JSON Exception", e.toString());
+            }
+        }
         RefreshClass request = new RefreshClass();
         request.refresh();
         super.onResume();
     }
 
 
-    static public class RefreshClass{
+    static public class RefreshClass {
         static public MainActivityDrawer mRequest = null;
-        RefreshClass (){
+
+        RefreshClass() {
         }
-        public void refresh(){
-            if(mRequest != null){
+
+        public void refresh() {
+            if (mRequest != null) {
                 mRequest.actionRefreshAppointment();
             }
         }
@@ -86,12 +103,11 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
         TextView classroom_text = (TextView) rootView.findViewById(R.id.classroom_selection_value);
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
-        MainActivityDrawer.NotifyClass drawer = new MainActivityDrawer.NotifyClass();
-        drawer.mNotifyView = this;
+        MainActivityDrawer.NotifyRefreshExistingAppointmentClass.mNotifyView = this;
+
 
         return rootView;
     }
-
 
 
     private void SetExistingTable(TableLayout tableLayout, JSONArray array) {
@@ -116,8 +132,7 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
                         text.setBackgroundResource(R.drawable.cell_shape);
                         text.setPadding(16, 4, 12, 4);
                     }
-                }
-                catch(ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
                     Log.d("ArrayIndexOutOfBoundsException", e.toString());
                 }
 
