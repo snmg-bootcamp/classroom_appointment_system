@@ -12,6 +12,7 @@ public class MyAppointmentClass {
     private String name;
     private String teacher;
     private String hiddenNum;
+    private String phone;
 
     public int getNum() {
         return num;
@@ -59,6 +60,14 @@ public class MyAppointmentClass {
 
     public void setTeacher(String teacher) {
         this.teacher = teacher;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getHiddenNum() {

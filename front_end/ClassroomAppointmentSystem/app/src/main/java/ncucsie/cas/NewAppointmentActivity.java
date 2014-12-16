@@ -32,12 +32,14 @@ public class NewAppointmentActivity extends Activity
     private InternetComm.ApiRequest mNewAppointmentRequest = null;
     private InternetComm.ApiRequest mModifyAppointmentRequest = null;
     View cancelActionView;
+    View doneActionView;
     boolean modifyAppointment = false;
     String hidden_num = null;
 
     public void postProcessing(boolean has_data, JSONObject result) {
         notFinished = false;
         cancelActionView.setEnabled(true);
+        doneActionView.setEnabled(true);
         if (!has_data) {
             Toast.makeText(this, "Received no response from server, try again later", Toast.LENGTH_LONG).show();
             return;
@@ -89,7 +91,7 @@ public class NewAppointmentActivity extends Activity
                 new LinearLayout(this), false);
         cancelActionView = actionBarButtons.findViewById(R.id.action_cancel);
         cancelActionView.setOnClickListener(mActionBarListener);
-        View doneActionView = actionBarButtons.findViewById(R.id.action_done);
+        doneActionView = actionBarButtons.findViewById(R.id.action_done);
         doneActionView.setOnClickListener(mActionBarListener);
         if (getActionBar() != null) {
             getActionBar().setDisplayShowCustomEnabled(true);
@@ -145,6 +147,7 @@ public class NewAppointmentActivity extends Activity
                 date = array.get(1).toString().split("\t")[0];
                 ((EditText) findViewById(R.id.name)).setText(array.get(4).toString());
                 //((EditText) findViewById(R.id.teacher)).setText(array.get(5).toString());
+                ((EditText) findViewById(R.id.phone)).setText(array.get(7).toString());
                 ((Spinner) findViewById(R.id.spinner_classroom)).setSelection(Arrays.asList(getResources().getStringArray(R.array.preferenceListArray)).indexOf(array.get(2).toString()));
                 ((Spinner) findViewById(R.id.spinner_month)).setSelection(Integer.parseInt(date.split("-")[1]) - 1);
                 ((Spinner) findViewById(R.id.spinner_day)).setSelection(Integer.parseInt(date.split("-")[2]) - 1);
@@ -172,6 +175,7 @@ public class NewAppointmentActivity extends Activity
             case R.id.action_done:
                 notFinished = true;
                 cancelActionView.setEnabled(false);
+                doneActionView.setEnabled(false);
                 sendNewAppointment();
                 break;
             case R.id.action_cancel:
@@ -189,8 +193,12 @@ public class NewAppointmentActivity extends Activity
         info.put("sessionid", MainActivityDrawer.sessionid);
         info.put("name", ((EditText) findViewById(R.id.name)).getText().toString());
         info.put("phone", ((EditText) findViewById(R.id.phone)).getText().toString());
-        info.put("teacher", /*((EditText) findViewById(R.id.teacher)).getText().toString()*/"0");
-        info.put("classroom", (Integer.toString(((Spinner) findViewById(R.id.spinner_classroom)).getSelectedItemPosition() + 6)));//this detail should be unified across requests
+        info.put("teacher", "0");
+        int classroom = ((Spinner) findViewById(R.id.spinner_classroom)).getSelectedItemPosition() + 6;
+        if(classroom >= 10){
+            classroom += 1;
+        }
+        info.put("classroom", (Integer.toString(classroom)));//this detail should be unified across requests
         info.put("month", Integer.toString(((Spinner) findViewById(R.id.spinner_month)).getSelectedItemPosition() + 1));
         info.put("day", ((Spinner) findViewById(R.id.spinner_day)).getSelectedItem().toString());
         info.put("year", ((Spinner) findViewById(R.id.spinner_year)).getSelectedItem().toString());
@@ -201,7 +209,7 @@ public class NewAppointmentActivity extends Activity
 
         if (!modifyAppointment) {
             JSONObject data = new JSONObject(info);
-            Log.d("JSON Data from new appointment", info.toString());
+            Log.d("JSON Data from new appointment", data.toString());
             InternetComm.urlWithJSON result = comm.createURLRequest(Constant.ADD_APPOINTMENT, data);
             mNewAppointmentRequest = new InternetComm.ApiRequest(Constant.ADD_APPOINTMENT_REQUEST);
             mNewAppointmentRequest.delegate = this;
@@ -209,7 +217,7 @@ public class NewAppointmentActivity extends Activity
         } else {
             info.put("appointment_number", hidden_num);
             JSONObject data = new JSONObject(info);
-            Log.d("JSON Data from modify appointment", info.toString());
+            Log.d("JSON Data from modify appointment", data.toString());
             InternetComm.urlWithJSON result = comm.createURLRequest(Constant.MODIFY_APPOINTMENT, data);
             mModifyAppointmentRequest = new InternetComm.ApiRequest(Constant.MODIFY_APPOINTMENT_REQUEST);
             mModifyAppointmentRequest.delegate = this;
