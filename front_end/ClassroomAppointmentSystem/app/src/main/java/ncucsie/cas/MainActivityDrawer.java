@@ -43,11 +43,11 @@ public class MainActivityDrawer extends Activity
     private InternetComm.ApiRequest mDeleteTask = null;
 
 
-
     static public class NotifyRefreshExistingAppointmentClass {
         static public NotifyViewAppointment mNotifyView = null;
-        public void doNotify(JSONObject result){
-            if(mNotifyView != null){
+
+        public void doNotify(JSONObject result) {
+            if (mNotifyView != null) {
                 mNotifyView.NotifyViewListener(result);
             }
         }
@@ -55,8 +55,9 @@ public class MainActivityDrawer extends Activity
 
     static public class NotifyRefreshMyAppointmentClass {
         static public NotifyMyAppointment mNotifyView = null;
-        public void doNotify(JSONObject result){
-            if(mNotifyView != null){
+
+        public void doNotify(JSONObject result) {
+            if (mNotifyView != null) {
                 mNotifyView.NotifyViewListener(result);
             }
         }
@@ -64,16 +65,17 @@ public class MainActivityDrawer extends Activity
 
     static public class NotifyDeleteAppointmentClass {
         static public NotifyDeleteAppointment mNotifyView = null;
-        public void doNotify(JSONObject result){
-            if(mNotifyView != null){
+
+        public void doNotify(JSONObject result) {
+            if (mNotifyView != null) {
                 mNotifyView.NotifyDeleteListener(result);
             }
         }
     }
 
 
-    public void postProcessing(boolean has_data, JSONObject result){
-        if(!has_data){
+    public void postProcessing(boolean has_data, JSONObject result) {
+        if (!has_data) {
             Toast.makeText(this, "Received no response from server, try again later", Toast.LENGTH_LONG).show();
             return;
         }
@@ -98,13 +100,12 @@ public class MainActivityDrawer extends Activity
                 NotifyRefreshMyAppointmentClass mNotify = new NotifyRefreshMyAppointmentClass();
                 mNotify.doNotify(result);
             }
-            if(mDeleteTask != null && result.getString(Constant.USER_REQUEST).equals(Constant.DELETE_REQUEST)) {
+            if (mDeleteTask != null && result.getString(Constant.USER_REQUEST).equals(Constant.DELETE_REQUEST)) {
                 Log.d("result: ", result.toString());
                 NotifyDeleteAppointmentClass mNotify = new NotifyDeleteAppointmentClass();
                 mNotify.doNotify(result);
             }
-        }
-        catch (JSONException e){
+        } catch (JSONException e) {
             Log.d("JSONException in postProcessing", e.toString());
         }
     }
@@ -174,7 +175,7 @@ public class MainActivityDrawer extends Activity
 
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
-        if(actionBar != null) {
+        if (actionBar != null) {
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setTitle(mTitle);
@@ -196,8 +197,7 @@ public class MainActivityDrawer extends Activity
     }
 
 
-
-    private void actionAddAppointment(){
+    private void actionAddAppointment() {
         Intent intent = new Intent(this, NewAppointmentActivity.class);
         startActivity(intent);
     }
@@ -216,7 +216,7 @@ public class MainActivityDrawer extends Activity
         mDeleteTask.execute(result);
     }
 
-    public void actionRefreshAppointment(){
+    public void actionRefreshAppointment() {
         InternetComm comm = new InternetComm(this);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Map<String, String> info = new HashMap<String, String>();
@@ -227,16 +227,14 @@ public class MainActivityDrawer extends Activity
         String temp_month = sharedPref.getString("date_month", "1");
         String temp_day = sharedPref.getString("date_day", "1");
         date += sharedPref.getString("date_year", "2013");
-        if(Integer.parseInt(temp_month) < 10){
+        if (Integer.parseInt(temp_month) < 10) {
             date += "0" + temp_month;
-        }
-        else {
+        } else {
             date += temp_month;
         }
-        if(Integer.parseInt(temp_day) < 10){
+        if (Integer.parseInt(temp_day) < 10) {
             date += "0" + temp_day;
-        }
-        else {
+        } else {
             date += temp_day;
         }
         Log.d("Date: ", date);
@@ -249,7 +247,6 @@ public class MainActivityDrawer extends Activity
         mRefreshTask = new InternetComm.ApiRequest(Constant.REFRESH_REQUEST);
         mRefreshTask.delegate = this;
         mRefreshTask.execute(result);
-
 
 
         info = new HashMap<String, String>();
@@ -265,10 +262,9 @@ public class MainActivityDrawer extends Activity
         mRefreshTask2.execute(result);
 
 
-
     }
 
-    private void actionLogout(){
+    private void actionLogout() {
         Toast.makeText(getApplicationContext(), "Logging out...", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoginActivity.class);
         InternetComm comm = new InternetComm(this);
@@ -297,13 +293,13 @@ public class MainActivityDrawer extends Activity
             return true;
         }
 
-        if(id == R.id.refresh_appointment){
+        if (id == R.id.refresh_appointment) {
             Toast.makeText(getApplicationContext(), "Refreshing data", Toast.LENGTH_SHORT).show();
             actionRefreshAppointment();
             return true;
         }
 
-        if(id == R.id.action_logout){
+        if (id == R.id.action_logout) {
             actionLogout();
         }
 

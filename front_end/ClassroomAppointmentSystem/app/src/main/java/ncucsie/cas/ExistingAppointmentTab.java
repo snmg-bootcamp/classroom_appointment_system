@@ -28,21 +28,17 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
     }
 
 
-
-
-    public void NotifyViewListener(JSONObject result){
+    public void NotifyViewListener(JSONObject result) {
         try {
             if (result.getInt("status_code") == 200) {
                 JSONArray table = result.getJSONArray("response");
-                if(getActivity() != null && getActivity().findViewById(R.id.existing_appointment_tab) != null) {
+                if (getActivity() != null && getActivity().findViewById(R.id.existing_appointment_tab) != null) {
                     SetExistingTable((TableLayout) getActivity().findViewById(R.id.existing_appointment_tab), table);
                 }
-            }
-            else{
+            } else {
                 Toast.makeText(getActivity(), "Failed to refresh appointment" + result.getString("response"), Toast.LENGTH_LONG).show();
             }
-        }
-        catch(JSONException e){
+        } catch (JSONException e) {
             Log.d("Malformed response from server", result.toString());
         }
     }
@@ -67,12 +63,14 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
     }
 
 
-    static public class RefreshClass{
+    static public class RefreshClass {
         static public MainActivityDrawer mRequest = null;
-        RefreshClass (){
+
+        RefreshClass() {
         }
-        public void refresh(){
-            if(mRequest != null){
+
+        public void refresh() {
+            if (mRequest != null) {
                 mRequest.actionRefreshAppointment();
             }
         }
@@ -97,7 +95,6 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
     }
 
 
-
     private void SetExistingTable(TableLayout tableLayout, JSONArray array) {
         tableLayout.removeAllViews();
         tableLayout.setStretchAllColumns(true);
@@ -120,8 +117,7 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
                         text.setBackgroundResource(R.drawable.cell_shape);
                         text.setPadding(16, 4, 12, 4);
                     }
-                }
-                catch(ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
                     Log.d("ArrayIndexOutOfBoundsException", e.toString());
                 }
 

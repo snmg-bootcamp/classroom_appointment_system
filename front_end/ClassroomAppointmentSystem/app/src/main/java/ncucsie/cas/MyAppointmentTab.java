@@ -24,41 +24,41 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment, N
     public MyAppointmentTab() {
     }
 
-    public void NotifyDeleteListener(JSONObject result){
+    public void NotifyDeleteListener(JSONObject result) {
         try {
-            if(result.getInt("status_code") == 200){
+            if (result.getInt("status_code") == 200) {
                 result.getString(Constant.DELETE_REQUEST);
                 Toast.makeText(getActivity(), "Deleted appointment successfully", Toast.LENGTH_LONG).show();
-            }
-            else{
+            } else {
                 Toast.makeText(getActivity(), "Failed to delete appointment", Toast.LENGTH_LONG).show();
             }
 
             RefreshClass request = new RefreshClass();
             request.refresh();
-        }
-        catch(JSONException e){
+        } catch (JSONException e) {
             Log.d("Malformed response from server", result.toString());
         }
     }
 
     static public class DeleteAppointmentRequest {
         static public MainActivityDrawer mRequest = null;
-        DeleteAppointmentRequest (){
+
+        DeleteAppointmentRequest() {
         }
-        public void delete(int num){
-            if(mRequest != null){
+
+        public void delete(int num) {
+            if (mRequest != null) {
                 mRequest.actionDeleteAppointment(num);
             }
         }
     }
 
 
-    public void NotifyViewListener(JSONObject result){
+    public void NotifyViewListener(JSONObject result) {
         try {
             if (result.getInt("status_code") == 200) {
                 JSONArray table = result.getJSONArray("response");
-                if(getActivity() != null && getActivity().findViewById(R.id.my_appointment_list) != null) {
+                if (getActivity() != null && getActivity().findViewById(R.id.my_appointment_list) != null) {
                     ArrayList lists = getListData(table);
                     final ListView list = (ListView) getActivity().findViewById(R.id.my_appointment_list);
                     list.setAdapter(new CustomListAdapter(this.getActivity(), lists));
@@ -75,7 +75,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment, N
                     list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                         @Override
                         public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id) {
-                            if(getActivity() != null) {
+                            if (getActivity() != null) {
                                 new AlertDialog.Builder(getActivity())
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setTitle(R.string.delete)
@@ -103,21 +103,22 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment, N
                 }
 
                 Log.d("NotifyMyAppointment Response: ", table.toString());
-            }
-            else{
+            } else {
                 Toast.makeText(getActivity(), "Failed to get appointment from server" + result.getString("response"), Toast.LENGTH_LONG).show();
             }
-        }
-        catch(JSONException e){
+        } catch (JSONException e) {
             Log.d("Malformed response from server", result.toString());
         }
     }
-    static public class RefreshClass{
+
+    static public class RefreshClass {
         static public MainActivityDrawer mRequest = null;
-        RefreshClass (){
+
+        RefreshClass() {
         }
-        public void refresh(){
-            if(mRequest != null){
+
+        public void refresh() {
+            if (mRequest != null) {
                 mRequest.actionRefreshAppointment();
             }
         }
@@ -167,8 +168,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment, N
                 appointment.setData(array.getJSONArray(i));
                 results.add(appointment);
             }
-        }
-        catch (JSONException e){
+        } catch (JSONException e) {
             Log.d("JSONException: ", e.toString());
         }
 
