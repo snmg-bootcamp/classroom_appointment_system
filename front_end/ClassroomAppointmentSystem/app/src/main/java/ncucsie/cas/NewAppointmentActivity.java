@@ -202,8 +202,8 @@ public class NewAppointmentActivity extends Activity
         info.put("month", Integer.toString(((Spinner) findViewById(R.id.spinner_month)).getSelectedItemPosition() + 1));
         info.put("day", ((Spinner) findViewById(R.id.spinner_day)).getSelectedItem().toString());
         info.put("year", ((Spinner) findViewById(R.id.spinner_year)).getSelectedItem().toString());
-        info.put("start_period", (Integer.toString(Arrays.asList(getResources().getStringArray(R.array.timevalue)).indexOf(((Spinner) findViewById(R.id.spinner_class_start)).getSelectedItem().toString()) + 1)));
-        info.put("end_period", (Integer.toString(Arrays.asList(getResources().getStringArray(R.array.timevalue)).indexOf(((Spinner) findViewById(R.id.spinner_class_end)).getSelectedItem().toString()) + 1)));
+        info.put("start_period", (Integer.toString(Arrays.asList(getResources().getStringArray(R.array.timevalue)).indexOf(((Spinner) findViewById(R.id.spinner_class_start)).getSelectedItem().toString()))));
+        info.put("end_period", (Integer.toString(Arrays.asList(getResources().getStringArray(R.array.timevalue)).indexOf(((Spinner) findViewById(R.id.spinner_class_end)).getSelectedItem().toString()))));
         info.put("note", ((EditText) findViewById(R.id.appointment_comment)).getText().toString());
         info.put("last-modified", "");
 
