@@ -62,7 +62,7 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
         date_text.setText(sharedPref.getString("date_year", "2013") + "-" + sharedPref.getString("date_month", "1") + "-" + sharedPref.getString("date_day", "1"));
         RefreshClass request = new RefreshClass();
 
-        String data = sharedPref.getString(Constant.REFRESH_REQUEST, "h");
+        String data = sharedPref.getString(Constant.REFRESH_REQUEST, null);
         if(data != null){
             try {
                 if(getActivity().findViewById(R.id.existing_appointment_tab) != null) {
