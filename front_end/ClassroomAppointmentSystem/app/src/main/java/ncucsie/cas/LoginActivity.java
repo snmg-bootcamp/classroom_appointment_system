@@ -240,8 +240,8 @@ public class LoginActivity extends Activity {
                 if(prevSession != null && !prevSession.equals(success.sessionid)){
                     pref
                         .edit()
-                        .putString(Constant.REFRESH_REQUEST, null)
-                        .putString(Constant.REFRESH_REQUEST2, null)
+                        .putString(Constant.SAVED_REFRESH, null)
+                        .putString(Constant.SAVED_REFRESH2, null)
                         .apply();
                 }
                 pref
