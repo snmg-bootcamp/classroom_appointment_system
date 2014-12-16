@@ -91,7 +91,7 @@ public class NewAppointmentActivity extends Activity
                 new LinearLayout(this), false);
         cancelActionView = actionBarButtons.findViewById(R.id.action_cancel);
         cancelActionView.setOnClickListener(mActionBarListener);
-        View doneActionView = actionBarButtons.findViewById(R.id.action_done);
+        doneActionView = actionBarButtons.findViewById(R.id.action_done);
         doneActionView.setOnClickListener(mActionBarListener);
         if (getActionBar() != null) {
             getActionBar().setDisplayShowCustomEnabled(true);
