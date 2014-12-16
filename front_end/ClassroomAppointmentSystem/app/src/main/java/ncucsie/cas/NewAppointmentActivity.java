@@ -208,7 +208,7 @@ public class NewAppointmentActivity extends Activity
 
         if(!modifyAppointment) {
             JSONObject data = new JSONObject(info);
-            Log.d("JSON Data from modify appointment", info.toString());
+            Log.d("JSON Data from new appointment", info.toString());
             InternetComm.urlWithJSON result = comm.createURLRequest(Constant.ADD_APPOINTMENT, data);
             mNewAppointmentRequest = new InternetComm.ApiRequest(Constant.ADD_APPOINTMENT_REQUEST);
             mNewAppointmentRequest.delegate = this;
