@@ -111,8 +111,21 @@
 						$response = "successful";
 					}
 					else {
+						// the condition of appointing failed
+						// match the error message
+						if(preg_match('錯誤訊息</h2>\s(.*)</div>', $content, $err_match))
+						{
+							$response = $err_match[1];
+						}
+						else if(preg_match('<li>姓名 欄位必填。</li>\s*<li>電話 欄位必填。</li>', $content, $err_match))
+						{
+							$response = "姓名、電話欄位必填";
+						}
+						else
+						{
+							$response = "can't appoint";
+						}
 						$status = 402;
-						$response = "can't appoint";
 					}
 				}
 				else {
