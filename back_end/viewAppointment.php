@@ -29,9 +29,11 @@
 				$url = 'http://classroom.csie.ncu.edu.tw/my_list';
 				$content = getUrlContent($url, $token);
 				
+				// match the information of every user's appointment
 				preg_match_all('/\<td\>([^<]*)\<\/td\>/', $content, $match);
 				$preg = $match[1];
 
+				// match the number of appointment
 				preg_match_all('/\<a href=\"my_list\/edit\/([^<]*)\"\>/', $content, $match);
 				$preg2 = $match[1];
 
@@ -43,7 +45,14 @@
 					{
 						array_push($tmp, $preg[$i * 6 + $j]);
 					}
+					// push the number of appointment into $tmp
 					array_push($tmp, $preg2[$i]);
+					
+					// get phone
+					$url = 'http://classroom.csie.ncu.edu.tw/appointment_form/'.$preg2[$i];
+					preg_match('/name=\"phone\" value=\"(.*)\" size/', getUrlContent($url, $token), $match);
+					array_push($tmp, $match[1]);
+					
 					$result[$i] = $tmp;
 				}
 				$response = $result;
