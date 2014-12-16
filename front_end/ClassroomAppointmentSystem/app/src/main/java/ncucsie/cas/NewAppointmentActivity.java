@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -126,7 +127,9 @@ public class NewAppointmentActivity extends Activity
         ArrayAdapter<CharSequence> adapter_end = ArrayAdapter.createFromResource(this,
                 R.array.timevalue, android.R.layout.simple_spinner_item);
         class_end.setAdapter(adapter_end);
+        ((TextView)findViewById(R.id.teacher)).setText("null");
         findViewById(R.id.teacher).setEnabled(false);
+
 
         Intent intent = getIntent();
         String data = intent.getStringExtra(Constant.MODIFY_DATA);
