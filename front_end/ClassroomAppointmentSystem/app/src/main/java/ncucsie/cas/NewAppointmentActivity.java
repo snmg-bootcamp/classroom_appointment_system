@@ -145,6 +145,7 @@ public class NewAppointmentActivity extends Activity
                 date = array.get(1).toString().split("\t")[0];
                 ((EditText) findViewById(R.id.name)).setText(array.get(4).toString());
                 //((EditText) findViewById(R.id.teacher)).setText(array.get(5).toString());
+                ((EditText) findViewById(R.id.phone)).setText(array.get(7).toString());
                 ((Spinner) findViewById(R.id.spinner_classroom)).setSelection(Arrays.asList(getResources().getStringArray(R.array.preferenceListArray)).indexOf(array.get(2).toString()));
                 ((Spinner) findViewById(R.id.spinner_month)).setSelection(Integer.parseInt(date.split("-")[1]) - 1);
                 ((Spinner) findViewById(R.id.spinner_day)).setSelection(Integer.parseInt(date.split("-")[2]) - 1);

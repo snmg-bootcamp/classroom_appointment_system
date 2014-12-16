@@ -48,7 +48,7 @@ public class CustomListAdapter extends BaseAdapter {
         }
         MyAppointmentClass item = (MyAppointmentClass) listData.get(position);
         holder.titleView.setText(item.getNum() + " " + item.getDate());
-        holder.descriptionView.setText(item.getClassroom() + " " + item.getTime() + " " + item.getName() + " " + item.getTeacher());
+        holder.descriptionView.setText(item.getClassroom() + " " + item.getTime() + " " + item.getName() + " " + item.getTeacher() + " " + item.getPhone());
         return convertView;
     }
 
