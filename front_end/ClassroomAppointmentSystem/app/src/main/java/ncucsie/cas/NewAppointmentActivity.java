@@ -143,24 +143,18 @@ public class NewAppointmentActivity extends Activity
                 array = new JSONArray(data);
                 hidden_num = array.get(6).toString();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                Date date;
-                try {
-                    date = formatter.parse(array.get(1).toString().split("\t")[0]);
+                String date;
 
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(date);
-                    ((EditText) findViewById(R.id.name)).setText(array.get(4).toString());
-                    ((EditText) findViewById(R.id.teacher)).setText(array.get(5).toString());
-                    ((Spinner) findViewById(R.id.spinner_classroom)).setSelection(Arrays.asList(getResources().getStringArray(R.array.preferenceListArray)).indexOf(array.get(2).toString()));
-                    ((Spinner) findViewById(R.id.spinner_month)).setSelection(Arrays.asList(getResources().getStringArray(R.array.preferenceMonthListArray)).indexOf(calendar.get(Calendar.MONTH)));
-                    ((Spinner) findViewById(R.id.spinner_day)).setSelection(Arrays.asList(getResources().getStringArray(R.array.preferenceDayListArray)).indexOf(calendar.get(Calendar.DAY_OF_MONTH)));
-                    ((Spinner) findViewById(R.id.spinner_year)).setSelection(Arrays.asList(getResources().getStringArray(R.array.preferenceDayListArray)).indexOf(calendar.get(Calendar.YEAR)));
-                    ((Spinner) findViewById(R.id.spinner_class_start)).setSelection(Integer.parseInt(array.get(3).toString().split("~")[0]));
-                    ((Spinner) findViewById(R.id.spinner_class_end)).setSelection(Integer.parseInt(array.get(3).toString().split("~")[1]));
-                }
-                catch (ParseException e) {
-                    Log.d("Failed to parse date in onCreate at NewAppointmentActivity", e.toString());
-                }
+                date = array.get(1).toString().split("\t")[0];
+                ((EditText) findViewById(R.id.name)).setText(array.get(4).toString());
+                ((EditText) findViewById(R.id.teacher)).setText(array.get(5).toString());
+                ((Spinner) findViewById(R.id.spinner_classroom)).setSelection(Arrays.asList(getResources().getStringArray(R.array.preferenceListArray)).indexOf(array.get(2).toString()));
+                ((Spinner) findViewById(R.id.spinner_month)).setSelection(Integer.parseInt(date.split("-")[1])-1);
+                ((Spinner) findViewById(R.id.spinner_day)).setSelection(Integer.parseInt(date.split("-")[2])-1);
+                ((Spinner) findViewById(R.id.spinner_year)).setSelection(Integer.parseInt(date.split("-")[0])-2013);
+                ((Spinner) findViewById(R.id.spinner_class_start)).setSelection(Integer.parseInt(array.get(3).toString().split("~")[0]) - 1);
+                ((Spinner) findViewById(R.id.spinner_class_end)).setSelection(Integer.parseInt(array.get(3).toString().split("~")[1]) - 1);
+
             }
             catch (JSONException e){
                 Log.d("JSON Exception", e.toString());
