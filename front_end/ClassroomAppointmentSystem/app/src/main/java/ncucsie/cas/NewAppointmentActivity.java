@@ -48,7 +48,7 @@ public class NewAppointmentActivity extends Activity
             return;
         }
         try {
-            if(Constant.USER_REQUEST.equals(Constant.ADD_APPOINTMENT_REQUEST)) {
+            if(result.getString(Constant.USER_REQUEST).equals(Constant.ADD_APPOINTMENT_REQUEST)) {
                 int status = result.getInt("status_code");
                 switch (status) {
                     case 200:
@@ -60,7 +60,7 @@ public class NewAppointmentActivity extends Activity
 
                 }
             }
-            else if (Constant.USER_REQUEST.equals(Constant.MODIFY_APPOINTMENT_REQUEST)) {
+            else if (result.getString(Constant.USER_REQUEST).equals(Constant.MODIFY_APPOINTMENT_REQUEST)) {
                 int status = result.getInt("status_code");
                 switch (status) {
                     case 200:
@@ -195,11 +195,14 @@ public class NewAppointmentActivity extends Activity
         info.put("phone", ((EditText) findViewById(R.id.phone)).getText().toString());
         info.put("teacher", /*((EditText) findViewById(R.id.teacher)).getText().toString()*/"0");
         info.put("classroom", (Integer.toString(((Spinner) findViewById(R.id.spinner_classroom)).getSelectedItemPosition()+6)));//this detail should be unified across requests
-        info.put("month", ((Spinner) findViewById(R.id.spinner_month)).getSelectedItem().toString());
+        Log.d("Debug classroom num", (Integer.toString(((Spinner) findViewById(R.id.spinner_classroom)).getSelectedItemPosition()+6)));
+        info.put("month", Integer.toString(((Spinner) findViewById(R.id.spinner_month)).getSelectedItemPosition()+1));
         info.put("day", ((Spinner) findViewById(R.id.spinner_day)).getSelectedItem().toString());
         info.put("year", ((Spinner) findViewById(R.id.spinner_year)).getSelectedItem().toString());
-        info.put("start_period", ((Spinner) findViewById(R.id.spinner_class_start)).getSelectedItem().toString());
-        info.put("end_period", ((Spinner) findViewById(R.id.spinner_class_end)).getSelectedItem().toString());
+        info.put("start_period", (Integer.toString(Arrays.asList(getResources().getStringArray(R.array.timevalue)).indexOf(((Spinner) findViewById(R.id.spinner_class_start)).getSelectedItem().toString())+1)));
+        Log.d("Debug start_period", Integer.toString(Arrays.asList(getResources().getStringArray(R.array.timevalue)).indexOf(((Spinner) findViewById(R.id.spinner_class_start)).getSelectedItem().toString())+1));
+        Log.d("Debug end_period", Integer.toString(Arrays.asList(getResources().getStringArray(R.array.timevalue)).indexOf(((Spinner) findViewById(R.id.spinner_class_end)).getSelectedItem().toString())+1));
+        info.put("end_period", (Integer.toString(Arrays.asList(getResources().getStringArray(R.array.timevalue)).indexOf(((Spinner) findViewById(R.id.spinner_class_end)).getSelectedItem().toString())+1)));
         info.put("note", ((EditText) findViewById(R.id.appointment_comment)).getText().toString());
         info.put("last-modified", "");
 
@@ -213,6 +216,7 @@ public class NewAppointmentActivity extends Activity
         else{
             info.put("appointment_number", hidden_num);
             JSONObject data = new JSONObject(info);
+            Log.d("JSON Data from modify appointment", info.toString());
             InternetComm.urlWithJSON result = comm.createURLRequest(Constant.MODIFY_APPOINTMENT, data);
             mModifyAppointmentRequest = new InternetComm.ApiRequest(Constant.MODIFY_APPOINTMENT_REQUEST);
             mModifyAppointmentRequest.delegate = this;
