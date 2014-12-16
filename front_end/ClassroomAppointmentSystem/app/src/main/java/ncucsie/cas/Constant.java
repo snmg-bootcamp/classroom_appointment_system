@@ -40,4 +40,6 @@ public interface Constant {
 
     public final static String MODIFY_DATA = "com.ncucsie.cas.modify_data";
 
+    public final static String SAVED_REFRESH = "__client_saved_refresh__";
+    public final static String SAVED_REFRESH2 = "__client_saved_refresh2__";
 }

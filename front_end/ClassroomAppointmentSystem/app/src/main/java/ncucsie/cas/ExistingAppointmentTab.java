@@ -27,11 +27,14 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
     public ExistingAppointmentTab() {
     }
 
+    private SharedPreferences sharedPref = null;
+
 
     public void NotifyViewListener(JSONObject result) {
         try {
             if (result.getInt("status_code") == 200) {
                 JSONArray table = result.getJSONArray("response");
+                sharedPref.edit().putString(Constant.SAVED_REFRESH, table.toString()).apply();
                 if (getActivity() != null && getActivity().findViewById(R.id.existing_appointment_tab) != null) {
                     SetExistingTable((TableLayout) getActivity().findViewById(R.id.existing_appointment_tab), table);
                 }
@@ -54,10 +57,22 @@ public class ExistingAppointmentTab extends Fragment implements NotifyViewAppoin
     public void onResume() {
         TextView classroom_text = (TextView) getActivity().findViewById(R.id.classroom_selection_value);
         TextView date_text = (TextView) getActivity().findViewById(R.id.date_selection_value);
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         classroom_text.setText(sharedPref.getString("classroom", "A203"));
         date_text.setText(sharedPref.getString("date_year", "2013") + "-" + sharedPref.getString("date_month", "1") + "-" + sharedPref.getString("date_day", "1"));
         RefreshClass request = new RefreshClass();
+
+        String data = sharedPref.getString(Constant.REFRESH_REQUEST, "h");
+        if(data != null){
+            try {
+                if(getActivity().findViewById(R.id.existing_appointment_tab) != null) {
+                    SetExistingTable((TableLayout) getActivity().findViewById(R.id.existing_appointment_tab), new JSONArray(data));
+                }
+            }
+            catch (JSONException e) {
+                Log.d("JSON Exception", e.toString());
+            }
+        }
         request.refresh();
         super.onResume();
     }

@@ -4,10 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -232,6 +235,19 @@ public class LoginActivity extends Activity {
             if (success.result) {
                 Intent intent = new Intent(LoginActivity.this, MainActivityDrawer.class);
                 intent.putExtra(Constant.USER_SESSION, success.sessionid);
+                SharedPreferences pref =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String prevSession = pref.getString("sessionid", null);
+                if(prevSession != null && !prevSession.equals(success.sessionid)){
+                    pref
+                        .edit()
+                        .putString(Constant.REFRESH_REQUEST, null)
+                        .putString(Constant.REFRESH_REQUEST2, null)
+                        .apply();
+                }
+                pref
+                        .edit()
+                        .putString("sessionid", success.sessionid)
+                        .apply();
                 startActivity(intent);
             } else {
                 mPasswordView.setError(success.failed_message);
