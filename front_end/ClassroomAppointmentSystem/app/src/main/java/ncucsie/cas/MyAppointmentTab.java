@@ -111,7 +111,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment, N
                 JSONArray table = result.getJSONArray("response");
 
                 //save request for future use
-                sharedPref.edit().putString(Constant.SAVED_REFRESH2, table.toString()).apply();
+                sharedPref.edit().putString(Constant.SAVED_REFRESH2, table.toString()).commit();
                 setMyAppointmentList(table);
                 Log.d("NotifyMyAppointment Response: ", table.toString());
             } else {
@@ -139,7 +139,7 @@ public class MyAppointmentTab extends Fragment implements NotifyMyAppointment, N
     @Override
     public void onResume() {
         RefreshClass request = new RefreshClass();
-        String data = sharedPref.getString(Constant.REFRESH_REQUEST2, null);
+        String data = sharedPref.getString(Constant.SAVED_REFRESH2, null);
         if(data != null){
             try {
                 setMyAppointmentList(new JSONArray(data));
